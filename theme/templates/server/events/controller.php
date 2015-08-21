@@ -28,13 +28,13 @@ class EventCtrl {
 	}
 
 	public static function update($id,$data){
-		if(isset($data['actname']) && empty($data['actname'])){
+		if(isset($data['eventname']) && empty($data['eventname'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'Activity Name is required'),JSON_PRETTY_PRINT);
 		}
-		if(isset($data['actstartdate']) && empty($data['actstartdate'])){
+		if(isset($data['eventdescription']) && empty($data['eventdescription'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'Start date is required'),JSON_PRETTY_PRINT);
 		}
-		if(isset($data['actenddate']) && empty($data['actenddate'])){
+		if(isset($data['eventdate']) && empty($data['eventdate'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
 		}
 

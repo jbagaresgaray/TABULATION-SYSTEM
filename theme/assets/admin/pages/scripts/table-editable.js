@@ -26,12 +26,12 @@ var TableEditable = function () {
 
         function saveRow(oTable, nRow) {
             var jqInputs = $('input', nRow);
+            updateactivity(jqInputs);
+
             oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
             oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
             oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
             oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-            console.log(jqInputs[0].value);
-            
             oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
             oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 5, false);
             oTable.fnDraw();
@@ -128,7 +128,7 @@ var TableEditable = function () {
 
             var nRow = $(this).parents('tr')[0];
             oTable.fnDeleteRow(nRow);
-            alert("Deleted! Do not forget to do some ajax to sync with backend :)");
+
         });
 
         table.on('click', '.cancel', function (e) {
@@ -158,7 +158,7 @@ var TableEditable = function () {
                 /* Editing this row and want to save it */
                 saveRow(oTable, nEditing);
                 nEditing = null;
-                alert("Updated! Do not forget to do some ajax to sync with backend :)");
+
             } else {
                 /* No edit in progress - let's start one */
                 editRow(oTable, nRow);
@@ -179,6 +179,7 @@ var TableEditable = function () {
 }();
 
 //-----------------------------------------------------------------------server code-------------------------------------------------------
+
 $(document).ready(function() {
     fetch_all_activities();
 });
@@ -204,7 +205,7 @@ function save() {
     }
 
     if (empty == true) {
-        alert('Please input all the required fields correctly.', "error");
+        toastr.error('Please input all the required fields correctly.', 'error!');
         return false;
     }
 
@@ -223,12 +224,12 @@ function save() {
             success: function(response) {
                 var decode = response;
                 if (decode.success == true) {
-                     alert("records successfully saved!");
+                     toastr.success('Server response', 'Records successfully saved!');
                      fetch_all_activities();
-                     //fetch_all_events();
+                     load_events_tocombo1();
                      reset();
                 } else if (decode.success === false) {
-                    alert("failed saving records!");
+                    toastr.error('failed saving records!', 'error!');
                     return;
                 }
             },
@@ -236,7 +237,7 @@ function save() {
                 console.log("Error:");
                 console.log(error.responseText);
                 console.log(error.message);
-                alert(error.responseText);
+                toastr.error('failed saving records!', error.responseText);
                 return;
             }
     });
@@ -271,7 +272,7 @@ function fetch_all_activities() {
             }
         },
         error: function(error) {
-            console.log('error: ', error);
+           toastr.error('error loading activities!', error.responseText);
             return;
         }
     });
@@ -291,11 +292,12 @@ function confirmdelete(id){
 function deleteactivity(id){
     $.ajax({
         url: '../server/activities/' + id,
-        async: false,
+        async: true,
         type: 'DELETE',
         success: function(response) {
             var decode = response;
             if (decode.success == true) {
+                toastr.success('Server response', 'Records successfully deleted!');
                 fetch_all_activities();
 
             } else if (decode.success === false) {
@@ -304,4 +306,36 @@ function deleteactivity(id){
 
         }
     });
+}
+
+function updateactivity(obj){
+    $.ajax({
+            url: '../server/activities/',
+            async: false,
+            type: 'PUT',
+            crossDomain: true,
+            dataType: 'json',
+            data: {
+                actname: obj[1].value,
+                actstartdate: obj[2].value,
+                actenddate: obj[3].value,
+                actid:obj[0].value
+            },
+            success: function(response) {
+                var decode = response;
+
+                if (decode.success == true) {
+                  toastr.success('Server response', 'Records successfully updated!');
+                } else if (decode.success === false) {
+                    alert(decode);
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                return;
+            }
+        });
 }

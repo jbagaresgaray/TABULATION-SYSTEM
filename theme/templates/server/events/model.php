@@ -62,6 +62,7 @@ class EventModel {
 		}
 	}
 
+
 	public static function update($id,$data){
 		$config= new Config();
 		$mysqli = new mysqli($config->host, $config->user, $config->pass, $config->db);
@@ -69,12 +70,12 @@ class EventModel {
 		    print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		    return;
 		}else{
-			$actname = $mysqli->real_escape_string($data['actname']);
-			$actstartdate = $mysqli->real_escape_string($data['actstartdate']);
-			$actenddate = $mysqli->real_escape_string($data['actenddate']);
-			$actid = $mysqli->real_escape_string($data['actid']);
-			if ($stmt = $mysqli->prepare('UPDATE activities SET actname=?,actstartdate=?,actenddate=? WHERE actid=?')){
-				$stmt->bind_param('ssss', $actname,$actstartdate,$actenddate,$actid);
+			$eventname = $mysqli->real_escape_string($data['eventname']);
+			$eventdescription = $mysqli->real_escape_string($data['eventdescription']);
+			$eventdate = $mysqli->real_escape_string($data['eventdate']);
+			$eventid = $mysqli->real_escape_string($data['eventid']);
+			if ($stmt = $mysqli->prepare('UPDATE events SET eventname=?,eventdescription=?,eventdate=? WHERE eventid=?')){
+				$stmt->bind_param('ssss', $eventname,$eventdescription,$eventdate,$eventid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{

@@ -35,7 +35,7 @@ class CriteriaModel {
 		    print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		    return;
 		}else{
-			$query1 ="SELECT * FROM criteria";
+			$query1 ="select a.*,b.* from criteria a, events b where a.eventid = b.eventid";
 			$result1 = $mysqli->query($query1);
 			$data = array();
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
@@ -70,9 +70,11 @@ class CriteriaModel {
 		}else{
 			$criterianame = $mysqli->real_escape_string($data['criterianame']);
 			$percentage = $mysqli->real_escape_string($data['percentage']);
-			$eventid = $mysqli->real_escape_string($data['eventid']);
-			if ($stmt = $mysqli->prepare('UPDATE criteria SET criterianame=?,percentage=?,eventid=? WHERE eventid=?')){
-				$stmt->bind_param('sss', $criterianame,$percentage,$eventid);
+			$eventname = $mysqli->real_escape_string($data['eventname']);
+			$criteriaid = $mysqli->real_escape_string($data['criteriaid']);
+
+			if ($stmt = $mysqli->prepare('update criteria set criterianame=?, percentage=?, eventid=(select eventid from events where eventname=? limit 1) where criteriaid=?')){
+				$stmt->bind_param('ssss', $criterianame,$percentage,$eventname,$criteriaid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{

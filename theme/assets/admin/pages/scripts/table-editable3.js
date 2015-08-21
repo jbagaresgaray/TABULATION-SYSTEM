@@ -34,12 +34,11 @@ var TableEditable3 = function () {
 
         function saveRow3(oTable3, nRow3) {
             var jqInputs3 = $('input', nRow3);
+            updatecontestant(jqInputs3);
             oTable3.fnUpdate(jqInputs3[0].value, nRow3, 0, false);
             oTable3.fnUpdate(jqInputs3[1].value, nRow3, 1, false);
             oTable3.fnUpdate(jqInputs3[2].value, nRow3, 2, false);
             oTable3.fnUpdate(jqInputs3[3].value, nRow3, 3, false);
-            console.log(jqInputs3[0].value);
-            
             oTable3.fnUpdate('<a class="edit3" href="">Edit</a>', nRow3, 4, false);
             oTable3.fnUpdate('<a class="delete3" href="">Delete</a>', nRow3, 5, false);
             oTable3.fnDraw();
@@ -136,7 +135,6 @@ var TableEditable3 = function () {
 
             var nRow3 = $(this).parents('tr')[0];
             oTable3.fnDeleteRow(nRow3);
-            alert("Deleted! Do not forget to do some ajax to sync with backend :)");
         });
 
         table3.on('click', '.cancel3', function (e) {
@@ -166,7 +164,6 @@ var TableEditable3 = function () {
                 /* Editing this row and want to save it */
                 saveRow3(oTable3, nEditing3);
                 nEditing3 = null;
-                alert("Updated! Do not forget to do some ajax to sync with backend :)");
             } else {
                 /* No edit in progress - let's start one */
                 editRow3(oTable3, nRow3);
@@ -218,6 +215,7 @@ function loadeventtocombo3() {
         },
         error: function(error) {
             console.log('error: ', error);
+            toastr.error('Error', error);
             return;
         }
     });
@@ -247,7 +245,7 @@ function loadcontdep() {
             }
         },
         error: function(error) {
-            console.log('error: ', error);
+            toastr.error('Error', error);
             return;
         }
     });
@@ -276,7 +274,7 @@ function loadcontbyevnt() {
             }
         },
         error: function(error) {
-            console.log('error: ', error);
+            toastr.error('Error', error);
             return;
         }
     });
@@ -301,7 +299,7 @@ function loadcontbyevntfiltered(id) {
                                         <td>' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
-                                        <td>' + row[i].departmentname + '</td>\
+                                        <td>' + row[i].eventname + '</td>\
                                         <td><a class="edit3">Edit</a></td>\
                                         <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')" class="delete3" href="">Delete</a></td>\
                                     </tr>';
@@ -311,7 +309,7 @@ function loadcontbyevntfiltered(id) {
             }
         },
         error: function(error) {
-            console.log('error: ', error);
+            toastr.error('Error', error);
             return;
         }
     });
@@ -340,7 +338,7 @@ function saveContestant() {
     }
 
     if (empty == true) {
-        alert('Please input all the required fields correctly.', "error");
+        toastr.error('Error', 'Please input all the required fields correctly.');
         return false;
     }
 
@@ -361,11 +359,11 @@ function saveContestant() {
                 if (decode.success == true) {
                     console.log('records save');
                     getcontestant();
-                    alert("records successfully saved!");
+                    toastr.success('Success', 'Records successfully saved!');
                     contclearfields();
                 } else if (decode.success === false) {
                     console.log('failed saving records');
-                    alert("failed saving records!");
+                    toastr.error('Error', 'Failed saving records');
                     return;
                 }
             },
@@ -373,7 +371,7 @@ function saveContestant() {
                 console.log("Error:");
                 console.log(error.responseText);
                 console.log(error.message);
-                alert(error.responseText);
+                toastr.error('Error', error.message);
                 return;
             }
     });
@@ -398,7 +396,7 @@ function getcontestant(){
                                         <td>' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
-                                        <td>' + row[i].departmentname + '</td>\
+                                        <td>' + row[i].eventname + '</td>\
                                         <td><a class="edit3">Edit</a></td>\
                                         <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')" class="delete3" href="">Delete</a></td>\
                                     </tr>';
@@ -408,7 +406,7 @@ function getcontestant(){
             }
         },
         error: function(error) {
-            console.log('error: ', error);
+            toastr.error('Error', error.message);
             return;
         }
     });
@@ -432,7 +430,7 @@ function getcontestantbyid(id){
                                         <td>' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
-                                        <td>' + row[i].departmentname + '</td>\
+                                        <td>' + row[i].eventname + '</td>\
                                         <td><a class="edit3">Edit</a></td>\
                                         <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')" class="delete3" href="">Delete</a></td>\
                                     </tr>';
@@ -442,7 +440,7 @@ function getcontestantbyid(id){
             }
         },
         error: function(error) {
-            console.log('error: ', error);
+            toastr.error('Error', error.message);
             return;
         }
     });
@@ -465,10 +463,46 @@ function deletecontestant(id){
             var decode = response;
             if (decode.success == true) {
                 getcontestant();
+                toastr.success('Success', 'Records successfully deleted');
             } else if (decode.success === false) {
                 return;
             }
 
         }
     });
+}
+
+function updatecontestant(obj){
+    $.ajax({
+            url: '../server/contestants/',
+            async: false,
+            type: 'PUT',
+            crossDomain: true,
+            dataType: 'json',
+            data: {
+                contestantname: obj[1].value,
+                departmentname: obj[2].value,
+                eventname: obj[3].value,
+                contestantid:obj[0].value
+            },
+            success: function(response) {
+                var decode = response;
+
+                if (decode.success == true) {
+                   toastr.success('Success', 'Records successfully updated');
+                   getcontestant();
+                } else if (decode.success === false) {
+                    toastr.error('Error', 'Failed saving records');
+                    getcontestant();
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                toastr.error('Error', error.responseText);
+                return;
+            }
+        });
 }

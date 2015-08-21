@@ -16,22 +16,21 @@ var TableEditable5 = function () {
         function editRow5(oTable5, nRow5) {
             var aData5 = oTable5.fnGetData(nRow5);
             var jqTds5 = $('>td', nRow5);
-            jqTds5[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData5[0] + '">';
+            jqTds5[0].innerHTML = '<input type="text" readonly class="form-control input-small" value="' + aData5[0] + '">';
             jqTds5[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData5[1] + '">';
             jqTds5[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData5[2] + '">';
             jqTds5[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData5[3] + '">';
             jqTds5[4].innerHTML = '<a class="edit5" href="">Save</a>';
-            jqTds5[5].innerHTML = '<a class="cancel4" href="">Cancel</a>';
+            jqTds5[5].innerHTML = '<a class="cancel5" href="">Cancel</a>';
         }
 
         function saveRow5(oTable5, nRow5) {
             var jqInputs5 = $('input', nRow5);
+            updatecriteria(jqInputs5);
             oTable5.fnUpdate(jqInputs5[0].value, nRow5, 0, false);
             oTable5.fnUpdate(jqInputs5[1].value, nRow5, 1, false);
             oTable5.fnUpdate(jqInputs5[2].value, nRow5, 2, false);
             oTable5.fnUpdate(jqInputs5[3].value, nRow5, 3, false);
-            console.log(jqInputs5[0].value);
-            
             oTable5.fnUpdate('<a class="edit5" href="">Edit</a>', nRow5, 4, false);
             oTable5.fnUpdate('<a class="delete5" href="">Delete</a>', nRow5, 5, false);
             oTable5.fnDraw();
@@ -128,10 +127,9 @@ var TableEditable5 = function () {
 
             var nRow5 = $(this).parents('tr')[0];
             oTable5.fnDeleteRow(nRow5);
-            alert("Deleted! Do not forget to do some ajax to sync with backend :)");
         });
 
-        table5.on('click', '.cancel4', function (e) {
+        table5.on('click', '.cancel5', function (e) {
             e.preventDefault();
             if (nNew5) {
                 oTable5.fnDeleteRow(nEditing5);
@@ -158,7 +156,6 @@ var TableEditable5 = function () {
                 /* Editing this row and want to save it */
                 saveRow5(oTable5, nEditing5);
                 nEditing5 = null;
-                alert("Updated! Do not forget to do some ajax to sync with backend :)");
             } else {
                 /* No edit in progress - let's start one */
                 editRow5(oTable5, nRow5);
@@ -177,3 +174,196 @@ var TableEditable5 = function () {
     };
 
 }();
+
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+$(document).ready(function() {
+    loadcriteriacombo();
+    getCriteria();
+});
+
+function clearcriteriafields(){
+    $("#criterianame").val('');
+    $("#percentage").val('');
+}
+
+function loadcriteriacombo() {
+    $("#eventidfrmcriteria").html('');
+    console.log('>loading data to combo-criteria after clearing..');
+    $.ajax({
+        url: '../server/events/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            console.log('>loading data to combo-criteria..',decode);
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
+                        console.log('>metadata',row[i].eventid+' '+row[i].eventname);
+                        $("#eventidfrmcriteria").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            toastr.error('Error', error.message);
+            return;
+        }
+    });
+}
+
+function saveCriteria(){
+    console.log('Saving records...');
+    var empty = false;
+    $('input[type="text"]').each(function() {
+        $(this).val($(this).val().trim());
+    });
+
+    if ($("#criterianame").val() == '') {
+        $("#criterianame").next('span').text('Activity Name is required.');
+        empty = true;
+    }
+
+    if ($('#percentage').val() == '') {
+        $('#percentage').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if ($('#eventidfrmcriteria').val() == '') {
+        $('#eventidfrmcriteria').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if (empty == true) {
+        toastr.error('Error', 'Please input all the required fields correctly.');
+        return false;
+    }
+
+    $.ajax({
+            url: '../server/criteria/',
+            async: false,
+            type: 'POST',
+            crossDomain: true,
+            dataType: 'json',
+            data: {
+                criterianame: $('#criterianame').val(),
+                percentage: $('#percentage').val(),
+                eventid:$('#eventidfrmcriteria').val()
+
+            },
+            success: function(response) {
+                var decode = response;
+                if (decode.success == true) {
+                    console.log('records save');
+                    getCriteria();
+                    toastr.success('Success', 'Records successfully inserted!');
+                    clearcriteriafields();
+                } else if (decode.success === false) {
+                    console.log('failed saving records');
+                    toastr.error('Error', 'Failed saving records!');
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                 toastr.error('Error', error.message);
+                return;
+            }
+    });
+}
+
+function getCriteria() {
+    console.log('>loading data to judge table..');
+    $("#sample_editable_5 tbody").html('');
+    $.ajax({
+        url: '../server/criteria/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<tr>\
+                                        <td>' + row[i].criteriaid + '</td>\
+                                        <td>' + row[i].criterianame + '</td>\
+                                        <td>' + row[i].percentage + '</td>\
+                                        <td>' + row[i].eventname + '</td>\
+                                        <td><a class="edit5" href="">Edit</a></td>\
+                                        <td><a onClick="confirmcriteriadelete('+row[i].criteriaid+')" class="delete5" href="">Delete</a></td>\
+                                    </tr>';
+                        $("#sample_editable_5 tbody").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+             toastr.error('Error', error.message);
+            return;
+        }
+    });
+}
+
+function confirmcriteriadelete(id){
+    if (confirm('delete this record?')) {
+        deletecriteria(id);
+    } else {
+        
+    }
+}
+
+function deletecriteria(id){
+    $.ajax({
+        url: '../server/criteria/' + id,
+        async: true,
+        type: 'DELETE',
+        success: function(response) {
+            var decode = response;
+            if (decode.success == true) {
+                getCriteria();
+                toastr.success('Success', 'Records successfully deleted!');
+            } else if (decode.success === false) {
+                return;
+            }
+
+        }
+    });
+}
+
+function updatecriteria(obj){
+    $.ajax({
+            url: '../server/criteria/',
+            async: false,
+            type: 'PUT',
+            crossDomain: true,
+            dataType: 'json',
+            data: {
+                criterianame: obj[1].value,
+                percentage: obj[2].value,
+                eventname: obj[3].value,
+                criteriaid:obj[0].value
+            },
+            success: function(response) {
+                var decode = response;
+
+                if (decode.success == true) {
+                  toastr.success('Success', 'Records successfully updated!');
+                } else if (decode.success === false) {
+                    toastr.error('Error', 'Failed updating records!');
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                return;
+            }
+        });
+}

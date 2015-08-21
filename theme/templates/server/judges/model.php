@@ -72,9 +72,10 @@ class JudgesModel {
 			$judgefullname = $mysqli->real_escape_string($data['judgefullname']);
 			$judgeuname = $mysqli->real_escape_string($data['judgeuname']);
 			$judgepword = $mysqli->real_escape_string($data['judgepword']);
-			$eventid = $mysqli->real_escape_string($data['eventid']);
-			if ($stmt = $mysqli->prepare('UPDATE judges SET judgefullname=?,judgeuname=?,judgepword=?,eventid WHERE judgeid=?')){
-				$stmt->bind_param('sss', $judgefullname,$judgeuname,$judgepword,$eventid);
+			$judgeid = $mysqli->real_escape_string($data['judgeid']);
+
+			if ($stmt = $mysqli->prepare('UPDATE judges SET judgefullname=?,judgeuname=?,judgepword=? WHERE judgeid=?')){
+				$stmt->bind_param('ssss', $judgefullname,$judgeuname,$judgepword,$judgeid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{

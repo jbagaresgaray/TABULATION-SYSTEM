@@ -16,7 +16,7 @@ var TableEditable4 = function () {
         function editRow4(oTable4, nRow4) {
             var aData4 = oTable4.fnGetData(nRow4);
             var jqTds4 = $('>td', nRow4);
-            jqTds4[0].innerHTML = '<input type="text" class="form-control input-small" value="' + aData4[0] + '">';
+            jqTds4[0].innerHTML = '<input type="text" readonly class="form-control input-small" value="' + aData4[0] + '">';
             jqTds4[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData4[1] + '">';
             jqTds4[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData4[2] + '">';
             jqTds4[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData4[3] + '">';
@@ -26,6 +26,7 @@ var TableEditable4 = function () {
 
         function saveRow4(oTable4, nRow4) {
             var jqInputs4 = $('input', nRow4);
+            updatejudge(jqInputs4);
             oTable4.fnUpdate(jqInputs4[0].value, nRow4, 0, false);
             oTable4.fnUpdate(jqInputs4[1].value, nRow4, 1, false);
             oTable4.fnUpdate(jqInputs4[2].value, nRow4, 2, false);
@@ -128,7 +129,6 @@ var TableEditable4 = function () {
 
             var nRow4 = $(this).parents('tr')[0];
             oTable4.fnDeleteRow(nRow4);
-            alert("Deleted! Do not forget to do some ajax to sync with backend :)");
         });
 
         table4.on('click', '.cancel4', function (e) {
@@ -158,7 +158,6 @@ var TableEditable4 = function () {
                 /* Editing this row and want to save it */
                 saveRow4(oTable4, nEditing4);
                 nEditing4 = null;
-                alert("Updated! Do not forget to do some ajax to sync with backend :)");
             } else {
                 /* No edit in progress - let's start one */
                 editRow4(oTable4, nRow4);
@@ -177,3 +176,204 @@ var TableEditable4 = function () {
     };
 
 }();
+
+//---------------------------------------------------------------------------------------------------------------------------------------
+
+$(document).ready(function() {
+    loadjudgecombo();
+    getjudges();
+});
+
+function clearjudgefields(){
+    $("#judgefullname").val('');
+    $("#judgeuname").val('');
+    $("#judgepword").val('');
+}
+
+function loadjudgecombo() {
+    $("#judgecombo").html('');
+    console.log('>loading data to combo-judge after clearing..');
+    $.ajax({
+        url: '../server/events/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            console.log('>loading data to combo-judge..',decode);
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
+                        console.log('>metadata',row[i].eventid+' '+row[i].eventname);
+                        $("#judgecombo").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            toastr.error('Error', error.message);
+            return;
+        }
+    });
+}
+
+function saveJudge(){
+    console.log('Saving records...');
+    var empty = false;
+    $('input[type="text"]').each(function() {
+        $(this).val($(this).val().trim());
+    });
+
+    if ($("#judgefullname").val() == '') {
+        $("#judgefullname").next('span').text('Activity Name is required.');
+        empty = true;
+    }
+
+    if ($('#judgeuname').val() == '') {
+        $('#judgeuname').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if ($('#judgepword').val() == '') {
+        $('#judgepword').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if ($('#judgecombo').val() == '') {
+        $('#judgecombo').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if (empty == true) {
+        toastr.error('Error', 'Please input all the required fields correctly');
+        return false;
+    }
+
+    $.ajax({
+            url: '../server/judges/',
+            async: false,
+            type: 'POST',
+            crossDomain: true,
+            dataType: 'json',
+            data: {
+                judgefullname: $('#judgefullname').val(),
+                judgeuname: $('#judgeuname').val(),
+                judgepword:$('#judgepword').val(),
+                eventid:$('#judgecombo').val()
+
+            },
+            success: function(response) {
+                var decode = response;
+                if (decode.success == true) {
+                    console.log('records save');
+                    getjudges();
+                    toastr.success('Success', 'Records successfully inserted!');
+                    clearjudgefields();
+                } else if (decode.success === false) {
+                    console.log('failed saving records');
+                    toastr.error('Error', 'Failed saving records!');
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                toastr.error('Error', error.message);
+                return;
+            }
+    });
+}
+
+function getjudges() {
+    console.log('>loading data to judge table..');
+    $("#sample_editable_4 tbody").html('');
+    $.ajax({
+        url: '../server/judges/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<tr>\
+                                        <td>' + row[i].judgeid + '</td>\
+                                        <td>' + row[i].judgefullname + '</td>\
+                                        <td>' + row[i].judgeuname + '</td>\
+                                        <td>' + row[i].judgepword + '</td>\
+                                        <td><a class="edit4">Edit</a></td>\
+                                        <td><a onClick="confirmjudgedelete('+row[i].judgeid+')" class="delete4" href="">Delete</a></td>\
+                                    </tr>';
+                        $("#sample_editable_4 tbody").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            toastr.error('Error', error.message);
+            return;
+        }
+    });
+}
+
+function confirmjudgedelete(id){
+    if (confirm('delete this record?')) {
+        deletejudge(id);
+    } else {
+        
+    }
+}
+
+function deletejudge(id){
+    $.ajax({
+        url: '../server/judges/' + id,
+        async: true,
+        type: 'DELETE',
+        success: function(response) {
+            var decode = response;
+            if (decode.success == true) {
+                getjudges();
+                toastr.success('Success', 'Records successfully deleted!');
+            } else if (decode.success === false) {
+                return;
+            }
+
+        }
+    });
+}
+
+function updatejudge(obj){
+    $.ajax({
+            url: '../server/judges/',
+            async: false,
+            type: 'PUT',
+            crossDomain: true,
+            dataType: 'json',
+            data: {
+                judgefullname: obj[1].value,
+                judgeuname: obj[2].value,
+                judgepword: obj[3].value,
+                judgeid:obj[0].value
+            },
+            success: function(response) {
+                var decode = response;
+
+                if (decode.success == true) {
+                   toastr.success('Success', 'Records successfuly updated');
+                   getjudges();
+                } else if (decode.success === false) {
+                    toastr.error('Error', 'Failed updating records');
+                    getjudges();
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                return;
+            }
+        });
+}

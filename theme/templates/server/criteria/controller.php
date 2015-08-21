@@ -31,7 +31,10 @@ class CriteriaCtrl {
 		if(isset($data['percentage']) && empty($data['percentage'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'Start date is required'),JSON_PRETTY_PRINT);
 		}
-		if(isset($data['eventid']) && empty($data['eventid'])){
+		if(isset($data['eventname']) && empty($data['eventname'])){
+			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
+		}
+		if(isset($data['criteriaid']) && empty($data['criteriaid'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
 		}
 

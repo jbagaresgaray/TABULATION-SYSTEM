@@ -35,7 +35,7 @@ class ContestantModel {
 		    print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		    return;
 		}else{
-			$query1 ="select c.*,d.* from contestants c, departments d where c.departmentid = d.departmentid";
+			$query1 ="select c.*,d.*,e.* from contestants c, departments d,events e where c.departmentid = d.departmentid and e.eventid = c.eventid";
 			$result1 = $mysqli->query($query1);
 			$data = array();
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
@@ -68,12 +68,13 @@ class ContestantModel {
 		    print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		    return;
 		}else{
-			$actname = $mysqli->real_escape_string($data['actname']);
-			$actstartdate = $mysqli->real_escape_string($data['actstartdate']);
-			$actenddate = $mysqli->real_escape_string($data['actenddate']);
-			$actid = $mysqli->real_escape_string($data['actid']);
-			if ($stmt = $mysqli->prepare('UPDATE activities SET actname=?,actstartdate=?,actenddate=? WHERE actid=?')){
-				$stmt->bind_param('ssss', $actname,$actstartdate,$actenddate,$actid);
+			$contestantname = $mysqli->real_escape_string($data['contestantname']);
+			$departmentname = $mysqli->real_escape_string($data['departmentname']);
+			$eventname = $mysqli->real_escape_string($data['eventname']);
+			$contestantid = $mysqli->real_escape_string($data['contestantid']);
+			
+			if ($stmt = $mysqli->prepare('update contestants set name=?,eventid=(select eventid from events where eventname=? limit 1),departmentid=(select departmentid from departments where departmentname=? limit 1) where contestantid = ?')){
+				$stmt->bind_param('ssss', $contestantname,$eventname,$departmentname,$contestantid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{

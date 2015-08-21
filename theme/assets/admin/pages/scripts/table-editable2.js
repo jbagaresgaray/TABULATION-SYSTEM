@@ -26,6 +26,7 @@ var TableEditable2 = function () {
 
         function saveRow2(oTable2, nRow2) {
             var jqInputs2 = $('input', nRow2);
+            updateevent(jqInputs2);
             oTable2.fnUpdate(jqInputs2[0].value, nRow2, 0, false);
             oTable2.fnUpdate(jqInputs2[1].value, nRow2, 1, false);
             oTable2.fnUpdate(jqInputs2[2].value, nRow2, 2, false);
@@ -128,7 +129,6 @@ var TableEditable2 = function () {
 
             var nRow2 = $(this).parents('tr')[0];
             oTable2.fnDeleteRow(nRow2);
-            alert("Deleted! Do not forget to do some ajax to sync with backend :)");
         });
 
         table2.on('click', '.cancel2', function (e) {
@@ -158,7 +158,6 @@ var TableEditable2 = function () {
                 /* Editing this row and want to save it */
                 saveRow2(oTable2, nEditing2);
                 nEditing2 = null;
-                alert("Updated! Do not forget to do some ajax to sync with backend :)");
             } else {
                 /* No edit in progress - let's start one */
                 editRow2(oTable2, nRow2);
@@ -253,8 +252,8 @@ function saveEvent() {
         $(this).val($(this).val().trim());
     });
 
-    if ($("#allact_evnt2").val() == '') {
-        $("#allact_evnt2").next('span').text('Activity Name is required.');
+    if ($("#allact_evnt").val() == '') {
+        $("#allact_evnt").next('span').text('Activity Name is required.');
         empty = true;
     }
 
@@ -272,7 +271,7 @@ function saveEvent() {
     }
 
     if (empty == true) {
-        alert('Please input all the required fields correctly.', "error");
+        toastr.error('Please input all the required fields correctly.', 'error!');
         return false;
     }
 
@@ -286,20 +285,22 @@ function saveEvent() {
                 eventname: $('#eventname').val(),
                 eventdescription: $('#eventdesc').val(),
                 eventdate:$('#eventdate').val(),
-                actid:$('#allact_evnt2').val()
+                actid:$('#allact_evnt').val()
 
             },
             success: function(response) {
                 var decode = response;
                 if (decode.success == true) {
                     console.log('records save');
-                    alert("records successfully saved!");
-                    fetch_all_events();
-                    cleareventfields();
-                    //loadeventtocombo3();
+                    toastr.success('Success', 'Records successfully inserted!');
+                    fetch_all_events();  //reload events selectbox on tis page
+                    cleareventfields();  //clear fields after saving
+                    loadeventtocombo3(); //update events selectbox on contestant
+                    loadjudgecombo();    //update events selectbox on judges
+                    loadcriteriacombo(); //update events selectbox on critteria
                 } else if (decode.success === false) {
                     console.log('failed saving records');
-                    alert("failed saving records!");
+                    toastr.error('Error', 'Failed inserting records!');
                     return;
                 }
             },
@@ -307,7 +308,7 @@ function saveEvent() {
                 console.log("Error:");
                 console.log(error.responseText);
                 console.log(error.message);
-                alert(error.responseText)
+                toastr.error('Error', error.responseText);
                 return;
             }
     });
@@ -376,7 +377,7 @@ function fetch_all_eventsbyID(id) {
             }
         },
         error: function(error) {
-            console.log('error: ', error);
+            toastr.success('Error', error);
             return;
         }
     });
@@ -401,6 +402,7 @@ function deleteevent(id){
                 fetch_all_events();
                 load_events_tocombo1();
                 load_events_tocombo2();
+                toastr.success('Success', 'Records successfully deleted!');
             } else if (decode.success === false) {
                 return;
             }
@@ -408,3 +410,37 @@ function deleteevent(id){
         }
     });
 }
+
+function updateevent(obj){
+    $.ajax({
+            url: '../server/events/',
+            async: false,
+            type: 'PUT',
+            crossDomain: true,
+            dataType: 'json',
+            data: {
+                eventname: obj[1].value,
+                eventdescription: obj[2].value,
+                eventdate: obj[3].value,
+                eventid:obj[0].value
+            },
+            success: function(response) {
+                var decode = response;
+
+                if (decode.success == true) {
+                     toastr.success('Success', 'Records successfully updated!');
+                } else if (decode.success === false) {
+                    toastr.error('Error', 'Failed updating records!');
+                    return;
+                }
+            },
+            error: function(error) {
+                console.log("Error:");
+                console.log(error.responseText);
+                console.log(error.message);
+                toastr.error('Success', error.message);
+                return;
+            }
+        });
+}
+

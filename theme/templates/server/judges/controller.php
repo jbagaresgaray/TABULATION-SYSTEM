@@ -37,7 +37,9 @@ class JudgesCtrl {
 		if(isset($data['judgepword']) && empty($data['judgepword'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
 		}
-
+		if(isset($data['judgeid']) && empty($data['judgeid'])){
+			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
+		}
 		JudgesModel::update($id,$data);
 	}
 
