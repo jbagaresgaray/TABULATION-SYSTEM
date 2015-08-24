@@ -72,7 +72,7 @@ function loadContestantWhenEventComboChange(eventid){
     $("#candidatecombo4judge").html('');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/contestants/'+eventid,
+        url: '../server/contestants_Ext1/'+eventid,
         async: false,
         type: 'GET',
         dataType: 'json',
