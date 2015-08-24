@@ -51,7 +51,7 @@ class ContestantModel {
 		if ($mysqli->connect_errno) {
 		    return print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		}else{
-			$query1 ="select c.*,d.* from contestants c, departments d where c.departmentid = d.departmentid and c.eventid=$id";
+			$query1 ="select c.*,d.* from contestants c, departments d where c.departmentid = d.departmentid and c.contestantid=$id"; // and c.eventid=$id previously deleted
 			$result1 = $mysqli->query($query1);
 			$data = array();
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){

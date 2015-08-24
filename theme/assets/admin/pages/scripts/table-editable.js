@@ -1,51 +1,14 @@
+$(document).ready(function() {
+    var currentuser = sessionStorage['user'];
+    console.log('>currentuser is ',currentuser);
+    $('#userlabel').html(currentuser);
+    
+    fetch_all_activities();
+});
 
 var TableEditable = function () {
 
     var handleTable = function () {
-
-        function restoreRow(oTable, nRow) {
-            var aData = oTable.fnGetData(nRow);
-            var jqTds = $('>td', nRow);
-            for (var i = 0, iLen = jqTds.length; i < iLen; i++) {
-                oTable.fnUpdate(aData[i], nRow, i, false);
-            }
-
-            oTable.fnDraw();
-        }
-
-        function editRow(oTable, nRow) {
-            var aData = oTable.fnGetData(nRow);
-            var jqTds = $('>td', nRow);
-            jqTds[0].innerHTML = '<input type="text" readonly class="form-control input-small" value="' + aData[0] + '">';
-            jqTds[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[1] + '">';
-            jqTds[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[2] + '">';
-            jqTds[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData[3] + '">';
-            jqTds[4].innerHTML = '<a class="edit" href="">Save</a>';
-            jqTds[5].innerHTML = '<a class="cancel" href="">Cancel</a>';
-        }
-
-        function saveRow(oTable, nRow) {
-            var jqInputs = $('input', nRow);
-            updateactivity(jqInputs);
-
-            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-            oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-            oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-            oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
-            oTable.fnUpdate('<a class="delete" href="">Delete</a>', nRow, 5, false);
-            oTable.fnDraw();
-        }
-
-        function cancelEditRow(oTable, nRow) {
-            var jqInputs = $('input', nRow);
-            oTable.fnUpdate(jqInputs[0].value, nRow, 0, false);
-            oTable.fnUpdate(jqInputs[1].value, nRow, 1, false);
-            oTable.fnUpdate(jqInputs[2].value, nRow, 2, false);
-            oTable.fnUpdate(jqInputs[3].value, nRow, 3, false);
-            oTable.fnUpdate('<a class="edit" href="">Edit</a>', nRow, 4, false);
-            oTable.fnDraw();
-        }
 
         var table = $('#sample_editable_1');
 
@@ -92,79 +55,6 @@ var TableEditable = function () {
 
         var nEditing = null;
         var nNew = false;
-
-        $('#sample_editable_1_new').click(function (e) {
-            e.preventDefault();
-
-            if (nNew && nEditing) {
-                if (confirm("Previose row not saved. Do you want to save it ?")) {
-                    saveRow(oTable, nEditing); // save
-                    $(nEditing).find("td:first").html("Untitled");
-                    nEditing = null;
-                    nNew = false;
-
-                } else {
-                    oTable.fnDeleteRow(nEditing); // cancel
-                    nEditing = null;
-                    nNew = false;
-                    
-                    return;
-                }
-            }
-
-            var aiNew = oTable.fnAddData(['', '', '', '', '', '']);
-            var nRow = oTable.fnGetNodes(aiNew[0]);
-            editRow(oTable, nRow);
-            nEditing = nRow;
-            nNew = true;
-        });
-
-        table.on('click', '.delete', function (e) {
-            e.preventDefault();
-
-            if (confirm("Are you sure to delete this row ?") == false) {
-                return;
-            }
-
-            var nRow = $(this).parents('tr')[0];
-            oTable.fnDeleteRow(nRow);
-
-        });
-
-        table.on('click', '.cancel', function (e) {
-            e.preventDefault();
-            if (nNew) {
-                oTable.fnDeleteRow(nEditing);
-                nEditing = null;
-                nNew = false;
-            } else {
-                restoreRow(oTable, nEditing);
-                nEditing = null;
-            }
-        });
-
-        table.on('click', '.edit', function (e) {
-            e.preventDefault();
-
-            /* Get the row as a parent of the link that was clicked on */
-            var nRow = $(this).parents('tr')[0];
-
-            if (nEditing !== null && nEditing != nRow) {
-                /* Currently editing - but not this row - restore the old before continuing to edit mode */
-                restoreRow(oTable, nEditing);
-                editRow(oTable, nRow);
-                nEditing = nRow;
-            } else if (nEditing == nRow && this.innerHTML == "Save") {
-                /* Editing this row and want to save it */
-                saveRow(oTable, nEditing);
-                nEditing = null;
-
-            } else {
-                /* No edit in progress - let's start one */
-                editRow(oTable, nRow);
-                nEditing = nRow;
-            }
-        });
     }
 
     return {
@@ -178,12 +68,17 @@ var TableEditable = function () {
 
 }();
 
-//-----------------------------------------------------------------------server code-------------------------------------------------------
+//-----------------------------------------------------------------------my code-------------------------------------------------------
 
-$(document).ready(function() {
-    fetch_all_activities();
-});
+function saveToctivities(){
+    $('#btn-act').button('loading');
+    save();
+    $('#btn-act').button('reset');
+}
+
+
 function save() {
+    $('#btn-act').button('loading');
     var empty = false;
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
@@ -208,7 +103,7 @@ function save() {
         toastr.error('Please input all the required fields correctly.', 'error!');
         return false;
     }
-
+    
     $.ajax({
             url: '../server/activities/',
             async: false,
@@ -227,19 +122,21 @@ function save() {
                      toastr.success('Server response', 'Records successfully saved!');
                      fetch_all_activities();
                      load_events_tocombo1();
+                     $('#btn-act').button('reset');
                      reset();
                 } else if (decode.success === false) {
                     toastr.error('failed saving records!', 'error!');
-                    return;
-                }
+                    $('#btn-act').button('reset');
+                } 
             },
-            error: function(error) {
+            error: function(error) { 
                 console.log("Error:");
                 console.log(error.responseText);
                 console.log(error.message);
-                toastr.error('failed saving records!', error.responseText);
+                toastr.error('Server responds!', error.responseText);
                 return;
             }
+    
     });
 }
 
@@ -262,8 +159,8 @@ function fetch_all_activities() {
                                         <td>' + row[i].actname + '</td>\
                                         <td>' + row[i].actstartdate + '</td>\
                                         <td>' + row[i].actenddate + '</td>\
-                                        <td><a class="edit" href="">Edit</a></td>\
-                                        <td><a onClick="confirmdelete('+row[i].actid+')" class="delete" href="">Delete</a></td>\
+                                        <td><a data-id="'+row[i].actid+'" href="javascript:void(0)" data-toggle="modal" class="config activitymodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmdelete('+row[i].actid+')" href="javascript:void(0)">Delete</a></td>\
                                     </tr>';
 
                         $("#sample_editable_1 tbody").append(html);
@@ -309,6 +206,30 @@ function deleteactivity(id){
 }
 
 function updateactivity(obj){
+    var empty = false;
+    if ($("#actname_modal").val() == '') {
+        $("#actname_modal").next('span').text('Activity Name is required.');
+        empty = true;
+    }
+
+    if ($('#startdate_modal').val() == '') {
+        $('#startdate_modal').next('span').text('Start date is required.');
+        empty = true;
+    }
+
+    if ($('#enddate_modal').val() == '') {
+        $('#enddate_modal').next('span').text('End date is required.');
+        empty = true;
+    }
+    if ($('#actid_modal').val() == '') {
+        $('#actid_modal').next('span').text('End date is required.');
+        empty = true;
+    }
+
+    if (empty == true) {
+        toastr.error('Please input all the required fields correctly.', 'error!');
+        return false;
+    }
     $.ajax({
             url: '../server/activities/',
             async: false,
@@ -316,16 +237,17 @@ function updateactivity(obj){
             crossDomain: true,
             dataType: 'json',
             data: {
-                actname: obj[1].value,
-                actstartdate: obj[2].value,
-                actenddate: obj[3].value,
-                actid:obj[0].value
+                actname: $('#actname_modal').val(),
+                actstartdate: $('#startdate_modal').val(),
+                actenddate: $('#enddate_modal').val(),
+                actid:  $('#actid_modal').val()
             },
             success: function(response) {
                 var decode = response;
 
                 if (decode.success == true) {
                   toastr.success('Server response', 'Records successfully updated!');
+                  fetch_all_activities();
                 } else if (decode.success === false) {
                     alert(decode);
                     return;
@@ -338,4 +260,33 @@ function updateactivity(obj){
                 return;
             }
         });
+}
+
+$(document).on("click", ".activitymodal", function() {
+    var id = $(this).data('id');
+    getActivities_pushToModal(id);
+    $('#static1').modal('show');
+});
+
+function getActivities_pushToModal(id) {
+    $.ajax({
+        url: '../server/activities/'+id,
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+             console.log(decode.childs[0]);
+            if (decode) {
+                $('#actname_modal').val(decode.childs[0].actname);
+                $('#startdate_modal').val(decode.childs[0].actstartdate);
+                $('#enddate_modal').val(decode.childs[0].actenddate);
+                $('#actid_modal').val(decode.childs[0].actid);
+            }
+        },
+        error: function(error) {
+           toastr.error('error loading activities!', error.responseText);
+            return;
+        }
+    });
 }

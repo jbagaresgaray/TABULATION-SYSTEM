@@ -51,7 +51,7 @@ class CriteriaModel {
 		if ($mysqli->connect_errno) {
 		    return print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		}else{
-			$query1 ="SELECT * FROM criteria where eventid=$id";
+			$query1 ="SELECT * FROM criteria where criteriaid=$id";
 			$result1 = $mysqli->query($query1);
 			$data = array();
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){

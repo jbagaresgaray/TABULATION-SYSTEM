@@ -1,3 +1,3 @@
 <?php
-header("Location:" . "theme/templates/admin/mainform.html"); 
+header("Location:" . "theme/templates/admin/"); 
 ?>

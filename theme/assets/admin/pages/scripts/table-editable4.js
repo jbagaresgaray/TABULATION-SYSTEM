@@ -1,52 +1,11 @@
+$(document).ready(function() {
+    loadjudgecombo();
+    getjudges();
+});
+
 var TableEditable4 = function () {
 
     var handleTable4 = function () {
-
-        function restoreRow4(oTable4, nRow4) {
-            var aData4 = oTable4.fnGetData(nRow4);
-            var jqTds4 = $('>td', nRow4);
-
-            for (var i = 0, iLen = jqTds4.length; i < iLen; i++) {
-                oTable4.fnUpdate(aData4[i], nRow4, i, false);
-            }
-
-            oTable4.fnDraw();
-        }
-
-        function editRow4(oTable4, nRow4) {
-            var aData4 = oTable4.fnGetData(nRow4);
-            var jqTds4 = $('>td', nRow4);
-            jqTds4[0].innerHTML = '<input type="text" readonly class="form-control input-small" value="' + aData4[0] + '">';
-            jqTds4[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData4[1] + '">';
-            jqTds4[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData4[2] + '">';
-            jqTds4[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData4[3] + '">';
-            jqTds4[4].innerHTML = '<a class="edit4" href="">Save</a>';
-            jqTds4[5].innerHTML = '<a class="cancel4" href="">Cancel</a>';
-        }
-
-        function saveRow4(oTable4, nRow4) {
-            var jqInputs4 = $('input', nRow4);
-            updatejudge(jqInputs4);
-            oTable4.fnUpdate(jqInputs4[0].value, nRow4, 0, false);
-            oTable4.fnUpdate(jqInputs4[1].value, nRow4, 1, false);
-            oTable4.fnUpdate(jqInputs4[2].value, nRow4, 2, false);
-            oTable4.fnUpdate(jqInputs4[3].value, nRow4, 3, false);
-            console.log(jqInputs4[0].value);
-            
-            oTable4.fnUpdate('<a class="edit4" href="">Edit</a>', nRow4, 4, false);
-            oTable4.fnUpdate('<a class="delete4" href="">Delete</a>', nRow4, 5, false);
-            oTable4.fnDraw();
-        }
-
-        function cancelEditRow4(oTable4, nRow4) {
-            var jqInputs4 = $('input', nRow4);
-            oTable4.fnUpdate(jqInputs4[0].value, nRow4, 0, false);
-            oTable4.fnUpdate(jqInputs4[1].value, nRow4, 1, false);
-            oTable4.fnUpdate(jqInputs4[2].value, nRow4, 2, false);
-            oTable4.fnUpdate(jqInputs4[3].value, nRow4, 3, false);
-            oTable4.fnUpdate('<a class="edit4" href="">Edit</a>', nRow4, 4, false);
-            oTable4.fnDraw();
-        }
 
         var table4 = $('#sample_editable_4');
 
@@ -91,79 +50,6 @@ var TableEditable4 = function () {
             showSearchInput: false //hide search box with special css class
         }); // initialize select3 dropdown
 
-        var nEditing4 = null;
-        var nNew4 = false;
-
-        $('#sample_editable_4_new').click(function (e) {
-            e.preventDefault();
-
-            if (nNew4 && nEditing4) {
-                if (confirm("Previose row not saved. Do you want to save it ?")) {
-                    saveRow4(oTable4, nEditing4); // save
-                    $(nEditing4).find("td:first").html("Untitled");
-                    nEditing4 = null;
-                    nNew4 = false;
-
-                } else {
-                    oTable4.fnDeleteRow(nEditing4); // cancel
-                    nEditing4 = null;
-                    nNew4 = false;
-                    
-                    return;
-                }
-            }
-
-            var aiNew = oTable4.fnAddData(['', '', '', '', '', '']);
-            var nRow4 = oTable4.fnGetNodes(aiNew[0]);
-            editRow4(oTable4, nRow4);
-            nEditing4 = nRow4;
-            nNew4 = true;
-        });
-
-        table4.on('click', '.delete4', function (e) {
-            e.preventDefault();
-
-            if (confirm("Are you sure to delete this row ?") == false) {
-                return;
-            }
-
-            var nRow4 = $(this).parents('tr')[0];
-            oTable4.fnDeleteRow(nRow4);
-        });
-
-        table4.on('click', '.cancel4', function (e) {
-            e.preventDefault();
-            if (nNew4) {
-                oTable4.fnDeleteRow(nEditing4);
-                nEditing4 = null;
-                nNew4 = false;
-            } else {
-                restoreRow4(oTable4, nEditing4);
-                nEditing4 = null;
-            }
-        });
-
-        table4.on('click', '.edit4', function (e) {
-            e.preventDefault();
-
-            /* Get the row as a parent of the link that was clicked on */
-            var nRow4 = $(this).parents('tr')[0];
-
-            if (nEditing4 !== null && nEditing4 != nRow4) {
-                /* Currently editing - but not this row - restore the old before continuing to edit mode */
-                restoreRow4(oTable4, nEditing4);
-                editRow4(oTable4, nRow4);
-                nEditing4 = nRow4;
-            } else if (nEditing4 == nRow4 && this.innerHTML == "Save") {
-                /* Editing this row and want to save it */
-                saveRow4(oTable4, nEditing4);
-                nEditing4 = null;
-            } else {
-                /* No edit in progress - let's start one */
-                editRow4(oTable4, nRow4);
-                nEditing4 = nRow4;
-            }
-        });
     }
 
     return {
@@ -177,12 +63,7 @@ var TableEditable4 = function () {
 
 }();
 
-//---------------------------------------------------------------------------------------------------------------------------------------
-
-$(document).ready(function() {
-    loadjudgecombo();
-    getjudges();
-});
+//------------------------------------------------------------------my code---------------------------------------------------------------------
 
 function clearjudgefields(){
     $("#judgefullname").val('');
@@ -303,8 +184,8 @@ function getjudges() {
                                         <td>' + row[i].judgefullname + '</td>\
                                         <td>' + row[i].judgeuname + '</td>\
                                         <td>' + row[i].judgepword + '</td>\
-                                        <td><a class="edit4">Edit</a></td>\
-                                        <td><a onClick="confirmjudgedelete('+row[i].judgeid+')" class="delete4" href="">Delete</a></td>\
+                                        <td><a data-id="'+row[i].judgeid+'" href="javascript:void(0)" data-toggle="modal" class="config judgemodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmjudgedelete('+row[i].judgeid+')" href="javascript:void(0)">Delete</a></td>\
                                     </tr>';
                         $("#sample_editable_4 tbody").append(html);
                     }
@@ -344,18 +225,45 @@ function deletejudge(id){
     });
 }
 
-function updatejudge(obj){
+function updatejudge(id){
+    
+    var empty = false;
+    if ($("#judgefullname_modal").val() == '') {
+        $("#judgefullname_modal").next('span').text('Activity Name is required.');
+        empty = true;
+    }
+
+    if ($('#judgeuname_modal').val() == '') {
+        $('#judgeuname_modal').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if ($('#judgepword_modal').val() == '') {
+        $('#judgepword_modal').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if ($('#judgecombo_modal').val() == '') {
+        $('#judgecombo_modal').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if ($('#judgeid_modal').val() == '') {
+        $('#judgeid_modal').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if (empty == true) {
+        toastr.error('Error', 'Please input all the required fields correctly');
+        return false;
+    }
     $.ajax({
-            url: '../server/judges/',
+            url: '../server/judges/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
             dataType: 'json',
             data: {
-                judgefullname: obj[1].value,
-                judgeuname: obj[2].value,
-                judgepword: obj[3].value,
-                judgeid:obj[0].value
+                judgefullname: $("#judgefullname_modal").val(),
+                judgeuname: $('#judgeuname_modal').val(),
+                judgepword: $('#judgepword_modal').val(),
+                judgeid: $('#judgeid_modal').val()
             },
             success: function(response) {
                 var decode = response;
@@ -376,4 +284,60 @@ function updatejudge(obj){
                 return;
             }
         });
+}
+
+$(document).on("click", ".judgemodal", function() {
+    var id = $(this).data('id'); console.log(id);
+    getJudge_pushToMdal(id);
+    $('#static4').modal('show');
+});
+
+function getJudge_pushToMdal(id) {
+    $.ajax({
+        url: '../server/judges/'+id,
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            if (decode) {
+                console.log(decode);
+                loadValuesToJudgeCombo_Modal();
+                $('#judgefullname_modal').val(decode.childs[0].judgefullname);
+                $('#judgeuname_modal').val(decode.childs[0].judgeuname);
+                $('#judgepword_modal').val(decode.childs[0].judgepword);
+                $('#judgeid_modal').val(decode.childs[0].judgeid);
+            }
+        },
+        error: function(error) {
+           toastr.error('error loading activities!', error.responseText);
+            return;
+        }
+    });
+}
+
+function loadValuesToJudgeCombo_Modal(){
+    $("#judgecombo_modal").html('');
+    $.ajax({
+        url: '../server/events/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response; 
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
+                        $("#judgecombo_modal").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            console.log('error: ', error);
+            return;
+        }
+    });
 }

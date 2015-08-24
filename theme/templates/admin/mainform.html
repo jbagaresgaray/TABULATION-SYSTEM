@@ -1,4 +1,4 @@
-<html lang="en"><!--<![endif]--><!-- BEGIN HEAD --><!-- Mirrored from www.keenthemes.com/preview/metronic/theme/templates/admin/layout_horizontal_menu1.html by HTTrack Website Copier/3.x [XR&CO'2013], Sat, 21 Mar 2015 14:16:30 GMT --><!-- Added by HTTrack --><head><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+<html lang="en" onload="loadmessage()"><!--<![endif]--><!-- BEGIN HEAD --><!-- Mirrored from www.keenthemes.com/preview/metronic/theme/templates/admin/layout_horizontal_menu1.html by HTTrack Website Copier/3.x [XR&CO'2013], Sat, 21 Mar 2015 14:16:30 GMT --><!-- Added by HTTrack --><head><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
 
 <meta charset="utf-8">
  <title>Tabulation System</title>
@@ -29,6 +29,7 @@
 
 <link href="../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css">
 <link href="../../assets/global/css/plugins.css" rel="stylesheet" type="text/css">
+<link href="../../assets/global/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="../../assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css">
 <link id="style_color" href="../../assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css">
 <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css">
@@ -53,9 +54,9 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<img alt="" class="img-circle" src="../../assets/admin/layout/img/avatar3_small.jpg">
-					<span class="username username-hide-on-mobile">
-					Admin </span>
-					<i class="fa fa-angle-down"></i>
+					<span id="userlabel" class="username username-hide-on-mobile">
+					</span>
+					<i class="icon-user"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
@@ -131,6 +132,227 @@
 					</div>
 				</div>
 			</div>
+			<!-- ----------------------------------------------------- activities modal ------------------------------------------------------------- -->
+			<div id="static1" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Confirmation</h4>
+										</div>
+										<div class="modal-body">
+											<form role="form">
+												<div class="form-body">
+													
+													<div class="form-group">
+														<label>Activities</label>
+														<input id="actname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+													<div class="form-group">
+														<label>Date Start</label>
+														<input id="startdate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
+													</div>
+													<div class="form-group">
+														<label>Date End</label>
+														<input id="enddate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
+													</div>
+													<div class="form-group" style="display:none">
+														<label>wew</label>
+														<input id="actid_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+											<button type="button" onclick="updateactivity($('#actid_modal').val())" data-dismiss="modal" class="btn green">Continue Task</button>
+										</div>
+									</div>
+								</div>
+			</div>
+			<!-- ----------------------------------------------------- end of activities modal ------------------------------------------------------ -->
+
+			<!-- ----------------------------------------------------- events modal            ------------------------------------------------------- -->
+			<div id="static2" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Confirmation</h4>
+										</div>
+										<div class="modal-body">
+											<form role="form">
+												<div class="form-body">
+													
+													<div class="form-group">
+															<label>Avtivity Name</label>
+															<select id="allact_evnt_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+																<option value=""></option>
+															</select>
+													</div>
+													<div class="form-group">
+														<label>Event Name</label>
+														<input id="eventname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+													<div class="form-group">
+														<label>Event Description</label>
+														<textarea id="eventdesc_modal" class="form-control" rows="3" style="margin: 0px -1px 0px 0px; width: 100%; height: 82px;max-width: 100%;border: 1px dotted;background-color: #F4F7F7;"></textarea>
+													</div>
+													<div class="form-group">
+														<label>Date</label>
+														<input id="eventdate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control input-large date-picker" size="16" type="text" value="">
+													</div>
+													<div class="form-group" style="display:none">
+														<label>wew</label>
+														<input id="eventid_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control input-large date-picker" size="16" type="text" value="">
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+											<button type="button" onclick="updateevent($('#eventid_modal').val())" data-dismiss="modal" class="btn green">Continue Task</button>
+										</div>
+									</div>
+								</div>
+			</div>
+			<!-- ----------------------------------------------------- end of events modal    ------------------------------------------------------ -->
+
+			<!-- ----------------------------------------------------- contestant modal ------------------------------------------------------------- -->
+			<div id="static3" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Confirmation</h4>
+										</div>
+										<div class="modal-body">
+											<form role="form">
+												<div class="form-body">
+													
+													<div class="form-group">
+															<label>Event Name</label>
+															<select id="combo3eventt_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+																<option value=""></option>
+															</select>
+													</div>
+													<div class="form-group">
+														<label>Contestant Name</label>
+														<input id="contestantname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+													<div class="form-group">
+															<label>Department</label>
+															<select id="contestantdep_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+																<option value=""></option>
+															</select>
+													</div>
+													<div class="form-group">
+														<label>Upload photo</label>
+														<input style="border: 1px dotted;width: 100%;background:#F4F7F7" class="btn default" type="file" id="exampleInputFile1">
+													</div>
+													<div class="form-group" style="display:none">
+														<label>wew</label>
+														<input id="contestantid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+											<button type="button" onclick="updatecontestant($('#contestantid_modal').val())" data-dismiss="modal" class="btn green">Continue Task</button>
+										</div>
+									</div>
+								</div>
+			</div>
+			<!-- ----------------------------------------------------- end of contestants modal ------------------------------------------------------ -->			
+
+			<!-- ----------------------------------------------------- judges modal ------------------------------------------------------------- -->
+			<div id="static4" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Confirmation</h4>
+										</div>
+										<div class="modal-body">
+											<form role="form">
+												<div class="form-body">
+													
+													<div class="form-group">
+															<label>Select Event</label>
+															<select id="judgecombo_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+															</select>
+													</div>
+													<div class="form-group">
+														<label>Full Name</label>
+														<input id="judgefullname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+													<div class="form-group">
+														<label>Username</label>
+														<input id="judgeuname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+													<div class="form-group">
+														<label>Password</label>
+														<input id="judgepword_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+													<div class="form-group" style="display:none">
+														<label>wew</label>
+														<input id="judgeid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+											<button type="button" onclick="updatejudge()" data-dismiss="modal" class="btn green">Continue Task</button>
+										</div>
+									</div>
+								</div>
+			</div>
+			<!-- ----------------------------------------------------- end of judges modal ------------------------------------------------------ -->
+
+			<!-- ----------------------------------------------------- criteria modal ------------------------------------------------------------- -->
+			<div id="static5" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+											<h4 class="modal-title">Confirmation</h4>
+										</div>
+										<div class="modal-body">
+											<form role="form">
+												<div class="form-body">
+													
+													<div class="form-group">
+															<label>Select Event</label>
+															<select id="eventidfrmcriteria_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+																<option value=""></option>
+															</select>
+													</div>
+													<div class="form-group">
+														<label>Criteria Name</label>
+														<input id="criterianame_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+													<div class="form-group">
+														<label>Percentage</label>
+														<input id="percentage_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="number" class="form-control" placeholder="">
+													</div>
+													<div class="form-group" style="display:none">
+														<label>wew</label>
+														<input id="criteriaid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" data-dismiss="modal" class="btn default">Cancel</button>
+											<button type="button" onclick="updateCriteria($('#criteriaid_modal').val())" data-dismiss="modal" class="btn green">Continue Task</button>
+										</div>
+									</div>
+								</div>
+			</div>
+			<!-- ----------------------------------------------------- end of criteria modal ------------------------------------------------------ -->
+
 			<div class="row">
 				<div class="col-md-8">
 					<!-- BEGIN SAMPLE TABLE PORTLET-->
@@ -142,7 +364,7 @@
 							<div class="tools">
 								<a href="javascript:;" class="collapse" data-original-title="" title="">
 								</a>
-								<a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+								<a href="#static1" data-toggle="modal" class="config" data-original-title="" title="">
 								</a>
 								<a href="javascript:;" class="reload" data-original-title="" title="">
 								</a>
@@ -189,7 +411,7 @@
 											</div>
 										</div>
 									</div>
-									<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+									<table class="table table-hover table-bordered" id="sample_editable_1">
 									<thead>
 										<tr>
 											<th>
@@ -236,7 +458,7 @@
 											</div> -->
 										</div>
 									</div>
-									<table class="table table-striped table-hover table-bordered" id="sample_editable_2">
+									<table class="table table-hover table-bordered" id="sample_editable_2">
 									<thead>
 										<tr>
 											<th>
@@ -280,7 +502,7 @@
 											</div> -->
 										</div>
 									</div>
-									<table class="table table-striped table-hover table-bordered" id="sample_editable_3">
+									<table class="table table-hover table-bordered" id="sample_editable_3">
 									<thead>
 										<tr>
 											<th>
@@ -339,7 +561,7 @@
 											</div> -->
 										</div>
 									</div>
-									<table class="table table-striped table-hover table-bordered" id="sample_editable_4">
+									<table class="table table-hover table-bordered" id="sample_editable_4">
 									<thead>
 										<tr>
 											<th>
@@ -398,7 +620,7 @@
 											</div> -->
 										</div>
 									</div>
-									<table class="table table-striped table-hover table-bordered" id="sample_editable_5">
+									<table class="table table-hover table-bordered" id="sample_editable_5">
 									<thead>
 										<tr>
 											<th>
@@ -488,8 +710,8 @@
 											</div>
 										</div>
 										<div class="form-actions right">
-											<button type="button" class="btn default">Cancel</button>
-											<button type="button" class="btn green" onclick="save()">Submit</button>
+											<button id="sample_editable_1_new" type="button" class="btn default">Cancel</button>
+											<button id="btn-act" type="button" data-loading-text="Loading..." class="demo-loading-btn btn green" onclick="saveToctivities()">Submit</button>
 										</div>
 									</form>
 								</div>
@@ -597,7 +819,7 @@
 											</div>
 											<div class="form-group">
 												<label>Percentage</label>
-												<input id="percentage" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+												<input id="percentage" style="border: 1px dotted;background-color: #F4F7F7;" type="number" class="form-control" placeholder="">
 											</div>
 										</div>
 										<div class="form-actions right">
@@ -688,7 +910,14 @@
 		TableEditable5.init();
 		UINotific8.init();
 		UIToastr.init();
-    });
+
+	});
+  </script>
+  <script type="text/javascript">
+  		function loadmessage(){
+  			toastr.success('Success', 'Welcome Admin !');
+  		}
+  		
   </script>
 								
   </body></html>

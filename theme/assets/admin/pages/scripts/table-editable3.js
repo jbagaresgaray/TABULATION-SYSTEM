@@ -10,49 +10,7 @@ var TableEditable3 = function () {
 
     var handleTable3 = function () {
 
-        function restoreRow3(oTable3, nRow3) {
-            var aData3 = oTable3.fnGetData(nRow3);
-            var jqTds3 = $('>td', nRow3);
-
-            for (var i = 0, iLen = jqTds3.length; i < iLen; i++) {
-                oTable3.fnUpdate(aData3[i], nRow3, i, false);
-            }
-
-            oTable3.fnDraw();
-        }
-
-        function editRow3(oTable3, nRow3) {
-            var aData3 = oTable3.fnGetData(nRow3);
-            var jqTds3 = $('>td', nRow3);
-            jqTds3[0].innerHTML = '<input type="text" readonly class="form-control input-small" value="' + aData3[0] + '">';
-            jqTds3[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData3[1] + '">';
-            jqTds3[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData3[2] + '">';
-            jqTds3[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData3[3] + '">';
-            jqTds3[4].innerHTML = '<a class="edit3" href="">Save</a>';
-            jqTds3[5].innerHTML = '<a class="cancel3" href="">Cancel</a>';
-        }
-
-        function saveRow3(oTable3, nRow3) {
-            var jqInputs3 = $('input', nRow3);
-            updatecontestant(jqInputs3);
-            oTable3.fnUpdate(jqInputs3[0].value, nRow3, 0, false);
-            oTable3.fnUpdate(jqInputs3[1].value, nRow3, 1, false);
-            oTable3.fnUpdate(jqInputs3[2].value, nRow3, 2, false);
-            oTable3.fnUpdate(jqInputs3[3].value, nRow3, 3, false);
-            oTable3.fnUpdate('<a class="edit3" href="">Edit</a>', nRow3, 4, false);
-            oTable3.fnUpdate('<a class="delete3" href="">Delete</a>', nRow3, 5, false);
-            oTable3.fnDraw();
-        }
-
-        function cancelEditRow3(oTable3, nRow3) {
-            var jqInputs3 = $('input', nRow3);
-            oTable3.fnUpdate(jqInputs3[0].value, nRow3, 0, false);
-            oTable3.fnUpdate(jqInputs3[1].value, nRow3, 1, false);
-            oTable3.fnUpdate(jqInputs3[2].value, nRow3, 2, false);
-            oTable3.fnUpdate(jqInputs3[3].value, nRow3, 3, false);
-            oTable3.fnUpdate('<a class="edit3" href="">Edit</a>', nRow3, 4, false);
-            oTable3.fnDraw();
-        }
+       
 
         var table3 = $('#sample_editable_3');
 
@@ -100,76 +58,6 @@ var TableEditable3 = function () {
         var nEditing3 = null;
         var nNew3 = false;
 
-        $('#sample_editable_3_new').click(function (e) {
-            e.preventDefault();
-
-            if (nNew3 && nEditing3) {
-                if (confirm("Previose row not saved. Do you want to save it ?")) {
-                    saveRow3(oTable3, nEditing3); // save
-                    $(nEditing3).find("td:first").html("Untitled");
-                    nEditing3 = null;
-                    nNew3 = false;
-
-                } else {
-                    oTable3.fnDeleteRow(nEditing3); // cancel
-                    nEditing3 = null;
-                    nNew3 = false;
-                    
-                    return;
-                }
-            }
-
-            var aiNew = oTable3.fnAddData(['', '', '', '', '', '']);
-            var nRow3 = oTable3.fnGetNodes(aiNew[0]);
-            editRow3(oTable3, nRow3);
-            nEditing3 = nRow3;
-            nNew3 = true;
-        });
-
-        table3.on('click', '.delete3', function (e) {
-            e.preventDefault();
-
-            if (confirm("Are you sure to delete this row ?") == false) {
-                return;
-            }
-
-            var nRow3 = $(this).parents('tr')[0];
-            oTable3.fnDeleteRow(nRow3);
-        });
-
-        table3.on('click', '.cancel3', function (e) {
-            e.preventDefault();
-            if (nNew3) {
-                oTable3.fnDeleteRow(nEditing3);
-                nEditing3 = null;
-                nNew3 = false;
-            } else {
-                restoreRow3(oTable3, nEditing3);
-                nEditing3 = null;
-            }
-        });
-
-        table3.on('click', '.edit3', function (e) {
-            e.preventDefault();
-
-            /* Get the row as a parent of the link that was clicked on */
-            var nRow3 = $(this).parents('tr')[0];
-
-            if (nEditing3 !== null && nEditing3 != nRow3) {
-                /* Currently editing - but not this row - restore the old before continuing to edit mode */
-                restoreRow3(oTable3, nEditing3);
-                editRow3(oTable3, nRow3);
-                nEditing3 = nRow3;
-            } else if (nEditing3 == nRow3 && this.innerHTML == "Save") {
-                /* Editing this row and want to save it */
-                saveRow3(oTable3, nEditing3);
-                nEditing3 = null;
-            } else {
-                /* No edit in progress - let's start one */
-                editRow3(oTable3, nRow3);
-                nEditing3 = nRow3;
-            }
-        });
     }
 
     return {
@@ -183,7 +71,7 @@ var TableEditable3 = function () {
 
 }();
 
-//-------------------------------------------------------------------x---------------------------------------------------------------
+//-------------------------------------------------------------------my code---------------------------------------------------------------
 
 
 function contclearfields(){
@@ -300,8 +188,8 @@ function loadcontbyevntfiltered(id) {
                                         <td>' + row[i].name + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
-                                        <td><a class="edit3">Edit</a></td>\
-                                        <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')" class="delete3" href="">Delete</a></td>\
+                                        <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')" href="javascript:void(0)">Delete</a></td>\
                                     </tr>';
                         $("#sample_editable_3 tbody").append(html);
                     }
@@ -397,8 +285,8 @@ function getcontestant(){
                                         <td>' + row[i].name + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
-                                        <td><a class="edit3">Edit</a></td>\
-                                        <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')" class="delete3" href="">Delete</a></td>\
+                                        <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')">Delete</a></td>\
                                     </tr>';
                         $("#sample_editable_3 tbody").append(html);
                     }
@@ -431,8 +319,8 @@ function getcontestantbyid(id){
                                         <td>' + row[i].name + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
-                                        <td><a class="edit3">Edit</a></td>\
-                                        <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')" class="delete3" href="">Delete</a></td>\
+                                        <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmcontestantdelet3('+row[i].contestantid+')">Delete</a></td>\
                                     </tr>';
                         $("#sample_editable_3 tbody").append(html);
                     }
@@ -472,18 +360,47 @@ function deletecontestant(id){
     });
 }
 
-function updatecontestant(obj){
+function updatecontestant(id){
+    console.log(id);
+    console.log($('#contestantname_modal').val());
+    console.log($('#contestantdep_modal').val());
+    console.log($('#combo3eventt_modal').val());
+    var empty = false;
+    if ($("#contestantname_modal").val() == '') {
+        $("#contestantname_modal").next('span').text('Contestant Name is required.');
+        empty = true;
+    }
+
+    if ($('#contestantdep_modal').val() == '') {
+        $('#contestantdep_modal').next('span').text('Contestant department is required.');
+        empty = true;
+    }
+    
+    if ($('#combo3eventt_modal').val() == '') {
+        $('#combo3eventt_modal').next('span').text('event is required.');
+        empty = true;
+    }
+    if ($('#contestantid_modal').val() == '') {
+        $('#contestantid_modal').next('span').text('event is required.');
+        empty = true;
+    }
+
+    if (empty == true) {
+        toastr.error('Error', 'Please input all the required fields correctly.');
+        return false;
+    }
+
     $.ajax({
-            url: '../server/contestants/',
+            url: '../server/contestants/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
             dataType: 'json',
             data: {
-                contestantname: obj[1].value,
-                departmentname: obj[2].value,
-                eventname: obj[3].value,
-                contestantid:obj[0].value
+                contestantname: $('#contestantname_modal').val(),
+                departmentname: $('#contestantdep_modal').val(),
+                eventname: $('#combo3eventt_modal').val(),
+                contestantid: $('#contestantid_modal').val()
             },
             success: function(response) {
                 var decode = response;
@@ -505,4 +422,87 @@ function updatecontestant(obj){
                 return;
             }
         });
+}
+
+$(document).on("click", ".contestanttmodal", function() {
+    var id = $(this).data('id'); console.log(id);
+    getContestant_pushToMdal(id);
+    $('#static3').modal('show');
+});
+
+function getContestant_pushToMdal(id) {
+    $.ajax({
+        url: '../server/contestants/'+id,
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            console.log(decode);
+            if (decode) {
+                var contestantid = decode.childs[0].contestantid;
+                loadValuesToEventCombo_Modal();
+                loadValuesToDepartmentCombo_Modal();
+                $('#contestantname_modal').val(decode.childs[0].name);
+                $('#contestantid_modal').val(contestantid);
+            }
+        },
+        error: function(error) {
+           toastr.error('error loading loading data to contestant modal!', error.responseText);
+           console.log(error.responseText);
+            return;
+        }
+    });
+}
+
+function loadValuesToEventCombo_Modal(){
+    $("#combo3eventt_modal").html('');
+    $.ajax({
+        url: '../server/events/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response; 
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<option value="'+row[i].eventname+'">'+row[i].eventname+'</option>';
+                        $("#combo3eventt_modal").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            console.log('error: ', error);
+            return;
+        }
+    });
+}
+
+function loadValuesToDepartmentCombo_Modal(){
+    $("#contestantdep_modal").html('');
+    $.ajax({
+        url: '../server/departments/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response; 
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<option value="'+row[i].departmentname+'">'+row[i].departmentname+'</option>';
+                        $("#contestantdep_modal").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            console.log('error: ', error);
+            return;
+        }
+    });
 }

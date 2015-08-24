@@ -21,7 +21,7 @@ function getuser(){
     var data = [];
 
         $.ajax({
-            url: 'server/finduser/',
+            url: '../server/finduser/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -36,17 +36,19 @@ function getuser(){
                 var type = response.childs[0].acctype;
                 if(type='admin'){
                     console.log('admin form');
+                    toastr.success('Success', 'Welcome Admin !');
                     sessionStorage['islogin'] = true;
                     sessionStorage['user'] = response.childs[0].username;
-                    window.location = 'admin/adminform.html';
+                    window.location = 'mainform.html';
                 } else if(type='judge')  {
                     console.log('judge form');
-                    window.location = 'admin/adminform.html';
+                    toastr.success('Success', 'Welcome Judge !');
+                    window.location = 'judgeform.html';
                 }
             },
             error: function(error) {
                 console.log("Error:",error);
-                alert(error.responseText);
+                toastr.error('Error', error.message);
                 return;
             }
         });

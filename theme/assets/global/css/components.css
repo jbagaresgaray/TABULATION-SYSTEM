@@ -13690,3 +13690,7 @@ Transparent Button
   background: transparent;
   color: #888;
 }
+
+.tt {
+  background-image: url(../img/portlet-collapse-icon-white.png);
+}

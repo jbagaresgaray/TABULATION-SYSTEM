@@ -1,52 +1,12 @@
+$(document).ready(function() {
+    fetch_all_events();
+    load_events_tocombo1();
+    load_events_tocombo2();
+});
+
 var TableEditable2 = function () {
 
     var handleTable2 = function () {
-
-        function restoreRow2(oTable2, nRow2) {
-            var aData2 = oTable2.fnGetData(nRow2);
-            var jqTds2 = $('>td', nRow2);
-
-            for (var i = 0, iLen = jqTds2.length; i < iLen; i++) {
-                oTable2.fnUpdate(aData2[i], nRow2, i, false);
-            }
-
-            oTable2.fnDraw();
-        }
-
-        function editRow2(oTable2, nRow2) {
-            var aData2 = oTable2.fnGetData(nRow2);
-            var jqTds2 = $('>td', nRow2);
-            jqTds2[0].innerHTML = '<input type="text" readonly class="form-control input-small" value="' + aData2[0] + '">';
-            jqTds2[1].innerHTML = '<input type="text" class="form-control input-small" value="' + aData2[1] + '">';
-            jqTds2[2].innerHTML = '<input type="text" class="form-control input-small" value="' + aData2[2] + '">';
-            jqTds2[3].innerHTML = '<input type="text" class="form-control input-small" value="' + aData2[3] + '">';
-            jqTds2[4].innerHTML = '<a class="edit2" href="">Save</a>';
-            jqTds2[5].innerHTML = '<a class="cancel2" href="">Cancel</a>';
-        }
-
-        function saveRow2(oTable2, nRow2) {
-            var jqInputs2 = $('input', nRow2);
-            updateevent(jqInputs2);
-            oTable2.fnUpdate(jqInputs2[0].value, nRow2, 0, false);
-            oTable2.fnUpdate(jqInputs2[1].value, nRow2, 1, false);
-            oTable2.fnUpdate(jqInputs2[2].value, nRow2, 2, false);
-            oTable2.fnUpdate(jqInputs2[3].value, nRow2, 3, false);
-            console.log(jqInputs2[0].value);
-            
-            oTable2.fnUpdate('<a class="edit2" href="">Edit</a>', nRow2, 4, false);
-            oTable2.fnUpdate('<a class="delete2" href="">Delete</a>', nRow2, 5, false);
-            oTable2.fnDraw();
-        }
-
-        function cancelEditRow2(oTable2, nRow2) {
-            var jqInputs2 = $('input', nRow2);
-            oTable2.fnUpdate(jqInputs2[0].value, nRow2, 0, false);
-            oTable2.fnUpdate(jqInputs2[1].value, nRow2, 1, false);
-            oTable2.fnUpdate(jqInputs2[2].value, nRow2, 2, false);
-            oTable2.fnUpdate(jqInputs2[3].value, nRow2, 3, false);
-            oTable2.fnUpdate('<a class="edit2" href="">Edit</a>', nRow2, 4, false);
-            oTable2.fnDraw();
-        }
 
         var table2 = $('#sample_editable_2');
 
@@ -91,79 +51,6 @@ var TableEditable2 = function () {
             showSearchInput: false //hide search box with special css class
         }); // initialize select2 dropdown
 
-        var nEditing2 = null;
-        var nNew2 = false;
-
-        $('#sample_editable_2_new').click(function (e) {
-            e.preventDefault();
-
-            if (nNew2 && nEditing2) {
-                if (confirm("Previose row not saved. Do you want to save it ?")) {
-                    saveRow2(oTable2, nEditing2); // save
-                    $(nEditing2).find("td:first").html("Untitled");
-                    nEditing2 = null;
-                    nNew2 = false;
-
-                } else {
-                    oTable2.fnDeleteRow(nEditing2); // cancel
-                    nEditing2 = null;
-                    nNew2 = false;
-                    
-                    return;
-                }
-            }
-
-            var aiNew = oTable2.fnAddData(['', '', '', '', '', '']);
-            var nRow2 = oTable2.fnGetNodes(aiNew[0]);
-            editRow2(oTable2, nRow2);
-            nEditing2 = nRow2;
-            nNew2 = true;
-        });
-
-        table2.on('click', '.delete2', function (e) {
-            e.preventDefault();
-
-            if (confirm("Are you sure to delete this row ?") == false) {
-                return;
-            }
-
-            var nRow2 = $(this).parents('tr')[0];
-            oTable2.fnDeleteRow(nRow2);
-        });
-
-        table2.on('click', '.cancel2', function (e) {
-            e.preventDefault();
-            if (nNew2) {
-                oTable2.fnDeleteRow(nEditing2);
-                nEditing2 = null;
-                nNew2 = false;
-            } else {
-                restoreRow2(oTable2, nEditing2);
-                nEditing2 = null;
-            }
-        });
-
-        table2.on('click', '.edit2', function (e) {
-            e.preventDefault();
-
-            /* Get the row as a parent of the link that was clicked on */
-            var nRow2 = $(this).parents('tr')[0];
-
-            if (nEditing2 !== null && nEditing2 != nRow2) {
-                /* Currently editing - but not this row - restore the old before continuing to edit mode */
-                restoreRow2(oTable2, nEditing2);
-                editRow2(oTable2, nRow2);
-                nEditing2 = nRow2;
-            } else if (nEditing2 == nRow2 && this.innerHTML == "Save") {
-                /* Editing this row and want to save it */
-                saveRow2(oTable2, nEditing2);
-                nEditing2 = null;
-            } else {
-                /* No edit in progress - let's start one */
-                editRow2(oTable2, nRow2);
-                nEditing2 = nRow2;
-            }
-        });
     }
 
     return {
@@ -178,13 +65,7 @@ var TableEditable2 = function () {
 }();
 
 
-//-----------------------------------------------------x--------------------------------------------------------
-
-$(document).ready(function() {
-    fetch_all_events();
-    load_events_tocombo1();
-    load_events_tocombo2();
-});
+//-----------------------------------------------------my code--------------------------------------------------------
 
 function load_events_tocombo1() {
     $("#allact_evnt").html('');
@@ -334,8 +215,8 @@ function fetch_all_events() {
                                         <td>' + row[i].eventname + '</td>\
                                         <td>' + row[i].eventdescription + '</td>\
                                         <td>' + row[i].eventdate + '</td>\
-                                        <td><a class="edit2">Edit</a></td>\
-                                        <td><a onClick="confirmeventdelete2('+row[i].eventid+')" class="delete2" href="">Delete</a></td>\
+                                        <td><a data-id="'+row[i].eventid+'" href="javascript:void(0)" data-toggle="modal" class="config eventmodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmeventdelete2('+row[i].eventid+')" href="javascript:void(0)">Delete</a></td>\
                                     </tr>';
                         $("#sample_editable_2 tbody").append(html);
                     }
@@ -368,8 +249,8 @@ function fetch_all_eventsbyID(id) {
                                         <td>' + row[i].eventname + '</td>\
                                         <td>' + row[i].eventdescription + '</td>\
                                         <td>' + row[i].eventdate + '</td>\
-                                        <td><a class="edit2" href="">Edit</a></td>\
-                                        <td><a onClick="confirmeventdelete2('+row[i].eventid+')" class="delete2" href="">Delete</a></td>\
+                                        <td><a data-id="'+row[i].eventid+'" href="javascript:void(0)" data-toggle="modal" class="config eventmodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmeventdelete2('+row[i].eventid+')" href="javascript:void(0)">Delete</a></td>\
                                     </tr>';
                         $("#sample_editable_2 tbody").append(html);
                     }
@@ -411,7 +292,32 @@ function deleteevent(id){
     });
 }
 
-function updateevent(obj){
+function updateevent(id){
+    var empty = false;
+
+    if ($("#eventname_modal").val() == '') {
+        $("#eventname_modal").next('span').text('Activity Name is required.');
+        empty = true;
+    }
+
+    if ($('#eventdesc_modal').val() == '') {
+        $('#eventdesc_modal').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if ($('#eventdate_modal').val() == '') {
+        $('#eventdate_modal').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if ($('#eventid_modal').val() == '') {
+        $('#eventid_modal').next('span').text('Start date is required.');
+        empty = true;
+    }
+
+    if (empty == true) {
+        toastr.error('Please input all the required fields correctly.', 'error!');
+        return false;
+    }
+
     $.ajax({
             url: '../server/events/',
             async: false,
@@ -419,16 +325,17 @@ function updateevent(obj){
             crossDomain: true,
             dataType: 'json',
             data: {
-                eventname: obj[1].value,
-                eventdescription: obj[2].value,
-                eventdate: obj[3].value,
-                eventid:obj[0].value
+                eventname: $('#eventname_modal').val(),
+                eventdescription: $('#eventdesc_modal').val(),
+                eventdate: $('#eventdate_modal').val(),
+                eventid: $('#eventid_modal').val()
             },
             success: function(response) {
                 var decode = response;
 
                 if (decode.success == true) {
                      toastr.success('Success', 'Records successfully updated!');
+                     fetch_all_events();
                 } else if (decode.success === false) {
                     toastr.error('Error', 'Failed updating records!');
                     return;
@@ -444,3 +351,60 @@ function updateevent(obj){
         });
 }
 
+$(document).on("click", ".eventmodal", function() {
+    var id = $(this).data('id'); console.log(id);
+    getEvents_pushToMdal(id);
+    $('#static2').modal('show');
+});
+
+function getEvents_pushToMdal(id) {
+    $.ajax({
+        url: '../server/events/'+id,
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+             console.log(decode);
+            if (decode) {
+                var actid = decode.childs[0].actid;
+                loadValuesToEventCombo_Mdal();
+                $('#eventname_modal').val(decode.childs[0].eventname);
+                $('#eventdesc_modal').val(decode.childs[0].eventdescription);
+                $('#eventdate_modal').val(decode.childs[0].eventdate);
+                $('#eventid_modal').val(decode.childs[0].eventid);
+            }
+        },
+        error: function(error) {
+           toastr.error('error loading activities!', error.responseText);
+            return;
+        }
+    });
+}
+
+function loadValuesToEventCombo_Mdal(){
+    $("#allact_evnt_modal").html('');
+    $.ajax({
+        url: '../server/activities/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response; 
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    console.log('toeventmodal',decode);
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<option value="'+row[i].actid+'">'+row[i].actname+'</option>';
+                        $("#allact_evnt_modal").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            console.log('error: ', error);
+            return;
+        }
+    });
+}
