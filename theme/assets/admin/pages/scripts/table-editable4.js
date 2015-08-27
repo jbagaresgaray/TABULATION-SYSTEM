@@ -260,6 +260,11 @@ function updatejudge(id){
         $('#judgeid_modal').next('span').text('Start date is required.');
         empty = true;
     }
+    if($('#judgepword_modal').val() != $('#cjudgepword_modal').val()){
+        $('#cjudgepword_modal').next('span').text('password did not match');
+        toastr.error('Error', 'password did not match');
+        empty = true;
+    }
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly');
         return false;
