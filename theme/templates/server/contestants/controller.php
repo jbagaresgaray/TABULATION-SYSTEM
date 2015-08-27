@@ -13,7 +13,12 @@ class ContestantCtrl {
 		if(isset($data['eventid']) && empty($data['eventid'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
 		}
-		ContestantModel::create($data);
+		if(isset($files['pic4'])){
+			$file['pic4'] = $files['pic4'];
+		}else{
+			$file['pic4'] = null;
+		}
+		ContestantModel::create($data,$file);
 	}
 
 	public static function read(){

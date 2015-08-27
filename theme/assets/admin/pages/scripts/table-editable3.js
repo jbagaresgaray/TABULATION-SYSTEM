@@ -224,6 +224,11 @@ function saveContestant() {
         $('#combo3eventt').next('span').text('event is required.');
         empty = true;
     }
+   
+    if ($('#tmp_pic4').val() == '') {
+        $('#tmp_pic4').next('span').text('event is required.');
+        empty = true;
+    }
 
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly.');
@@ -239,8 +244,8 @@ function saveContestant() {
             data: {
                 contestantname: $('#contestantname').val(),
                 departmentid: $('#contestantdep').val(),
-                eventid:$('#combo3eventt').val()
-
+                eventid:$('#combo3eventt').val(),
+                photo:$('#tmp_pic4').val()
             },
             success: function(response) {
                 var decode = response;

@@ -22,7 +22,13 @@
 			}
 	    break;
 	  case 'POST':
-			ContestantCtrl::create($_POST);
+	  		if(isset($request) && !empty($request) && $request[0] !== ''){
+				if ($request[0] == 'update'){
+					ContestantCtrl::update($_POST,$_FILES);
+				}
+			}else{
+				ContestantCtrl::create($_POST,$_FILES);
+			}
 	    break;
 	  case 'GET':
 	  	if(isset($request) && !empty($request) && $request[0] !== ''){
