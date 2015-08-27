@@ -108,26 +108,37 @@ function saveJudge(){
     });
 
     if ($("#judgefullname").val() == '') {
-        $("#judgefullname").next('span').text('Activity Name is required.');
+        $("#judgefullname").next('span').text('Fullname is required.');
         empty = true;
     }
 
     if ($('#judgeuname').val() == '') {
-        $('#judgeuname').next('span').text('Start date is required.');
+        $('#judgeuname').next('span').text('username is required.');
         empty = true;
     }
     if ($('#judgepword').val() == '') {
-        $('#judgepword').next('span').text('Start date is required.');
+        $('#judgepword').next('span').text('password is required.');
+        empty = true;
+    }
+    if ($('#cjudgepword').val() == '' || $('#cjudgepword').val() != $('#judgepword').val()) {
+        $('#cjudgepword').next('span').text('password did not match');
         empty = true;
     }
     if ($('#judgecombo').val() == '') {
         $('#judgecombo').next('span').text('Start date is required.');
         empty = true;
     }
+    if($('#cjudgepword').val() != $('#judgepword').val()){
+        $('#cjudgepword').next('span').text('password did not match');
+        toastr.error('Error', 'password did not match');
+        empty = true;
+    }
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly');
         return false;
     }
+
+
 
     $.ajax({
             url: '../server/judges/',
