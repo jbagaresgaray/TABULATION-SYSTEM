@@ -15,11 +15,12 @@ class ContestantModel {
 		    return;
 		}else{
 			$contestantname = $mysqli->real_escape_string($data['contestantname']);
+			$gender = $mysqli->real_escape_string($data['gender']);
 			$departmentid = $mysqli->real_escape_string($data['departmentid']);
 			$eventid = $mysqli->real_escape_string($data['eventid']);
 
-			if ($stmt = $mysqli->prepare('INSERT INTO contestants (name,eventid,departmentid) VALUES(?,?,?)')){
-				$stmt->bind_param('sss', $contestantname,$eventid,$departmentid);
+			if ($stmt = $mysqli->prepare('INSERT INTO contestants (name,eventid,departmentid,gender) VALUES(?,?,?,?)')){
+				$stmt->bind_param('ssss', $contestantname,$eventid,$departmentid,$gender);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{
@@ -69,12 +70,13 @@ class ContestantModel {
 		    return;
 		}else{
 			$contestantname = $mysqli->real_escape_string($data['contestantname']);
+			$gender = $mysqli->real_escape_string($data['gender']);
 			$departmentname = $mysqli->real_escape_string($data['departmentname']);
 			$eventname = $mysqli->real_escape_string($data['eventname']);
 			$contestantid = $mysqli->real_escape_string($data['contestantid']);
 			
-			if ($stmt = $mysqli->prepare('update contestants set name=?,eventid=(select eventid from events where eventname=? limit 1),departmentid=(select departmentid from departments where departmentname=? limit 1) where contestantid = ?')){
-				$stmt->bind_param('ssss', $contestantname,$eventname,$departmentname,$contestantid);
+			if ($stmt = $mysqli->prepare('update contestants set gender=?, name=?,eventid=(select eventid from events where eventname=? limit 1),departmentid=(select departmentid from departments where departmentname=? limit 1) where contestantid = ?')){
+				$stmt->bind_param('sssss', $gender,$contestantname,$eventname,$departmentname,$contestantid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{

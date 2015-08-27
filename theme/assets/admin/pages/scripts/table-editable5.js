@@ -174,7 +174,7 @@ function getCriteria() {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<tr>\
-                                        <td>' + row[i].criteriaid + '</td>\
+                                        <td style="display:none">' + row[i].criteriaid + '</td>\
                                         <td>' + row[i].criterianame + '</td>\
                                         <td>' + row[i].percentage + '</td>\
                                         <td>' + row[i].eventname + '</td>\

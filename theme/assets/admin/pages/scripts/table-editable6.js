@@ -129,7 +129,7 @@ function loadCriteriaByEventId(id){
                         console.log(r);
 
                         var html = '<tr>\
-                                        <td width="130px"><input id="criteriaid'+rw+'" readonly value="'+row[i].criteriaid+'" style="border: 0px;background-color: #FFFFFF;" type="label" class="form-control"></td>\
+                                        <td style="display:none" width="130px"><input id="criteriaid'+rw+'" readonly value="'+row[i].criteriaid+'" style="border: 0px;background-color: #FFFFFF;" type="label" class="form-control"></td>\
                                         <td>' + row[i].criterianame + '</td>\
                                         <td>' + row[i].percentage + '%</td>\
                                         <td width="50px"><input id="score'+rw+'" style="border: 1px dotted;background-color: #F4F7F7;" type="number" class="form-control" placeholder="'+defaultscore+'"></td>\

@@ -155,7 +155,7 @@ function fetch_all_activities() {
                    for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<tr>\
-                                        <td>' + row[i].actid + '</td>\
+                                        <td style="display:none">' + row[i].actid + '</td>\
                                         <td>' + row[i].actname + '</td>\
                                         <td>' + row[i].actstartdate + '</td>\
                                         <td>' + row[i].actenddate + '</td>\

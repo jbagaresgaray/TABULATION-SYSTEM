@@ -211,7 +211,7 @@ function fetch_all_events() {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<tr>\
-                                        <td>' + row[i].eventid + '</td>\
+                                        <td style="display:none">' + row[i].eventid + '</td>\
                                         <td>' + row[i].eventname + '</td>\
                                         <td>' + row[i].eventdescription + '</td>\
                                         <td>' + row[i].eventdate + '</td>\
@@ -245,7 +245,7 @@ function fetch_all_eventsbyID(id) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<tr>\
-                                        <td>' + row[i].eventid + '</td>\
+                                        <td style="display:none">' + row[i].eventid + '</td>\
                                         <td>' + row[i].eventname + '</td>\
                                         <td>' + row[i].eventdescription + '</td>\
                                         <td>' + row[i].eventdate + '</td>\

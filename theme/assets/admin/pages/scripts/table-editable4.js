@@ -180,7 +180,7 @@ function getjudges() {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<tr>\
-                                        <td>' + row[i].judgeid + '</td>\
+                                        <td style="display:none">' + row[i].judgeid + '</td>\
                                         <td>' + row[i].judgefullname + '</td>\
                                         <td>' + row[i].judgeuname + '</td>\
                                         <td>' + row[i].judgepword + '</td>\

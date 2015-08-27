@@ -241,6 +241,13 @@
 														<input id="contestantname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
 													</div>
 													<div class="form-group">
+															<label>Gender</label>
+															<select id="gender_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+																<option value="Male">Male</option>
+																<option value="Female">Female</option>
+															</select>
+													</div>
+													<div class="form-group">
 															<label>Department</label>
 															<select id="contestantdep_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
 																<option value=""></option>
@@ -414,7 +421,7 @@
 									<table class="table table-hover table-bordered" id="sample_editable_1">
 									<thead>
 										<tr>
-											<th>
+											<th style="display:none">
 												 ID
 											</th>
 											<th>
@@ -461,7 +468,7 @@
 									<table class="table table-hover table-bordered" id="sample_editable_2">
 									<thead>
 										<tr>
-											<th>
+											<th style="display:none">
 												 ID
 											</th>
 											<th>
@@ -505,11 +512,14 @@
 									<table class="table table-hover table-bordered" id="sample_editable_3">
 									<thead>
 										<tr>
-											<th>
+											<th style="display:none">
 												 ID
 											</th>
 											<th>
 												 Full Name
+											</th>
+											<th>
+												 Gender
 											</th>
 											<th>
 												 Department
@@ -564,7 +574,7 @@
 									<table class="table table-hover table-bordered" id="sample_editable_4">
 									<thead>
 										<tr>
-											<th>
+											<th style="display:none">
 												 ID
 											</th>
 											<th>
@@ -623,7 +633,7 @@
 									<table class="table table-hover table-bordered" id="sample_editable_5">
 									<thead>
 										<tr>
-											<th>
+											<th style="display:none">
 												 ID
 											</th>
 											<th>
@@ -757,6 +767,13 @@
 											<div class="form-group">
 												<label>Contestant Name</label>
 												<input id="contestantname" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+											</div>
+											<div class="form-group">
+													<label>Gender</label>
+													<select id="gender" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+														<option value="Male">Male</option>
+														<option value="Female">Female</option>
+													</select>
 											</div>
 											<div class="form-group">
 													<label>Department</label>

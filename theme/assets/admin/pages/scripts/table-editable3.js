@@ -184,8 +184,9 @@ function loadcontbyevntfiltered(id) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html ='<tr>\
-                                        <td>' + row[i].contestantid + '</td>\
+                                        <td style="display:none">' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
+                                        <td>' + row[i].gender + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
                                         <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
@@ -225,6 +226,11 @@ function saveContestant() {
         empty = true;
     }
 
+    if ($('#gender').val() == '') {
+        $('#gender').next('span').text('gender is required.');
+        empty = true;
+    }
+
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly.');
         return false;
@@ -239,7 +245,8 @@ function saveContestant() {
             data: {
                 contestantname: $('#contestantname').val(),
                 departmentid: $('#contestantdep').val(),
-                eventid:$('#combo3eventt').val()
+                eventid:$('#combo3eventt').val(),
+                gender:$('#gender').val(),
 
             },
             success: function(response) {
@@ -281,8 +288,9 @@ function getcontestant(){
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                          var html ='<tr>\
-                                        <td>' + row[i].contestantid + '</td>\
+                                        <td style="display:none">' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
+                                        <td>' + row[i].gender + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
                                         <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
@@ -315,8 +323,9 @@ function getcontestantbyid(id){
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                          var html ='<tr>\
-                                        <td>' + row[i].contestantid + '</td>\
+                                        <td style="display:none">' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
+                                        <td>' + row[i].gender + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
                                         <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
@@ -365,6 +374,7 @@ function updatecontestant(id){
     console.log($('#contestantname_modal').val());
     console.log($('#contestantdep_modal').val());
     console.log($('#combo3eventt_modal').val());
+    console.log($('#gender_modal').val());
     var empty = false;
     if ($("#contestantname_modal").val() == '') {
         $("#contestantname_modal").next('span').text('Contestant Name is required.');
@@ -385,6 +395,11 @@ function updatecontestant(id){
         empty = true;
     }
 
+    if ($('#gender_modal').val() == '') {
+        $('#gender_modal').next('span').text('gender is required.');
+        empty = true;
+    }
+
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly.');
         return false;
@@ -400,7 +415,8 @@ function updatecontestant(id){
                 contestantname: $('#contestantname_modal').val(),
                 departmentname: $('#contestantdep_modal').val(),
                 eventname: $('#combo3eventt_modal').val(),
-                contestantid: $('#contestantid_modal').val()
+                contestantid: $('#contestantid_modal').val(),
+                gender: $('#gender_modal').val()
             },
             success: function(response) {
                 var decode = response;
