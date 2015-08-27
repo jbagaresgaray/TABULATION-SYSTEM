@@ -308,7 +308,7 @@ function getcontestant(){
     });
 }
 
-function getcontestantbyid(id){
+function getcontestantbyid(id){ 
     console.log('>loading data to contestants table..');
     $("#sample_editable_3 tbody").html('');
     $.ajax({
