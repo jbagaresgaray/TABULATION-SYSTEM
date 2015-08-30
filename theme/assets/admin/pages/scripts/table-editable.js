@@ -20,8 +20,8 @@ var TableEditable = function () {
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [-1, 5, 15, 20],
+                ["All", 5, 15, 20] // change per page values here
             ],
 
             // Or you can use remote translation file
@@ -105,7 +105,8 @@ function save() {
     }
     
     $.ajax({
-            url: '../server/activities/',
+            // url: '../server/activities/',
+            url: 'templates/server/activities/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -143,7 +144,8 @@ function save() {
 function fetch_all_activities() {
     $("#sample_editable_1 tbody").html('');
     $.ajax({
-        url: '../server/activities/',
+        //url: '../server/activities/',
+         url: 'templates/server/activities/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -188,7 +190,8 @@ function confirmdelete(id){
 
 function deleteactivity(id){
     $.ajax({
-        url: '../server/activities/' + id,
+        //url: '../server/activities/' + id,
+        url: 'templates/server/activities/',
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -231,7 +234,8 @@ function updateactivity(obj){
         return false;
     }
     $.ajax({
-            url: '../server/activities/',
+            //url: '../server/activities/',
+            url: 'templates/server/activities/',
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -270,7 +274,8 @@ $(document).on("click", ".activitymodal", function() {
 
 function getActivities_pushToModal(id) {
     $.ajax({
-        url: '../server/activities/'+id,
+        //url: '../server/activities/'+id,
+        url: 'templates/server/activities/'+id, 
         async: false,
         type: 'GET',
         dataType: 'json',

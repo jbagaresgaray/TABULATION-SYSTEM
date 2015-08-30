@@ -17,8 +17,8 @@ var TableEditable4 = function () {
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [-1, 5, 15, 20],
+                ["All", 5, 15, 20] // change per page values here
             ],
 
             // Or you can use remote translation file
@@ -75,7 +75,8 @@ function loadjudgecombo() {
     $("#judgecombo").html('');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/events/',
+        //url: '../server/events/',
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -130,7 +131,8 @@ function saveJudge(){
     }
 
     $.ajax({
-            url: '../server/judges/',
+            //url: '../server/judges/',
+            url: 'templates/server/judges/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -169,7 +171,8 @@ function getjudges() {
     console.log('>loading data to judge table..');
     $("#sample_editable_4 tbody").html('');
     $.ajax({
-        url: '../server/judges/',
+        //url: '../server/judges/',
+        url: 'templates/server/judges/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -209,7 +212,8 @@ function confirmjudgedelete(id){
 
 function deletejudge(id){
     $.ajax({
-        url: '../server/judges/' + id,
+        //url: '../server/judges/' + id,
+        url: 'templates/server/judges/'+id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -254,7 +258,8 @@ function updatejudge(id){
         return false;
     }
     $.ajax({
-            url: '../server/judges/'+id,
+            //url: '../server/judges/'+id,
+            url: 'templates/server/judges/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -294,7 +299,8 @@ $(document).on("click", ".judgemodal", function() {
 
 function getJudge_pushToMdal(id) {
     $.ajax({
-        url: '../server/judges/'+id,
+        //url: '../server/judges/'+id,
+        url: 'templates/server/judges/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -319,7 +325,8 @@ function getJudge_pushToMdal(id) {
 function loadValuesToJudgeCombo_Modal(){
     $("#judgecombo_modal").html('');
     $.ajax({
-        url: '../server/events/',
+        //url: '../server/events/',
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',

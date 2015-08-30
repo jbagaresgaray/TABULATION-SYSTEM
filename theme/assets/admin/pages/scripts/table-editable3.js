@@ -22,8 +22,8 @@ var TableEditable3 = function () {
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [-1, 5, 15, 20],
+                ["All", 5, 15, 20] // change per page values here
             ],
 
             // Or you can use remote translation file
@@ -82,7 +82,8 @@ function loadeventtocombo3() {
     $("#combo3eventt").html('');
     console.log('>loading data to combo-3 after clearing..');
     $.ajax({
-        url: '../server/events/',
+        //url: '../server/events/',
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -113,7 +114,8 @@ function loadcontdep() {
     $("#contestantdep").html('');
     console.log('>loading data to contestantdep after clearing..');
     $.ajax({
-        url: '../server/departments/',
+        //url: '../server/departments/',
+        url: 'templates/server/departments/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -143,7 +145,8 @@ function loadcontbyevnt() {
     $("#contestantdep2").html('');
     console.log('>loading data to contestantdep after clearing..');
     $.ajax({
-        url: '../server/filtercontestants/',
+        //url: '../server/filtercontestants/',
+        url: 'templates/server/filtercontestants/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -172,7 +175,8 @@ function loadcontbyevntfiltered(id) {
     $("#sample_editable_3 tbody").html('');
     console.log('>loading data to contestanttable after clearing..');
     $.ajax({
-        url: '../server/filtercontestants/'+id,
+        //url: '../server/filtercontestants/'+id,
+        url: 'templates/server/filtercontestants/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -236,7 +240,8 @@ function saveContestant() {
     }
 
     $.ajax({
-            url: '../server/contestants/',
+            //url: '../server/contestants/',
+            url: 'templates/server/contestants/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -275,7 +280,8 @@ function getcontestant(){
     console.log('>loading data to contestants table..');
     $("#sample_editable_3 tbody").html('');
     $.ajax({
-        url: '../server/contestants/',
+        //url: '../server/contestants/',
+        url: 'templates/server/contestants/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -309,7 +315,8 @@ function getcontestantbyid(id){
     console.log('>loading data to contestants table..');
     $("#sample_editable_3 tbody").html('');
     $.ajax({
-        url: '../server/contestants/'+id,
+        //url: '../server/contestants/'+id,
+        url: 'templates/server/contestants/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -349,7 +356,8 @@ function confirmcontestantdelet3(id){
 
 function deletecontestant(id){
     $.ajax({
-        url: '../server/contestants/' + id,
+        //url: '../server/contestants/' + id,
+        url: 'templates/server/contestants/'+id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -396,7 +404,8 @@ function updatecontestant(id){
     }
 
     $.ajax({
-            url: '../server/contestants/'+id,
+            //url: '../server/contestants/'+id,
+            url: 'templates/server/contestants/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -437,7 +446,8 @@ $(document).on("click", ".contestanttmodal", function() {
 
 function getContestant_pushToMdal(id) {
     $.ajax({
-        url: '../server/contestants/'+id,
+        //url: '../server/contestants/'+id,
+        url: 'templates/server/contestants/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -463,7 +473,8 @@ function getContestant_pushToMdal(id) {
 function loadValuesToEventCombo_Modal(){
     $("#combo3eventt_modal").html('');
     $.ajax({
-        url: '../server/events/',
+        //url: '../server/events/',
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -489,7 +500,8 @@ function loadValuesToEventCombo_Modal(){
 function loadValuesToDepartmentCombo_Modal(){
     $("#contestantdep_modal").html('');
     $.ajax({
-        url: '../server/departments/',
+        //url: '../server/departments/',
+        url: 'templates/server/departments/',
         async: false,
         type: 'GET',
         dataType: 'json',

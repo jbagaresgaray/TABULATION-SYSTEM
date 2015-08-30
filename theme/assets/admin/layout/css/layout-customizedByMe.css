@@ -1682,8 +1682,8 @@ Quick Sidebar Layout
   bottom: 0;
   /** right: -270px;
   width: 270px; **/
-  right: -500px;
-  width: 500px;
+  right: -550px;
+  width: 550px;
 }
 .page-footer-fixed .page-quick-sidebar-wrapper {
   bottom: 33px;
@@ -2125,7 +2125,8 @@ Page content
   display: inline-block;
   float: left;
   padding: 8px;
-  margin: 0;
+  /** margin: 0; **/
+  margin-left: 0px;
   list-style: none;
 }
 .page-bar .page-breadcrumb > li {
@@ -2222,7 +2223,7 @@ Page content
     width: 100%;
   }
   .page-content-wrapper .page-content {
-    margin-left: 235px;
+    /** margin-left: 235px; **/
     margin-top: 0px;
     min-height: 600px;
     padding: 25px 20px 10px 20px;

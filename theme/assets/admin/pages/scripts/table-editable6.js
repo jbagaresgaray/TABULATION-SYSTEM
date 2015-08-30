@@ -11,7 +11,8 @@ $(document).ready(function(){
 function loadeventsTojudgeCombo(){
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/events/',
+        //url: '../server/events/',
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -41,7 +42,8 @@ function loadcandidateTojudgeCombo(){
     $("#candidatecombo4judge").html('<option value=""></option>');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/contestants/',
+        //url: '../server/contestants/',
+        url: 'templates/server/contestants/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -72,7 +74,8 @@ function loadContestantWhenEventComboChange(eventid){
     $("#candidatecombo4judge").html('');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/contestants_Ext1/'+eventid,
+        //url: '../server/contestants_Ext1/'+eventid,
+        url: 'templates/server/contestants_Ext1/'+eventid,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -110,7 +113,8 @@ function loadCriteriaByEventId(id){
     console.log('>loading data to judge table..');
     $("#sample_editable_6 tbody").html('');
     $.ajax({
-        url: '../server/scores/'+id,
+        //url: '../server/scores/'+id,
+        url: 'templates/server/scores/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -193,7 +197,8 @@ function savescore(fieldId){
         console.log('contestantid',$('#candidatecombo4judge').val());
         console.log('score',score);
         $.ajax({
-                url: '../server/scores/',
+                //url: '../server/scores/',
+                url: 'templates/server/scores/',
                 async: false,
                 type: 'POST',
                 crossDomain: true,
@@ -267,7 +272,8 @@ function savescore(fieldId){
         console.log('contestantid',$('#candidatecombo4judge').val());
         console.log('score',score);
         $.ajax({
-                url: '../server/scores/',
+                //url: '../server/scores/',
+                url: 'templates/server/scores/',
                 async: false,
                 type: 'PUT',
                 crossDomain: true,

@@ -18,8 +18,8 @@ var TableEditable2 = function () {
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [-1, 5, 15, 20],
+                ["All", 5, 15, 20] // change per page values here
             ],
 
             // Or you can use remote translation file
@@ -71,7 +71,8 @@ function load_events_tocombo1() {
     $("#allact_evnt").html('');
     console.log('>loading data to combo-1..');
     $.ajax({
-        url: '../server/activities/',
+        //url: '../server/activities/',
+        url: 'templates/server/activities/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -98,7 +99,8 @@ function load_events_tocombo2() {
     $("#allact_evnt2").html('');
     console.log('>loading data to combo-1..');
     $.ajax({
-        url: '../server/activities/',
+        //url: '../server/activities/',
+        url: 'templates/server/activities/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -157,7 +159,8 @@ function saveEvent() {
     }
 
     $.ajax({
-            url: '../server/events/',
+            //url: '../server/events/',
+            url: 'templates/server/events/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -200,7 +203,8 @@ function fetch_all_events() {
     console.log('>loading data to event table..');
     $("#sample_editable_2 tbody").html('');
     $.ajax({
-        url: '../server/events/',
+        //url: '../server/events/',
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -234,7 +238,8 @@ function fetch_all_eventsbyID(id) {
     console.log('>loading data to event table..');
     $("#sample_editable_2 tbody").html('');
     $.ajax({
-        url: '../server/events/'+id,
+        //url: '../server/events/'+id,
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -274,7 +279,8 @@ function confirmeventdelete2(id){
 
 function deleteevent(id){
    $.ajax({
-        url: '../server/events/' + id,
+        //url: '../server/events/' + id,
+        url: 'templates/server/events/'+id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -319,7 +325,8 @@ function updateevent(id){
     }
 
     $.ajax({
-            url: '../server/events/',
+            //url: '../server/events/',
+            url: 'templates/server/events/',
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -359,7 +366,8 @@ $(document).on("click", ".eventmodal", function() {
 
 function getEvents_pushToMdal(id) {
     $.ajax({
-        url: '../server/events/'+id,
+       // url: '../server/events/'+id,
+        url: 'templates/server/events/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -385,7 +393,8 @@ function getEvents_pushToMdal(id) {
 function loadValuesToEventCombo_Mdal(){
     $("#allact_evnt_modal").html('');
     $.ajax({
-        url: '../server/activities/',
+        //url: '../server/activities/',
+        url: 'templates/server/activities/',
         async: false,
         type: 'GET',
         dataType: 'json',

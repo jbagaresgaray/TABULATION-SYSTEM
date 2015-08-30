@@ -17,8 +17,8 @@ var TableEditable5 = function () {
             //"dom": "<'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r>t<'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>",
 
             "lengthMenu": [
-                [5, 15, 20, -1],
-                [5, 15, 20, "All"] // change per page values here
+                [-1, 5, 15, 20],
+                ["All", 5, 15, 20] // change per page values here
             ],
 
             // Or you can use remote translation file
@@ -74,7 +74,8 @@ function loadcriteriacombo() {
     $("#eventidfrmcriteria").html('');
     console.log('>loading data to combo-criteria after clearing..');
     $.ajax({
-        url: '../server/events/',
+        //url: '../server/events/',
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -125,7 +126,8 @@ function saveCriteria(){
     }
 
     $.ajax({
-            url: '../server/criteria/',
+            //url: '../server/criteria/',
+            url: 'templates/server/criteria/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -163,7 +165,8 @@ function getCriteria() {
     console.log('>loading data to judge table..');
     $("#sample_editable_5 tbody").html('');
     $.ajax({
-        url: '../server/criteria/',
+        //url: '../server/criteria/',
+        url: 'templates/server/criteria/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -204,6 +207,7 @@ function confirmcriteriadelete(id){
 function deletecriteria(id){
     $.ajax({
         url: '../server/criteria/' + id,
+        url: 'templates/server/criteria/'+id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -248,7 +252,8 @@ function updateCriteria(id){
         return false;
     }
     $.ajax({
-            url: '../server/criteria/'+id,
+            //url: '../server/criteria/'+id,
+            url: 'templates/server/criteria/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -287,7 +292,8 @@ $(document).on("click", ".criteriamodal", function() {
 
 function getCriteria_pushToMdal(id) {
     $.ajax({
-        url: '../server/criteria/'+id,
+        //url: '../server/criteria/'+id,
+        url: 'templates/server/criteria/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -312,7 +318,8 @@ function getCriteria_pushToMdal(id) {
 function loadValuesToCriteriaCombo_Modal(){
     $("#eventidfrmcriteria_modal").html('');
     $.ajax({
-        url: '../server/events/',
+        //url: '../server/events/',
+        url: 'templates/server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
