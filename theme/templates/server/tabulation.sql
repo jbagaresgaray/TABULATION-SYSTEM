@@ -20,6 +20,10 @@ SET time_zone = "+00:00";
 -- Database: `tabulation`
 --
 
+DROP SCHEMA IF EXISTS `tabulation`;
+CREATE SCHEMA `tabulation`;
+USE `tabulation`;
+
 -- --------------------------------------------------------
 
 --
