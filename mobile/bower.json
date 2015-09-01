@@ -3,5 +3,12 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.1.0"
+  },
+  "resolutions": {
+    "angular": "1.4.5"
+  },
+  "dependencies": {
+    "angular-resource": "~1.4.5",
+    "lodash": "~3.10.1"
   }
 }

@@ -1,1 +1,418 @@
-/* Empty. Add your own CSS if you like */
+/*BLUE: #59bbef, rgb: 89, 187, 239*/ /*#59bbef*/
+/*ORANGE: #f16623, rgb: 241, 102, 35*/
+
+ion-popover-view.fit {
+  height: auto;
+}
+
+ion-popover-view.fit ion-content {
+  position: relative;
+}
+
+.platform-android ion-popover-view.fit {
+  margin-top: 10px;
+}
+
+.platform-ios ion-popover-view.fit {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#splash-page {
+  background-color: white;
+}
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+.bar.bar-subheader.alert {
+  background: rgb(255, 255, 165);
+  border: 1px solid rgb(255, 226, 66);
+  text-align: center;
+}
+
+.bar.bar-subheader.alert h5 {
+  color: #8a6d3b;
+}
+
+.bar.bar-subheader.alert-success {
+  color: darkgreen;
+  background: lightgreen;
+  border: 1px solid rgb(4, 190, 4);;
+  text-align: center;
+}
+
+.bar.bar-subheader.alert-success h5 {
+  color:#3c763d;
+}
+
+
+.list {
+  background: white;
+}
+
+.muted {
+  color: grey;
+}
+
+p {
+margin: 0 0 5px;
+}
+
+.text-right {
+  text-align:right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.item h2 {
+  font-size: 22px;
+}
+
+.bar.bar-positive {
+  background-color: #50a8de;
+  border-color: #3DA6C0;
+}
+
+.bar.bar-positive .button {
+  background-color: transparent;
+  border: transparent;
+}
+
+.bar .title {
+  font-size: 20px;
+}
+
+.bar-transparent {
+  color:white;
+  background-color: transparent;
+}
+
+.bar-transparent h1 {
+  color:white;
+}
+
+.pull-right {
+  float:right;
+}
+
+.pull-left {
+  float:left;
+}
+
+.valid-green {
+  color:rgb(11, 201, 11);
+}
+
+.pane {
+  background-color: #eee;
+}
+
+.small {
+  font-size:80% !important;
+}
+
+
+textarea {
+  height:90px;
+}
+
+button.button-block {
+  width: 93%;
+  margin: 0 auto;
+}
+
+
+.button-outline {
+  border-radius: 80px;
+  padding: 3px 25px;
+}
+
+.button.button-battle-pink.button-outline {
+background: transparent;
+border-color: rgb(243, 48, 82);
+color: rgb(243, 48, 82);
+}
+
+
+.button.button-balanced {
+    background-color: hsl(173, 100%, 32%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00a390", endColorstr="#00a390");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#00a390), to(#00a390));
+  background-image: -moz-linear-gradient(top, #00a390, #00a390);
+  background-image: -ms-linear-gradient(top, #00a390, #00a390);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #00a390), color-stop(100%, #00a390));
+  background-image: -webkit-linear-gradient(top, #00a390, #00a390);
+  background-image: -o-linear-gradient(top, #00a390, #00a390);
+  background-image: linear-gradient(#00a390, #00a390);
+  border-color: #00a390 #00a390 hsl(173, 100%, 32%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.00);
+  -webkit-font-smoothing: antialiased;
+}
+
+.green {
+  color: hsl(173, 100%, 32%);
+}
+
+.button.button-positive {
+  background-color: #3C72CE;
+}
+
+.button.button-energized {
+  background-color: hsl(30, 100%, 48%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f47a00", endColorstr="#f47a00");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#f47a00), to(#f47a00));
+  background-image: -moz-linear-gradient(top, #f47a00, #f47a00);
+  background-image: -ms-linear-gradient(top, #f47a00, #f47a00);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f47a00), color-stop(100%, #f47a00));
+  background-image: -webkit-linear-gradient(top, #f47a00, #f47a00);
+  background-image: -o-linear-gradient(top, #f47a00, #f47a00);
+  background-image: linear-gradient(#f47a00, #f47a00);
+  border-color: #f47a00 #f47a00 hsl(30, 100%, 48%);
+  color: #fff !important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.00);
+  -webkit-font-smoothing: antialiased;
+}
+
+.red {
+  color:darkred;
+}
+
+.bg-image {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.van-img {
+  background-image: url("../img/van.png");
+}
+
+.red-car-img {
+  background-image: url("../img/roadtrip_red_car.jpg"); 
+}
+
+.puppie-img {
+  background-image: url("../img/puppie.png"); 
+}
+
+.road-img {
+  background-image: url("../img/road.png"); 
+}
+
+.login-title {
+  color:white;
+  font-family: Trebuchet MS1, Trebuchet MS, sans-serif;
+  text-align: center;
+  font-size: 36px;
+  margin-top: 10px !important;
+  margin-bottom:20px;
+}
+
+
+.balance {
+  font-family: "Arial Black", Gadget, sans-serif !important;
+  font-size: 28px !important;
+  font-weight: bold;
+  color: #FF00EB !important;
+  margin-top: -4px;
+}
+
+.post-options {
+  position: absolute;
+  font-size: 16px;
+  right: 5px;
+  bottom: 5px;
+  color: #888;
+}
+
+.cover-photo {
+  height:160px;
+  background-size: 100%;
+}
+
+.user-tab-top {
+  position: relative;
+  background-color: white;
+  box-shadow: 0px -1px 10px rgba(0,0,0,0.4);
+}
+.user-tab-top img {
+  border-radius: 100px;
+  width:100px;
+}
+
+.user-tab-top .user-details {
+  position: relative;
+  bottom: 80px;
+  margin-bottom: -82px;
+}
+
+.user-details > h3 {
+  margin-top: -20px;
+  margin-bottom:5px;
+}
+
+.user-tab-edit-button {
+  float:right;
+  color:white !important;
+}
+
+.stats {
+  margin-top: -30px;
+  padding-bottom: 22px;
+}
+
+.item-avatar img {
+  border-radius: 100px !important;
+}
+
+.cards.item-radio .item-content {
+  padding-top:0;
+  padding-bottom:0;
+}
+
+.bar-footer input[type="text"] {
+  position: relative;
+  bottom: 1px;
+  margin-right: 52px;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+
+.rounded-corners {
+  border-radius: 7px;
+}
+
+.item-divider {
+  background-color: #FCFCFC;
+  font-weight: normal;
+}
+
+.clear {
+  background: transparent;
+  border:none;
+}
+
+.ionic-contrib-blur {
+  overflow: hidden;
+  position:absolute;
+  width: 100%;
+  top:0;
+  left:0;
+  right:0;
+  -webkit-filter:blur(20px);
+  opacity:.25;
+  z-index: 1;
+}
+
+.bar-frosted {
+  background-color: #F7F7F7;
+}
+
+.no-padding {
+  padding:0;
+}
+
+.input-right {
+  text-align: right !important;
+  padding-right: 64px !important;
+  border:none;
+}
+
+.item-content .row, .item-content .col {
+  padding:0;
+}
+
+.divider-button {
+  float:right;
+  font-size:20px;
+  color:grey;
+}
+
+.forgot-password {
+  color:white;
+  margin-right:11px;
+  text-decoration: none;
+  margin-top:-13px;
+}
+
+.slider {
+  height: 100%;
+}
+
+.slider-slide {
+  padding-top: 100px;
+  color: #fff;
+  background-color: #333;
+  text-align: center;
+  font-family: "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-weight: 200;
+}
+
+.slider-slide h2, .slider-slide h3 {
+  font-family: "Helvetica Neue Thin", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #fff;
+  font-weight: 200;
+  margin-bottom: 15px;
+}
+
+.slider-slide hr {
+  width: 100px;
+}
+
+.slider-pager .slider-pager-page {
+  color: #fff;
+}
+
+
+.placeholder-icon:last-child {
+  padding-left: 6px;
+  padding-right: 15px;
+}
+
+
+.login-bottom {
+  position: absolute;
+  bottom:25px;
+  right: 0px;
+  left: 0px;
+}
+
+.login-button button.button-block {
+  margin-top:0px;
+  margin-bottom:0px;
+}
+.button.button-block, .button.button-full {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.button-medium {
+  padding: 2px 4px 1px;
+  min-width: 44px;
+  min-height: 33px;
+  font-size: 13px;
+  line-height: 29px;
+}
+
+.bar .title {
+  left: 42px !important;
+  right: 42px !important;
+}
+.card .button-block {
+  margin-top: 5px;
+}
+
+.respect-privacy {
+  color:white;
+}
+
+.edit-button {
+  float:right;
+}

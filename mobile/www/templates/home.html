@@ -1,0 +1,24 @@
+<ion-view title="Home">
+    <ion-nav-buttons side="secondary">
+        <button ng-click="openPopover($event)" class="button button-icon ion-android-more-vertical"></button>
+    </ion-nav-buttons>
+    <div class="bar bar-subheader item item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-search placeholder-icon"></i>
+            <input type="text" placeholder="Activity" ng-model="query"> </input>
+        </label>
+        <button class="button button-small button-clear" ng-click="showModal()">
+            <i class="icon ion-search"></i>
+        </button>
+    </div>
+    <ion-content class="has-header has-subheader">
+        <div class="list">
+            <a ng-repeat="activity in activities" href="#/events/{{activity.id}}" class="item item-icon-left item-icon-right">
+                <i class="icon ion-trophy assertive"></i>
+                <h2 class="dark">{{activity.actname}}</h2>
+                <h4 class="positive">{{activity.actstartdate}} - {{activity.actenddate}}</h4>
+                <i class="icon ion-ios-arrow-right dark"></i>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

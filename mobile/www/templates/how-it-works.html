@@ -1,0 +1,73 @@
+<ion-view title="">
+    <ion-nav-buttons side="left">
+        <button class="button button-light button-clear no-animation" ng-click="back()" ng-if="!slideIndex">
+            Skip
+        </button>
+        <button class="button button-light button-clear no-animation" ng-click="previous()" ng-if="slideIndex > 0">
+            Previous
+        </button>
+    </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+        <button class="button button-light button-clear no-animation" ng-click="next()" ng-if="slideIndex != 3">
+            Next
+        </button>
+        <button class="button button-light button-clear no-animation" ng-click="back()" ng-if="slideIndex == 3">
+            Get Moving
+        </button>
+    </ion-nav-buttons>
+    <ion-slide-box on-slide-changed="slideChanged(index)">
+        <ion-slide style="background-image: url('./img/swipe-img/2x/how-it-works/tutorial-bg-0-2x.png');
+                      background-size: cover;
+                      background-repeat: no-repeat;" class="padding">
+            <h2><img class="coride-logo" src="./img/coride_logo.png"></h2>
+            <div class="hr">
+                <hr />
+            </div>
+            <h3>
+        Coride is a network of friendly people who share rides from one place to another. Here's how it works.
+      </h3>
+        </ion-slide>
+        <ion-slide style="background-image: url('./img/swipe-img/2x/how-it-works/tutorial-bg-2-2x.png');
+                      background-size: cover;
+                      background-repeat: no-repeat;" class="padding">
+            <h2>1. Search</h2>
+            <div class="hr">
+                <hr />
+            </div>
+            <h3>
+        Take a look at our map to find trips to the places you want to be.
+      </h3>
+            <p>
+                You can also submit a trip request, browse profiles, or chat privately with other coriders.
+            </p>
+        </ion-slide>
+        <ion-slide style="background-image: url('./img/swipe-img/2x/how-it-works/tutorial-bg-3-2x.png');
+                      background-size: cover;
+                      background-repeat: no-repeat;" class="padding">
+            <h2>2. Book</h2>
+            <div class="hr">
+                <hr />
+            </div>
+            <h3>
+        Request your booking in a snap and you're good to go!
+      </h3>
+            <p>
+                Coride uses Stripe.com to secure your payments. Secure and hassle-free.
+            </p>
+        </ion-slide>
+        <ion-slide style="background-image: url('./img/swipe-img/2x/how-it-works/tutorial-bg-4-2x.png');
+                      background-size: cover;
+                      background-repeat: no-repeat;" class="padding">
+            <h2>3. Coride</h2>
+            <div class="hr">
+                <hr />
+            </div>
+            <h3>
+        Meet up with your corider, fistbump, and enjoy the ride!
+      </h3>
+            <p>
+                Feel free to bring snacks, a positive attitude, and great music with you on every coride.
+            </p>
+        </ion-slide>
+    </ion-slide-box>
+</ion-view>

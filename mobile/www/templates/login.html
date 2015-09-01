@@ -1,0 +1,33 @@
+<ion-view title="" hide-nav-bar="true">
+    <div class="bg-image puppie-img"></div>
+    <ion-content padding="true" scroll="false">
+        <h1 class='login-title padding'>Judge Me Like You Do</h1>
+        <div class='small respect-privacy text-center'>A Mobile App version for the NONESCOST Tabulation Software</div>
+        <div class='login-bottom'>
+            <div class="list list-inset">
+                <label class="item item-input">
+                    <input type="email" placeholder="Username" ng-model="user.username" required />
+                </label>
+                <label class="item item-input">
+                    <input type="password" placeholder="Password" ng-model="user.password" required />
+                </label>
+            </div>
+            <a href="#/password/new" class='pull-right forgot-password'>Forgot your password?</a>
+            <div class="row">
+                <!--  <div class="col">
+                    <button ng-click="register()" class="button button-small button-positive button-block" ng-disable="true">
+                        Register
+                    </button>
+                </div>
+                <div class="col">
+                    <button type="button" ng-click="login()" class="button button-small button-block button-energized">
+                        Login
+                    </button>
+                </div> -->
+                <button type="button" ng-click="login()" class="button button-large button-block button-energized">
+                    Login
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
