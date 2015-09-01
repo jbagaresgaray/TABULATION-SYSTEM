@@ -122,7 +122,7 @@
 										 Home
 									</div>
 									<div class="desc">
-										 Brand Popularity
+										 
 									</div>
 								</div>
 								<!-- <a class="more" href="javascript:;">
@@ -142,7 +142,7 @@
 										 Admin
 									</div>
 									<div class="desc">
-										 New Feedbacks
+										 Manipulate records
 									</div>
 								</div>
 								<!-- <a class="more" href="javascript:;">
