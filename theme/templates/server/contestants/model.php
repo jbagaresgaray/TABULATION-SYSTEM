@@ -42,7 +42,7 @@ class ContestantModel {
         imagejpeg($virtual_image, $dest);
     }
 
-	public static function create($data,$files){
+	public static function create($data/*,$files*/){
 		$config= new Config();
 
 		$mysqli = new mysqli($config->host, $config->user, $config->pass, $config->db);
@@ -52,12 +52,13 @@ class ContestantModel {
 		}else{
 			$allow = array("jpg", "jpeg", "gif", "png");
 			$contestantname = $mysqli->real_escape_string($data['contestantname']);
+			$gender = $mysqli->real_escape_string($data['gender']);
 			$departmentid = $mysqli->real_escape_string($data['departmentid']);
 			$eventid = $mysqli->real_escape_string($data['eventid']);
-			$name_pic4 = $files["pic4"]["name"];
-            $pic4 = $files["pic4"]["tmp_name"];
+			//$name_pic4 = $files["pic4"]["name"];
+            //$pic4 = $files["pic4"]["tmp_name"];
 
-            if($name_pic4){
+            /*if($name_pic4){
 			    $info = explode('.', strtolower($name_pic4));
 			    if (in_array(end($info),$allow)){
 			    	$size = getimagesize($pic4);
@@ -70,10 +71,9 @@ class ContestantModel {
 			        return print json_encode(array('success' =>false,'msg' =>'Invalid file type for Choices image. Supported files allowed are JPG,JPEG,GIF,PNG.'),JSON_PRETTY_PRINT);
 			        die();
 			    }
-			}
-
-			if ($stmt = $mysqli->prepare('INSERT INTO contestants (name,eventid,departmentid,photo) VALUES(?,?,?,?)')){
-				$stmt->bind_param('ssss', $contestantname,$eventid,$departmentid,$name_pic4);
+			}*/
+			if ($stmt = $mysqli->prepare('INSERT INTO contestants (name,eventid,departmentid,gender) VALUES(?,?,?,?)')){
+				$stmt->bind_param('ssss', $contestantname,$eventid,$departmentid,$gender);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{
@@ -123,12 +123,13 @@ class ContestantModel {
 		    return;
 		}else{
 			$contestantname = $mysqli->real_escape_string($data['contestantname']);
+			$gender = $mysqli->real_escape_string($data['gender']);
 			$departmentname = $mysqli->real_escape_string($data['departmentname']);
 			$eventname = $mysqli->real_escape_string($data['eventname']);
 			$contestantid = $mysqli->real_escape_string($data['contestantid']);
 			
-			if ($stmt = $mysqli->prepare('update contestants set name=?,eventid=(select eventid from events where eventname=? limit 1),departmentid=(select departmentid from departments where departmentname=? limit 1) where contestantid = ?')){
-				$stmt->bind_param('ssss', $contestantname,$eventname,$departmentname,$contestantid);
+			if ($stmt = $mysqli->prepare('update contestants set gender=?, name=?,eventid=(select eventid from events where eventname=? limit 1),departmentid=(select departmentid from departments where departmentname=? limit 1) where contestantid = ?')){
+				$stmt->bind_param('sssss', $gender,$contestantname,$eventname,$departmentname,$contestantid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{

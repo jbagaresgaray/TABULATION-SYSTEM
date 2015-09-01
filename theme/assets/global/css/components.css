@@ -13694,3 +13694,7 @@ Transparent Button
 .tt {
   background-image: url(../img/portlet-collapse-icon-white.png);
 }
+
+#dash-1 :hover{
+    border: 3px solid green;
+}

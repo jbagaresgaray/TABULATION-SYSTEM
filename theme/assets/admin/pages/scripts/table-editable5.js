@@ -74,8 +74,7 @@ function loadcriteriacombo() {
     $("#eventidfrmcriteria").html('');
     console.log('>loading data to combo-criteria after clearing..');
     $.ajax({
-        //url: '../server/events/',
-        url: 'templates/server/events/',
+        url: '../server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -126,8 +125,7 @@ function saveCriteria(){
     }
 
     $.ajax({
-            //url: '../server/criteria/',
-            url: 'templates/server/criteria/',
+            url: '../server/criteria/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -165,8 +163,7 @@ function getCriteria() {
     console.log('>loading data to judge table..');
     $("#sample_editable_5 tbody").html('');
     $.ajax({
-        //url: '../server/criteria/',
-        url: 'templates/server/criteria/',
+        url: '../server/criteria/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -177,7 +174,7 @@ function getCriteria() {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<tr>\
-                                        <td>' + row[i].criteriaid + '</td>\
+                                        <td style="display:none">' + row[i].criteriaid + '</td>\
                                         <td>' + row[i].criterianame + '</td>\
                                         <td>' + row[i].percentage + '</td>\
                                         <td>' + row[i].eventname + '</td>\
@@ -207,7 +204,6 @@ function confirmcriteriadelete(id){
 function deletecriteria(id){
     $.ajax({
         url: '../server/criteria/' + id,
-        url: 'templates/server/criteria/'+id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -252,8 +248,7 @@ function updateCriteria(id){
         return false;
     }
     $.ajax({
-            //url: '../server/criteria/'+id,
-            url: 'templates/server/criteria/'+id,
+            url: '../server/criteria/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -292,8 +287,7 @@ $(document).on("click", ".criteriamodal", function() {
 
 function getCriteria_pushToMdal(id) {
     $.ajax({
-        //url: '../server/criteria/'+id,
-        url: 'templates/server/criteria/'+id,
+        url: '../server/criteria/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -318,8 +312,7 @@ function getCriteria_pushToMdal(id) {
 function loadValuesToCriteriaCombo_Modal(){
     $("#eventidfrmcriteria_modal").html('');
     $.ajax({
-        //url: '../server/events/',
-        url: 'templates/server/events/',
+        url: '../server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -342,3 +335,7 @@ function loadValuesToCriteriaCombo_Modal(){
         }
     });
 }
+
+$(document).on("click", "#sample_editable_5_new", function() {
+    $('#modalAdd5').modal('show');
+});

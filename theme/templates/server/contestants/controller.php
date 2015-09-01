@@ -13,12 +13,10 @@ class ContestantCtrl {
 		if(isset($data['eventid']) && empty($data['eventid'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
 		}
-		if(isset($files['pic4'])){
-			$file['pic4'] = $files['pic4'];
-		}else{
-			$file['pic4'] = null;
+		if(isset($data['gender']) && empty($data['gender'])){
+			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
 		}
-		ContestantModel::create($data,$file);
+		ContestantModel::create($data);
 	}
 
 	public static function read(){
@@ -32,6 +30,9 @@ class ContestantCtrl {
 	public static function update($id,$data){
 		if(isset($data['contestantname']) && empty($data['contestantname'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'Activity Name is required'),JSON_PRETTY_PRINT);
+		}
+		if(isset($data['gender']) && empty($data['gender'])){
+			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'gender Name is required'),JSON_PRETTY_PRINT);
 		}
 		if(isset($data['departmentname']) && empty($data['departmentname'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'Start date is required'),JSON_PRETTY_PRINT);

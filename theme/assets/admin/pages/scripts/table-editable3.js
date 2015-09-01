@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
    loadeventtocombo3();
    getcontestant();
@@ -82,8 +81,7 @@ function loadeventtocombo3() {
     $("#combo3eventt").html('');
     console.log('>loading data to combo-3 after clearing..');
     $.ajax({
-        //url: '../server/events/',
-        url: 'templates/server/events/',
+        url: '../server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -114,8 +112,7 @@ function loadcontdep() {
     $("#contestantdep").html('');
     console.log('>loading data to contestantdep after clearing..');
     $.ajax({
-        //url: '../server/departments/',
-        url: 'templates/server/departments/',
+        url: '../server/departments/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -145,8 +142,7 @@ function loadcontbyevnt() {
     $("#contestantdep2").html('');
     console.log('>loading data to contestantdep after clearing..');
     $.ajax({
-        //url: '../server/filtercontestants/',
-        url: 'templates/server/filtercontestants/',
+        url: '../server/filtercontestants/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -175,8 +171,7 @@ function loadcontbyevntfiltered(id) {
     $("#sample_editable_3 tbody").html('');
     console.log('>loading data to contestanttable after clearing..');
     $.ajax({
-        //url: '../server/filtercontestants/'+id,
-        url: 'templates/server/filtercontestants/'+id,
+        url: '../server/filtercontestants/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -188,8 +183,9 @@ function loadcontbyevntfiltered(id) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html ='<tr>\
-                                        <td>' + row[i].contestantid + '</td>\
+                                        <td style="display:none">' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
+                                        <td>' + row[i].gender + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
                                         <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
@@ -229,8 +225,8 @@ function saveContestant() {
         empty = true;
     }
    
-    if ($('#tmp_pic4').val() == '') {
-        $('#tmp_pic4').next('span').text('event is required.');
+    if ($('#gender').val() == '') {
+        $('#gender').next('span').text('gender is required.');
         empty = true;
     }
 
@@ -240,8 +236,7 @@ function saveContestant() {
     }
 
     $.ajax({
-            //url: '../server/contestants/',
-            url: 'templates/server/contestants/',
+            url: '../server/contestants/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -250,7 +245,7 @@ function saveContestant() {
                 contestantname: $('#contestantname').val(),
                 departmentid: $('#contestantdep').val(),
                 eventid:$('#combo3eventt').val(),
-                photo:$('#tmp_pic4').val()
+                gender:$('#gender').val(),
             },
             success: function(response) {
                 var decode = response;
@@ -280,8 +275,7 @@ function getcontestant(){
     console.log('>loading data to contestants table..');
     $("#sample_editable_3 tbody").html('');
     $.ajax({
-        //url: '../server/contestants/',
-        url: 'templates/server/contestants/',
+        url: '../server/contestants/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -292,8 +286,9 @@ function getcontestant(){
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                          var html ='<tr>\
-                                        <td>' + row[i].contestantid + '</td>\
+                                        <td style="display:none">' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
+                                        <td>' + row[i].gender + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
                                         <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
@@ -311,12 +306,11 @@ function getcontestant(){
     });
 }
 
-function getcontestantbyid(id){
+function getcontestantbyid(id){ 
     console.log('>loading data to contestants table..');
     $("#sample_editable_3 tbody").html('');
     $.ajax({
-        //url: '../server/contestants/'+id,
-        url: 'templates/server/contestants/'+id,
+        url: '../server/contestants/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -327,8 +321,9 @@ function getcontestantbyid(id){
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                          var html ='<tr>\
-                                        <td>' + row[i].contestantid + '</td>\
+                                        <td style="display:none">' + row[i].contestantid + '</td>\
                                         <td>' + row[i].name + '</td>\
+                                        <td>' + row[i].gender + '</td>\
                                         <td>' + row[i].departmentname + '</td>\
                                         <td>' + row[i].eventname + '</td>\
                                         <td><a data-id="'+row[i].contestantid+'" href="javascript:void(0)" data-toggle="modal" class="config contestanttmodal" data-original-title="" title="">Edit</td>\
@@ -356,8 +351,7 @@ function confirmcontestantdelet3(id){
 
 function deletecontestant(id){
     $.ajax({
-        //url: '../server/contestants/' + id,
-        url: 'templates/server/contestants/'+id,
+        url: '../server/contestants/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -378,6 +372,7 @@ function updatecontestant(id){
     console.log($('#contestantname_modal').val());
     console.log($('#contestantdep_modal').val());
     console.log($('#combo3eventt_modal').val());
+    console.log($('#gender_modal').val());
     var empty = false;
     if ($("#contestantname_modal").val() == '') {
         $("#contestantname_modal").next('span').text('Contestant Name is required.');
@@ -398,14 +393,18 @@ function updatecontestant(id){
         empty = true;
     }
 
+    if ($('#gender_modal').val() == '') {
+        $('#gender_modal').next('span').text('gender is required.');
+        empty = true;
+    }
+
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly.');
         return false;
     }
 
     $.ajax({
-            //url: '../server/contestants/'+id,
-            url: 'templates/server/contestants/'+id,
+            url: '../server/contestants/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -414,7 +413,8 @@ function updatecontestant(id){
                 contestantname: $('#contestantname_modal').val(),
                 departmentname: $('#contestantdep_modal').val(),
                 eventname: $('#combo3eventt_modal').val(),
-                contestantid: $('#contestantid_modal').val()
+                contestantid: $('#contestantid_modal').val(),
+                gender: $('#gender_modal').val()
             },
             success: function(response) {
                 var decode = response;
@@ -446,8 +446,7 @@ $(document).on("click", ".contestanttmodal", function() {
 
 function getContestant_pushToMdal(id) {
     $.ajax({
-        //url: '../server/contestants/'+id,
-        url: 'templates/server/contestants/'+id,
+        url: '../server/contestants/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -460,6 +459,7 @@ function getContestant_pushToMdal(id) {
                 loadValuesToDepartmentCombo_Modal();
                 $('#contestantname_modal').val(decode.childs[0].name);
                 $('#contestantid_modal').val(contestantid);
+                $('#gender_modal').val(decode.childs[0].gender);
             }
         },
         error: function(error) {
@@ -473,8 +473,7 @@ function getContestant_pushToMdal(id) {
 function loadValuesToEventCombo_Modal(){
     $("#combo3eventt_modal").html('');
     $.ajax({
-        //url: '../server/events/',
-        url: 'templates/server/events/',
+        url: '../server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -500,8 +499,7 @@ function loadValuesToEventCombo_Modal(){
 function loadValuesToDepartmentCombo_Modal(){
     $("#contestantdep_modal").html('');
     $.ajax({
-        //url: '../server/departments/',
-        url: 'templates/server/departments/',
+        url: '../server/departments/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -523,3 +521,7 @@ function loadValuesToDepartmentCombo_Modal(){
         }
     });
 }
+
+$(document).on("click", "#sample_editable_3_new", function() {
+    $('#modalAdd3').modal('show');
+});

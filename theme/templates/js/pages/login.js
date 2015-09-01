@@ -1,3 +1,5 @@
+sessionStorage['islogin'] = false;
+
 function getuser(){
 	console.log('hello',$("#username").val());
 	var empty = false;
@@ -39,7 +41,7 @@ function getuser(){
                     toastr.success('Success', 'Welcome Admin !');
                     sessionStorage['islogin'] = true;
                     sessionStorage['user'] = response.childs[0].username;
-                    window.location = 'mainform.html';
+                    window.location = 'dashboard.php';
                 } else if(type='judge')  {
                     console.log('judge form');
                     toastr.success('Success', 'Welcome Judge !');

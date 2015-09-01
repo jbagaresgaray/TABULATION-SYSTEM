@@ -11,8 +11,7 @@ $(document).ready(function(){
 function loadeventsTojudgeCombo(){
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        //url: '../server/events/',
-        url: 'templates/server/events/',
+        url: '../server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -42,8 +41,7 @@ function loadcandidateTojudgeCombo(){
     $("#candidatecombo4judge").html('<option value=""></option>');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        //url: '../server/contestants/',
-        url: 'templates/server/contestants/',
+        url: '../server/contestants/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -74,8 +72,7 @@ function loadContestantWhenEventComboChange(eventid){
     $("#candidatecombo4judge").html('');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        //url: '../server/contestants_Ext1/'+eventid,
-        url: 'templates/server/contestants_Ext1/'+eventid,
+        url: '../server/contestants_Ext1/'+eventid,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -113,8 +110,7 @@ function loadCriteriaByEventId(id){
     console.log('>loading data to judge table..');
     $("#sample_editable_6 tbody").html('');
     $.ajax({
-        //url: '../server/scores/'+id,
-        url: 'templates/server/scores/'+id,
+        url: '../server/scores/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -133,7 +129,7 @@ function loadCriteriaByEventId(id){
                         console.log(r);
 
                         var html = '<tr>\
-                                        <td width="130px"><input id="criteriaid'+rw+'" readonly value="'+row[i].criteriaid+'" style="border: 0px;background-color: #FFFFFF;" type="label" class="form-control"></td>\
+                                        <td style="display:none" width="130px"><input id="criteriaid'+rw+'" readonly value="'+row[i].criteriaid+'" style="border: 0px;background-color: #FFFFFF;" type="label" class="form-control"></td>\
                                         <td>' + row[i].criterianame + '</td>\
                                         <td>' + row[i].percentage + '%</td>\
                                         <td width="50px"><input id="score'+rw+'" style="border: 1px dotted;background-color: #F4F7F7;" type="number" class="form-control" placeholder="'+defaultscore+'"></td>\
@@ -161,7 +157,7 @@ function savescore(fieldId){
        
         var criteriaid = $('#criteriaid'+fieldId).val();
         var score = $('#score'+fieldId).val();
-        var judgeid = 10;
+        var judgeid = 3;
 
         var empty = false;
         $('input[type="text"]').each(function() {
@@ -197,8 +193,7 @@ function savescore(fieldId){
         console.log('contestantid',$('#candidatecombo4judge').val());
         console.log('score',score);
         $.ajax({
-                //url: '../server/scores/',
-                url: 'templates/server/scores/',
+                url: '../server/scores/',
                 async: false,
                 type: 'POST',
                 crossDomain: true,
@@ -272,8 +267,7 @@ function savescore(fieldId){
         console.log('contestantid',$('#candidatecombo4judge').val());
         console.log('score',score);
         $.ajax({
-                //url: '../server/scores/',
-                url: 'templates/server/scores/',
+                url: '../server/scores/',
                 async: false,
                 type: 'PUT',
                 crossDomain: true,
@@ -305,3 +299,6 @@ function savescore(fieldId){
     }
     
 }
+$(document).on("click", "#sample_editable_6_new", function() {
+    $('#modalAdd6').modal('show');
+});

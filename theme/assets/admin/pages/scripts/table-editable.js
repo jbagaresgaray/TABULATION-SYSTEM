@@ -1,9 +1,5 @@
 $(document).ready(function() {
-    var currentuser = sessionStorage['user'];
-    console.log('>currentuser is ',currentuser);
-    $('#userlabel').html(currentuser);
-    
-    fetch_all_activities();
+   fetch_all_activities();
 });
 
 var TableEditable = function () {
@@ -70,11 +66,11 @@ var TableEditable = function () {
 
 //-----------------------------------------------------------------------my code-------------------------------------------------------
 
-function saveToctivities(){
+/*function saveToctivities(){
     $('#btn-act').button('loading');
     save();
     $('#btn-act').button('reset');
-}
+}*/
 
 
 function save() {
@@ -105,8 +101,7 @@ function save() {
     }
     
     $.ajax({
-            // url: '../server/activities/',
-            url: 'templates/server/activities/',
+            url: '../server/activities/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -123,11 +118,12 @@ function save() {
                      toastr.success('Server response', 'Records successfully saved!');
                      fetch_all_activities();
                      load_events_tocombo1();
-                     $('#btn-act').button('reset');
-                     reset();
+                     $('#actname').val('');
+                     $('#startdate').val('');
+                     $('#enddate').val('')
+                     //reset();
                 } else if (decode.success === false) {
                     toastr.error('failed saving records!', 'error!');
-                    $('#btn-act').button('reset');
                 } 
             },
             error: function(error) { 
@@ -144,8 +140,7 @@ function save() {
 function fetch_all_activities() {
     $("#sample_editable_1 tbody").html('');
     $.ajax({
-        //url: '../server/activities/',
-         url: 'templates/server/activities/',
+        url: '../server/activities/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -157,7 +152,7 @@ function fetch_all_activities() {
                    for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<tr>\
-                                        <td>' + row[i].actid + '</td>\
+                                        <td style="display:none">' + row[i].actid + '</td>\
                                         <td>' + row[i].actname + '</td>\
                                         <td>' + row[i].actstartdate + '</td>\
                                         <td>' + row[i].actenddate + '</td>\
@@ -190,8 +185,7 @@ function confirmdelete(id){
 
 function deleteactivity(id){
     $.ajax({
-        //url: '../server/activities/' + id,
-        url: 'templates/server/activities/',
+        url: '../server/activities/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -199,7 +193,7 @@ function deleteactivity(id){
             if (decode.success == true) {
                 toastr.success('Server response', 'Records successfully deleted!');
                 fetch_all_activities();
-
+                load_events_tocombo1();
             } else if (decode.success === false) {
                 return;
             }
@@ -234,8 +228,7 @@ function updateactivity(obj){
         return false;
     }
     $.ajax({
-            //url: '../server/activities/',
-            url: 'templates/server/activities/',
+            url: '../server/activities/',
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -252,6 +245,7 @@ function updateactivity(obj){
                 if (decode.success == true) {
                   toastr.success('Server response', 'Records successfully updated!');
                   fetch_all_activities();
+                  load_events_tocombo1();
                 } else if (decode.success === false) {
                     alert(decode);
                     return;
@@ -274,8 +268,7 @@ $(document).on("click", ".activitymodal", function() {
 
 function getActivities_pushToModal(id) {
     $.ajax({
-        //url: '../server/activities/'+id,
-        url: 'templates/server/activities/'+id, 
+        url: '../server/activities/'+id, 
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -295,3 +288,7 @@ function getActivities_pushToModal(id) {
         }
     });
 }
+
+$(document).on("click", "#sample_editable_1_new", function() {
+    $('#modalAdd1').modal('show');
+});

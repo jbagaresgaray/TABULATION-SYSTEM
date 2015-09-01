@@ -69,14 +69,14 @@ function clearjudgefields(){
     $("#judgefullname").val('');
     $("#judgeuname").val('');
     $("#judgepword").val('');
+    $("#cjudgepword").val('');
 }
 
 function loadjudgecombo() {
     $("#judgecombo").html('');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        //url: '../server/events/',
-        url: 'templates/server/events/',
+        url: '../server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -109,20 +109,29 @@ function saveJudge(){
     });
 
     if ($("#judgefullname").val() == '') {
-        $("#judgefullname").next('span').text('Activity Name is required.');
+        $("#judgefullname").next('span').text('Fullname is required.');
         empty = true;
     }
 
     if ($('#judgeuname').val() == '') {
-        $('#judgeuname').next('span').text('Start date is required.');
+        $('#judgeuname').next('span').text('username is required.');
         empty = true;
     }
     if ($('#judgepword').val() == '') {
-        $('#judgepword').next('span').text('Start date is required.');
+        $('#judgepword').next('span').text('password is required.');
+        empty = true;
+    }
+    if ($('#cjudgepword').val() == '' || $('#cjudgepword').val() != $('#judgepword').val()) {
+        $('#cjudgepword').next('span').text('password did not match');
         empty = true;
     }
     if ($('#judgecombo').val() == '') {
         $('#judgecombo').next('span').text('Start date is required.');
+        empty = true;
+    }
+    if($('#cjudgepword').val() != $('#judgepword').val()){
+        $('#cjudgepword').next('span').text('password did not match');
+        toastr.error('Error', 'password did not match');
         empty = true;
     }
     if (empty == true) {
@@ -130,9 +139,10 @@ function saveJudge(){
         return false;
     }
 
+
+
     $.ajax({
-            //url: '../server/judges/',
-            url: 'templates/server/judges/',
+            url: '../server/judges/',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -171,8 +181,7 @@ function getjudges() {
     console.log('>loading data to judge table..');
     $("#sample_editable_4 tbody").html('');
     $.ajax({
-        //url: '../server/judges/',
-        url: 'templates/server/judges/',
+        url: '../server/judges/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -183,7 +192,7 @@ function getjudges() {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<tr>\
-                                        <td>' + row[i].judgeid + '</td>\
+                                        <td style="display:none">' + row[i].judgeid + '</td>\
                                         <td>' + row[i].judgefullname + '</td>\
                                         <td>' + row[i].judgeuname + '</td>\
                                         <td>' + row[i].judgepword + '</td>\
@@ -212,8 +221,7 @@ function confirmjudgedelete(id){
 
 function deletejudge(id){
     $.ajax({
-        //url: '../server/judges/' + id,
-        url: 'templates/server/judges/'+id,
+        url: '../server/judges/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -253,13 +261,17 @@ function updatejudge(id){
         $('#judgeid_modal').next('span').text('Start date is required.');
         empty = true;
     }
+    if($('#judgepword_modal').val() != $('#cjudgepword_modal').val()){
+        $('#cjudgepword_modal').next('span').text('password did not match');
+        toastr.error('Error', 'password did not match');
+        empty = true;
+    }
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly');
         return false;
     }
     $.ajax({
-            //url: '../server/judges/'+id,
-            url: 'templates/server/judges/'+id,
+            url: '../server/judges/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -299,8 +311,7 @@ $(document).on("click", ".judgemodal", function() {
 
 function getJudge_pushToMdal(id) {
     $.ajax({
-        //url: '../server/judges/'+id,
-        url: 'templates/server/judges/'+id,
+        url: '../server/judges/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -325,8 +336,7 @@ function getJudge_pushToMdal(id) {
 function loadValuesToJudgeCombo_Modal(){
     $("#judgecombo_modal").html('');
     $.ajax({
-        //url: '../server/events/',
-        url: 'templates/server/events/',
+        url: '../server/events/',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -348,3 +358,7 @@ function loadValuesToJudgeCombo_Modal(){
         }
     });
 }
+
+$(document).on("click", "#sample_editable_4_new", function() {
+    $('#modalAdd4').modal('show');
+});
