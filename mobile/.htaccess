@@ -1,0 +1,5 @@
+Deny from all
+Options -Indexes
+# or #
+IndexIgnore *
+IndexIgnore *.zip *.txt
