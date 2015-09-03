@@ -4,18 +4,31 @@ angular.module('starter')
     .factory('Activity', function($http, HOST) {
         return {
             getActivity: function() {
-                return $http.get('js/values/activity.json').then(function(data) {
+                return $http.get(HOST + '/activities/').then(function(data) {
                     return data;
                 });
             },
-            getEvents: function() {
-                return $http.get('js/values/events.json').then(function(data) {
+            getEvents: function(id) {
+                return $http.get(HOST + '/events_ext1/' + id).then(function(data) {
                     return data;
                 });
             },
-            getContestants: function() {
-                return $http.get('js/values/contestants.json').then(function(data) {
+            getContestants: function(id) {
+                return $http.get(HOST + '/contestants_Ext1/' + id).then(function(data) {
                     return data;
+                });
+            },
+            getCriteria: function(id) {
+                return $http.get(HOST + '/criteria_Ext1/' + id).then(function(data) {
+                    return data;
+                });
+            },
+            saveScore: function(data) {
+                return $http({
+                    method: 'POST',
+                    type:'json',
+                    url: HOST + '/scores/',
+                    data: data
                 });
             }
         }

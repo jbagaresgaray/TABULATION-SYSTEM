@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('starter')
-    .controller('TutorialCtrl', function($rootScope,$state, $scope, $state, $ionicSlideBoxDelegate) {
+    .controller('TutorialCtrl', function($rootScope,$state, $scope, $ionicSlideBoxDelegate) {
         $rootScope.barClass = "bar-clear";
 
         // Called to navigate to back

@@ -15,10 +15,10 @@
             <h3>Scoring and Rating</h3>
         </div>
         <ion-list show-delete="false" show-reorder="false" can-swipe="true">
-            <ion-item class="item item-text-wrap item-icon-right" ng-repeat="row in criterias">
-                <h2>{{row.name}} <small class="muted">{{row.percent}} %</small></h2>
+            <ion-item class="item item-text-wrap item-icon-right" ng-repeat="row in criterias.childs">
+                <h2>{{row.criterianame}} <small class="muted">{{row.percentage}} %</small></h2>
                 <span class="badge badge-assertive">20</span>
-                <ion-option-button class="button-energized" ng-click="showPopup()">
+                <ion-option-button class="button-energized" ng-click=showPopup("{{row.criteriaid}}")>
                     <i class="icon ion-compose"></i>
                 </ion-option-button>
             </ion-item>

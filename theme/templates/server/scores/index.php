@@ -23,6 +23,7 @@
 	    break;
 	  case 'POST':
 			ScoreCtrl::create($_POST);
+	  		// print_r(json_encode($_POST));
 	    break;
 	  case 'GET':
 	  	if(isset($request) && !empty($request) && $request[0] !== ''){
@@ -45,3 +46,4 @@
 	exit();
 
 ?>
+

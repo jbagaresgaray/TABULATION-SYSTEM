@@ -1,7 +1,13 @@
 'use strict';
 
 angular.module('starter')
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+        //$httpProvider.defaults.useXDomain = true;
+        //$httpProvider.defaults.headers.common = 'Content-Type: application/json';
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
         $stateProvider
             .state('how-it-works', {
                 url: '/how-it-works',

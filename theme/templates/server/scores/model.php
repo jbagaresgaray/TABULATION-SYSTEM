@@ -14,19 +14,21 @@ class ScoreModel {
 		    print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		    return;
 		}else{
-			$eventid = $mysqli->real_escape_string($data['eventid']);
-			$judgeid = $mysqli->real_escape_string($data['judgeid']);
 			$criteriaid = $mysqli->real_escape_string($data['criteriaid']);
-			$score = $mysqli->real_escape_string($data['score']);
 			$contestantid = $mysqli->real_escape_string($data['contestantid']);
+			$scoring = $mysqli->real_escape_string($data['scoring']);
 
-			if ($stmt = $mysqli->prepare('insert into scores(eventid,judgeid,criteriaid,score,contestantid) VALUES(?,?,?,?,?)')){
-				$stmt->bind_param('sssss', $eventid,$judgeid,$criteriaid,$score,$contestantid);
+			print_r(json_encode($data));
+			/*if ($stmt = $mysqli->prepare('insert into scores(eventid,judgeid,criteriaid,score,contestantid)
+										values ( (select eventid from contestants where contestantid=$contestantid limit 1),
+			        					(select judgeid from judges where eventid = (select eventid from contestants where contestantid=$contestantid limit 1) limit 1),
+			        					$criteriaid,$scoring,$contestantid)')){
+				//$stmt->bind_param('sssss', $eventid,$judgeid,$criteriaid,$score,$contestantid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{
 				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
-			}
+			}*/
 		}
 	}
 

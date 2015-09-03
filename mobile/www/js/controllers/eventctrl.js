@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('starter')
-    .controller('EventCtrl', function($scope, $ionicModal, Activity) {
+    .controller('EventCtrl', function($scope, $ionicModal, Activity, $stateParams) {
         function chunk(arr, size) {
             var newArr = [];
             for (var i = 0; i < arr.length; i += size) {
@@ -17,9 +17,10 @@ angular.module('starter')
         function init() {
             $scope.isList = ($scope.isList == true) ? false : true;
 
-            Activity.getEvents().then(function(data) {
+            Activity.getEvents($stateParams.activityId).then(function(data) {
                 $scope.events = data.data;
                 $scope.chunkedData = chunk(data.data, 2);
+                console.log($scope.events);
             });
         }
 

@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('starter')
-    .controller('ContestantCtrl', function($scope, $ionicModal, Activity) {
+    .controller('ContestantCtrl', function($scope, $ionicModal, $stateParams, Activity) {
 
         function init() {
 
-            Activity.getContestants().then(function(data) {
+            Activity.getContestants($stateParams.eventId).then(function(data) {
                 $scope.contestants = data.data;
+                console.log($scope.contestants);
             });
         }
 
@@ -17,12 +18,18 @@ angular.module('starter')
         function init() {
             console.log('$stateParams: ', $stateParams.id);
 
-            Activity.getContestants().then(function(data) {
+            /*Activity.getContestants($stateParams.id).then(function(data) {
 
                 $scope.detail = data.data;
+            });*/
+
+            Activity.getCriteria($stateParams.id).then(function(data) {
+
+                $scope.criterias = data.data;
+                console.log('citeria',$scope.criterias);
             });
 
-            $scope.criterias = [{
+            /*$scope.criterias = [{
                 name: "Beauty",
                 percent: 20
             }, {
@@ -37,16 +44,19 @@ angular.module('starter')
             }, {
                 name: "Biniga Style",
                 percent: 20
-            }]
+            }]*/
 
         }
 
-        $scope.showPopup = function() {
+        $scope.showPopup = function(id) {
             $scope.data = {}
-
+            console.log($stateParams.id);
             // An elaborate, custom popup
+            $scope.data.criteriaid = id;
+            $scope.data.contestantid = $stateParams.id;
+
             var myPopup = $ionicPopup.show({
-                template: '<input type="number" ng-model="scoring">',
+                template: '<input type="number" ng-model="data.scoring">',
                 title: 'Enter Score / Rating',
                 scope: $scope,
                 buttons: [{
@@ -55,19 +65,19 @@ angular.module('starter')
                     text: '<b>Save</b>',
                     type: 'button-positive',
                     onTap: function(e) {
-                        if (!$scope.data.wifi) {
+                        if (!$scope.data.scoring) {
                             //don't allow the user to close unless he enters wifi password
                             e.preventDefault();
                         } else {
-                            return $scope.data.wifi;
+                            Activity.saveScore($scope.data)
+                            .success(function(data, status, headers, config){
+                                console.log('resp: ',data);
+                            });
                         }
                     }
                 }]
             });
-            myPopup.then(function(res) {
-                console.log('Tapped!', res);
-            });
-        };
+        }
 
         init();
     });

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('starter', ['ionic','ngResource'])
-    .constant('HOST', 'https://localhost:8100') //PRODUCTION
+    .constant('HOST', 'http://localhost/TABULATION-SYSTEM/theme/templates/server') //PRODUCTION
     .run(function($ionicPlatform) {
         $ionicPlatform.ready(function() {
             if (window.cordova && window.cordova.plugins.Keyboard) {

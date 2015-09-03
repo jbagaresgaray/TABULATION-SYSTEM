@@ -13,7 +13,7 @@
     </div>
     <ion-content class="has-header has-subheader">
         <div class="list">
-            <a ng-repeat="activity in activities" href="#/events/{{activity.id}}" class="item item-icon-left item-icon-right">
+            <a ng-repeat="activity in activities.childs" href="#/events/{{activity.actid}}" class="item item-icon-left item-icon-right">
                 <i class="icon ion-trophy assertive"></i>
                 <h2 class="dark">{{activity.actname}}</h2>
                 <h4 class="positive">{{activity.actstartdate}} - {{activity.actenddate}}</h4>
