@@ -63,7 +63,7 @@ angular.module('starter')
                                         alertPopup.then(function(res) {
                                             init();
                                         });
-                                    }, 100);
+                                    }, 50);
                                 });
                         }
                     }

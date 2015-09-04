@@ -8,10 +8,10 @@ class LoginCtrl {
 			return print json_encode(array('success'=>false,'status'=>200,'msg'=>'Username is required'),JSON_PRETTY_PRINT);
 		}
 		if(isset($data['password']) && empty($data['password'])){
-			return print json_encode(array('success'=>false,'status'=>200,'msg'=>'Password is required'),JSON_PRETTY_PRINT);
+			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'Password is required'),JSON_PRETTY_PRINT);
+		}else{
+			LoginModel::login($data);
 		}
-
-		LoginModel::login($data);
 	}
 }
 
