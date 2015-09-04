@@ -26,7 +26,8 @@ class CriteriaExt1Model {
 						left join scores b
 						on a.contestantid = b.contestantid
 						and b.criteriaid = c.criteriaid
-						where a.contestantid = $id"; 
+						where a.contestantid = $id
+            			and c.eventid=(select eventid from contestants where contestantid=$id)"; 
 			$result1 = $mysqli->query($query1);
 			$data = array();
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
