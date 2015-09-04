@@ -1,8 +1,11 @@
 'use strict';
 
 angular.module('starter')
-    .factory('AuthService', function($rootScope, User, HOST) {
+    .factory('AuthService', function($rootScope,HOST) {
         return {
+            authLogin: function(data){
+
+            },
             checkLogin: function() {
                 // Check if logged in and fire events
                 if (this.isLoggedIn()) {
@@ -13,7 +16,7 @@ angular.module('starter')
             },
             isLoggedIn: function() {
                 // Check auth token here from localStorage
-                if (localStorage.getItem("coride_auth_token") === null || localStorage.getItem("coride_auth_token") === "undefined") {
+                if (localStorage.getItem("auth_token") === null || localStorage.getItem("auth_token") === "undefined") {
                     return false
                 } else {
                     return true
@@ -24,9 +27,4 @@ angular.module('starter')
                 $rootScope.$broadcast('app.loggedOut');
             }
         }
-    })
-    .factory('Authentication', function($resource, HOST) {
-        return $resource(HOST + '/authentications/:id', {
-            id: '@id'
-        })
     });

@@ -7,10 +7,10 @@ angular.module('starter')
                 'request': function(config) {
                     if ((new RegExp(HOST)).test(config.url)) {
                         if (config.params != undefined) {
-                            config.params.auth_token = localStorage.getItem('form_token');
+                            config.params.auth_token = localStorage.getItem('auth_token');
                         } else {
                             config.params = {
-                                'auth_token': localStorage.getItem('form_token')
+                                'auth_token': localStorage.getItem('auth_token')
                             };
                         }
                     }
@@ -21,7 +21,7 @@ angular.module('starter')
                 },
                 'responseError': function(rejection) {
                     if (rejection.status == 401) {
-                        localStorage.removeItem('coride_auth_token');
+                        localStorage.removeItem('auth_token');
                         $rootScope.$broadcast('app.loggedOut');
                         $location.path('/login');
                     }
