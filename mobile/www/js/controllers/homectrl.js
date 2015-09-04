@@ -20,7 +20,6 @@ angular.module('starter')
         };
 
         function init() {
-
             Activity.getActivity().then(function(data) {
                 $scope.activities = data.data;
             });
