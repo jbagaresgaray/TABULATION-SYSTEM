@@ -14,7 +14,7 @@ class AdminCtrl {
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
 		}
 		if(isset($data['userid']) && empty($data['userid'])){
-			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
+			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'User id is required'),JSON_PRETTY_PRINT);
 		}
 		ActivityModel::create($data);
 	}
