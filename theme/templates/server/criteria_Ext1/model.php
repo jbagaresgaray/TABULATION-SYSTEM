@@ -20,7 +20,13 @@ class CriteriaExt1Model {
 		if ($mysqli->connect_errno) {
 		    return print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		}else{
-			$query1 ="select * from criteria where eventid = (select eventid from contestants where contestantid = $id limit 1)"; 
+			$query1 ="SELECT a.name,c.*,c.percentage, b.score
+						FROM criteria c
+						join contestants a
+						left join scores b
+						on a.contestantid = b.contestantid
+						and b.criteriaid = c.criteriaid
+						where a.contestantid = $id"; 
 			$result1 = $mysqli->query($query1);
 			$data = array();
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
