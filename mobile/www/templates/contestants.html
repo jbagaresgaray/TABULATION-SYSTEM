@@ -4,13 +4,10 @@
             <i class="icon ion-search placeholder-icon"></i>
             <input type="text" placeholder="Contestant" ng-model="query"> </input>
         </label>
-        <button class="button button-small button-clear" ng-click="showModal()">
-            <i class="icon ion-search"></i>
-        </button>
     </div>
     <ion-content class="has-header has-subheader">
         <div class="list">
-            <a ng-repeat="row in contestants.childs" href="#/app/detail/{{eventId}}/{{row.contestantid}}" class="item item-icon-left item-icon-right">
+            <a ng-repeat="row in contestants.childs | filter:query" href="#/app/detail/{{eventId}}/{{row.contestantid}}" class="item item-icon-left item-icon-right">
                 <i class="icon ion-happy-outline assertive"></i>
                 <h2 class="positive ">{{row.name}}</h2>
                 <h4 class="calm">{{row.departmentname}} <span class="balanced pull-right">(DONE)</span></h4>

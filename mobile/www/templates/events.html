@@ -4,13 +4,10 @@
             <i class="icon ion-search placeholder-icon"></i>
             <input type="text" placeholder="Events" ng-model="query"> </input>
         </label>
-        <button class="button button-small button-clear" ng-click="showModal()">
-            <i class="icon ion-search"></i>
-        </button>
     </div>
     <ion-content class="has-header has-subheader">
         <div class="list">
-            <a ng-repeat="event in events.childs" href="#/app/contestants/{{event.eventid}}" class="item item-icon-left item-icon-right">
+            <a ng-repeat="event in events.childs | filter:query" href="#/app/contestants/{{event.eventid}}" class="item item-icon-left item-icon-right">
                 <i class="icon ion-android-bicycle assertive"></i>
                 <h2 class="dark">{{event.eventname}}</h2>
                 <i class="icon ion-ios-arrow-right dark"></i>
