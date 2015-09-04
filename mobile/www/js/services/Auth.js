@@ -14,7 +14,7 @@ angular.module('starter')
             authLogin: function(data){
                 return $.ajax({
                     method: 'POST',
-                    url: HOST + '/finduser/',
+                    url: HOST + '/judgeLogin/',
                     data: data
                 }).error(errorCallback);
             },

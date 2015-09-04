@@ -18,7 +18,7 @@
 				$id = $request[0];
 				ScoreCtrl::update($id,$_REQUEST);
 			}else{
-				ScoreCtrl::update(null,$_REQUEST);
+				ScoreCtrl::update($_REQUEST);
 			}
 	    break;
 	  case 'POST':

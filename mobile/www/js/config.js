@@ -11,7 +11,8 @@ angular.module('starter')
             .state('how-it-works', {
                 url: '/how-it-works',
                 templateUrl: 'templates/how-it-works.html',
-                controller: 'TutorialCtrl'
+                controller: 'TutorialCtrl',
+                authRequired: true
             })
 
         .state('login', {

@@ -18,11 +18,10 @@ class ScoreModel {
 			$criteriaid = $mysqli->real_escape_string($data['criteriaid']);
 			$contestantid = $mysqli->real_escape_string($data['contestantid']);
 			$scoring = $mysqli->real_escape_string($data['scoring']);
+			$judgeid = $mysqli->real_escape_string($data['judgeid']);
+			$eventid = $mysqli->real_escape_string($data['eventId']);
 
-			$result = $mysqli->query("INSERT INTO scores(eventid,judgeid,criteriaid,score,contestantid)
-										values ( (SELECT eventid FROM contestants WHERE contestantid=$contestantid LIMIT 1),
-			        					(SELECT judgeid FROM judges WHERE eventid = (SELECT eventid FROM contestants WHERE contestantid=$contestantid LIMIT 1) LIMIT 1),
-			        					$criteriaid,$scoring,$contestantid)");
+			$result = $mysqli->query("INSERT INTO scores(eventid,judgeid,criteriaid,score,contestantid) VALUES ($eventid,$judgeid,$criteriaid,$scoring,$contestantid)");
 
 			if ($result) {
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved'),JSON_PRETTY_PRINT);
@@ -72,7 +71,7 @@ class ScoreModel {
 		}
 	}
 
-	public static function update($id,$data){
+	public static function update($data){
 		$config= new Config();
 		$mysqli = new mysqli($config->host, $config->user, $config->pass, $config->db);
 		if ($mysqli->connect_errno) {
@@ -83,16 +82,15 @@ class ScoreModel {
 			$criteriaid = $mysqli->real_escape_string($data['criteriaid']);
 			$contestantid = $mysqli->real_escape_string($data['contestantid']);
 			$scoring = $mysqli->real_escape_string($data['scoring']);
+			$judgeid = $mysqli->real_escape_string($data['judgeid']);
+			$eventid = $mysqli->real_escape_string($data['eventId']);
 
-			/*$result = $mysqli->query("INSERT INTO scores(eventid,judgeid,criteriaid,score,contestantid)
-										values ( (SELECT eventid FROM contestants WHERE contestantid=$contestantid LIMIT 1),
-			        					(SELECT judgeid FROM judges WHERE eventid = (SELECT eventid FROM contestants WHERE contestantid=$contestantid LIMIT 1) LIMIT 1),
-			        					$criteriaid,$scoring,$contestantid)");*/
-
+			$sql = "UPDATE scores SET score=$scoring WHERE (eventid=$eventid AND judgeid=$judgeid AND criteriaid=$criteriaid AND contestantid=$contestantid)";
+			$result = $mysqli->query($sql);
 			if ($result) {
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully updated'),JSON_PRETTY_PRINT);
 			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>false,'status'=>400,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
 			}
 		}
 	}
