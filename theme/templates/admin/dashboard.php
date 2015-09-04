@@ -778,6 +778,11 @@
 											</select>
 										</div>
 									</div>
+									<div class="col-md-6">
+										<a class="btn btn-md blue hidden-print margin-bottom-5" onclick="PrintElem('#WinnerByEvents','Winner by Events')" style="float:right">
+											Print <i class="fa fa-print"></i>
+										</a>
+									</div>
 							</div>
 							<div class="portlet box blue">
 								<div class="portlet-title">
@@ -795,7 +800,7 @@
 										</a>
 									</div>
 								</div>
-								<div class="portlet-body">
+								<div class="portlet-body" id="WinnerByEvents">
 									
 									<div class="table-scrollable">
 										<table id="reports2" class="table table-bordered">
@@ -837,8 +842,13 @@
 											</select>
 										</div>
 									</div>
+									<div class="col-md-6">
+										<a class="btn btn-md blue hidden-print margin-bottom-5" onclick="PrintElem('#WinnerByCriteria','Winner by Criteria')" style="float:right">
+											Print <i class="fa fa-print"></i>
+										</a>
+									</div>
 							</div>
-							<div class="portlet box blue">
+							<div class="portlet box blue" id="WinnerByCriteria">
 								<div class="portlet-title">
 									<div class="caption">
 										<i class="fa fa-coffee"></i>REsults by Criteria
@@ -903,9 +913,12 @@
 										</a>
 										<a href="javascript:;" class="fullscreen">
 										</a>
+										<a class="hidden-print margin-bottom-5" onclick="PrintElem('#chart_5','Winner by Department')">
+											Print <i class="fa fa-print"></i>
+										</a>
 									</div>
 								</div>
-								<div class="portlet-body">
+								<div class="portlet-body" id="WinnerByDepartment">
 									<div id="chart_5" class="chart" style="height: 400px;">
 									</div>
 									<div class="well margin-top-20">
@@ -1080,6 +1093,35 @@
   		}
 		
   </script>
+
+  <script type="text/javascript">
+
+    function PrintElem(elem,text)
+    {
+        Popup1($(elem).html(),text);
+    }
+   
+
+    function Popup1(data,text) 
+    {
+        var mywindow = window.open('', 'my div', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>'+text+'</title>');
+        mywindow.document.write('<link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+   
+</script>
   		
   </body>
   </html>
