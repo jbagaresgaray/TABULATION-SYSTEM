@@ -20,46 +20,86 @@ angular.module('starter')
             controller: 'AuthCtrl'
         })
 
-        .state('home', {
-            url: '/home',
-            templateUrl: 'templates/home.html',
+        .state('app', {
+            url: "/app",
+            abstract: true,
+            templateUrl: "templates/menu.html",
             controller: 'HomeCtrl'
         })
 
-        .state('events', {
+        .state('app.home', {
+            url: '/home',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/home.html',
+                    controller: 'HomeCtrl',
+                    authRequired: true
+                }
+            }
+        })
+
+        .state('app.events', {
             url: '/events/:activityId',
-            templateUrl: 'templates/events.html',
-            controller: 'EventCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/events.html',
+                    controller: 'EventCtrl',
+                    authRequired: true
+                }
+            }
         })
 
-        .state('contestants', {
+        .state('app.contestants', {
             url: '/contestants/:eventId',
-            templateUrl: 'templates/contestants.html',
-            controller: 'ContestantCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/contestants.html',
+                    controller: 'ContestantCtrl',
+                    authRequired: true
+                }
+            }
         })
 
-        .state('detail', {
+        .state('app.detail', {
             url: '/detail/:eventId/:id',
-            templateUrl: 'templates/detail.html',
-            controller: 'DetailCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/detail.html',
+                    controller: 'DetailCtrl',
+                    authRequired: true
+                }
+            }
         })
 
-        .state('privacy', {
+        .state('app.privacy', {
             url: '/privacy',
-            templateUrl: 'templates/privacy.html',
-            controller: 'PrivacyCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/privacy.html',
+                    controller: 'PrivacyCtrl',
+                }
+            }
         })
 
-        .state('terms', {
+        .state('app.terms', {
             url: '/terms',
-            templateUrl: 'templates/terms.html',
-            controller: 'TermsCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/terms.html',
+                    controller: 'TermsCtrl'
+                }
+            }
         })
 
-        .state('contact', {
+        .state('app.contact', {
             url: '/contact',
-            templateUrl: 'templates/contact.html',
-            controller: 'ContactCtrl'
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/contact.html',
+                    controller: 'ContactCtrl'
+
+                }
+            }
         })
 
         $urlRouterProvider.otherwise('/login');
