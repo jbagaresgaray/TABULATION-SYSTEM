@@ -37,6 +37,13 @@ angular.module('starter')
                     url: HOST + '/scores/',
                     data: data
                 }).error(errorCallback);
+            },
+            updateScore: function(data) {
+                return $.ajax({
+                    method: 'PUT',
+                    url: HOST + '/scores/',
+                    data: data
+                }).error(errorCallback);
             }
         }
     });

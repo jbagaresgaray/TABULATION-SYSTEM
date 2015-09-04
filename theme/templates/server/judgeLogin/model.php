@@ -17,7 +17,7 @@ class JudgeLoginModel {
 			$username = $mysqli->real_escape_string($data['username']);
 			$password = $mysqli->real_escape_string($data['password']);
 			
-			$query1 ="select * from judges where judgeuname = $username and judgepword=$password";
+			$query1 ="SELECT * FROM judges WHERE judgeuname = '$username' AND judgepword='$password'";
 			$result = $mysqli->query($query1);
 			if ($result) {
 	            if($row = $result->fetch_assoc()){
@@ -32,11 +32,11 @@ class JudgeLoginModel {
 	                print json_encode(array('success' =>true,'status'=>200,'form_token' =>$form_token,'childs'=>$row),JSON_PRETTY_PRINT);
 	            }else{
 	                $message = 'Login Failed';
-	                print json_encode(array('success' =>true,'status'=>200,'msg' =>$message),JSON_PRETTY_PRINT);
+	                print json_encode(array('success' =>false,'status'=>200,'msg' =>$message),JSON_PRETTY_PRINT);
 	            }
 	        }else{
 	            $message = 'Error with SQL' . $query1;
-	            print json_encode(array('success' =>true,'status'=>400,'msg' =>$message),JSON_PRETTY_PRINT);
+	            print json_encode(array('success' =>false,'status'=>400,'msg' =>$message),JSON_PRETTY_PRINT);
 	        }
 			
 		}

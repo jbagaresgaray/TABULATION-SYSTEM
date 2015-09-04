@@ -20,8 +20,10 @@ angular.module('starter')
             console.log('$stateParams eventId: ', $stateParams.eventId);
 
             Activity.getContestants($stateParams.eventId).then(function(data) {
-                var result = _.find(data.data.childs, { 'contestantid': $stateParams.id})
-                console.log('result: ',result);
+                var result = _.find(data.data.childs, {
+                    'contestantid': $stateParams.id
+                })
+                console.log('result: ', result);
                 $scope.detail = result;
             });
 
@@ -33,12 +35,16 @@ angular.module('starter')
 
         }
 
-        $scope.showPopup = function(id) {
+        $scope.showPopup = function(id, score) {
             $scope.data = {};
-            console.log($stateParams.id);
+            console.log('score: ', score);
+
+            var judge = JSON.parse(localStorage.getItem('users'));
 
             $scope.data.criteriaid = id;
             $scope.data.contestantid = $stateParams.id;
+            $scope.data.judgeid = judge.judgeid;
+            $scope.data.eventId = $stateParams.eventId;
 
             var myPopup = $ionicPopup.show({
                 template: '<input type="number" ng-model="data.scoring">',
@@ -53,18 +59,33 @@ angular.module('starter')
                         if (!$scope.data.scoring) {
                             e.preventDefault();
                         } else {
-                            Activity.saveScore($scope.data)
-                                .success(function(data) {
-                                    setTimeout(function() {
-                                        var alertPopup = $ionicPopup.alert({
-                                            title: 'Notification',
-                                            template: data.msg
-                                        });
-                                        alertPopup.then(function(res) {
-                                            init();
-                                        });
-                                    }, 50);
-                                });
+                            if (score === undefined || score === null ) {
+                                Activity.saveScore($scope.data)
+                                    .success(function(data) {
+                                        setTimeout(function() {
+                                            var alertPopup = $ionicPopup.alert({
+                                                title: 'Notification',
+                                                template: data.msg
+                                            });
+                                            alertPopup.then(function(res) {
+                                                init();
+                                            });
+                                        }, 50);
+                                    });
+                            } else {
+                                Activity.updateScore($scope.data)
+                                    .success(function(data) {
+                                        setTimeout(function() {
+                                            var alertPopup = $ionicPopup.alert({
+                                                title: 'Notification',
+                                                template: data.msg
+                                            });
+                                            alertPopup.then(function(res) {
+                                                init();
+                                            });
+                                        }, 50);
+                                    });
+                            }
                         }
                     }
                 }]
