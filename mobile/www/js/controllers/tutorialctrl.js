@@ -2,12 +2,10 @@
 
 angular.module('starter')
     .controller('TutorialCtrl', function($rootScope,$state, $scope, $ionicSlideBoxDelegate) {
-        $rootScope.barClass = "bar-clear";
-
         // Called to navigate to back
         $scope.back = function() {
             // Set a flag that we finished the tutorial
-            $state.go('home');
+            $state.go('app.home');
         };
 
         // Move to the next slide

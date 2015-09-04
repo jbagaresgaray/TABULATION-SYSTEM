@@ -1,42 +1,45 @@
 'use strict';
 
 angular.module('starter')
-    .controller('AuthCtrl', function($rootScope, $scope, $state, $ionicPlatform, $timeout, AuthService) {
+    .controller('AuthCtrl', function($rootScope, $scope, $state, $ionicPopup, $timeout, $ionicLoading, AuthService) {
 
         $scope.$on('app.loggedIn', function(event) {
             console.log('LOGGED IN!');
             $state.go('how-it-works');
         });
 
-        $scope.$on('app.loggedOut', function(event) {
-            console.log('NOT LOGGED IN!');
-            $state.go('how-it-works');
-        });
+        $scope.login = function(user) {
+            $ionicLoading.show();
+            AuthService.authLogin(user)
+                .success(function(data) {
+                    console.log('auth: ', data);
+                    if (data.success == false) {
+                        $ionicLoading.hide();
+                        $ionicPopup.alert({
+                            title: 'Notification',
+                            template: data.msg
+                        });
+                    } else {
+                        $ionicLoading.hide();
+                        localStorage.setItem("auth_token", data.form_token);
+                        localStorage.setItem("users", JSON.stringify(data.childs));
 
-        $scope.user = {
-            'username': '',
-            'password': ''
+                        $rootScope.$broadcast('app.loggedIn');
+                    }
+                });
         };
 
-        $scope.login = function() {
-            $state.go('login');
-            /*User.sign_in({}, {
-                    "user": $scope.user
-                },
-                function(data) {
-                    // localStorage.setItem("auth_token", data.auth_token);
-                    $location.path("/how-it-works");
-                },
-                function(data) {
-                    var message = data.data.error
-                    console.log(message);
-                    navigator.notification.alert(message, null, 'Alert', 'OK');
-                }
-            );*/
-        };
+        function init() {
+            $scope.user = {
+                username: '',
+                password: ''
+            };
 
-        $scope.register = function() {
-            $location.path("/register");
-        };
+            if (AuthService.checkLogin()) {
+                $rootScope.$broadcast('app.loggedIn');
+            }
+        }
+
+        init();
 
     });

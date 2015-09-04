@@ -1,7 +1,4 @@
 <ion-view title="Home" hide-back-button="true">
-    <ion-nav-buttons side="secondary">
-        <button ng-click="openPopover($event)" class="button button-icon ion-android-more-vertical"></button>
-    </ion-nav-buttons>
     <div class="bar bar-subheader item item-input-inset">
         <label class="item-input-wrapper">
             <i class="icon ion-search placeholder-icon"></i>
@@ -13,7 +10,7 @@
     </div>
     <ion-content class="has-header has-subheader">
         <div class="list">
-            <a ng-repeat="activity in activities.childs" href="#/events/{{activity.actid}}" class="item item-icon-left item-icon-right">
+            <a ng-repeat="activity in activities.childs" href="#/app/events/{{activity.actid}}" class="item item-icon-left item-icon-right">
                 <i class="icon ion-trophy assertive"></i>
                 <h2 class="dark">{{activity.actname}}</h2>
                 <h4 class="positive">{{activity.actstartdate}} - {{activity.actenddate}}</h4>

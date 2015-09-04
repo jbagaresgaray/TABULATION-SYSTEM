@@ -1,30 +1,25 @@
 'use strict';
 
 angular.module('starter')
-    .controller('HomeCtrl', function($scope, $state, $ionicModal, $ionicPopover, Activity) {
+    .controller('HomeCtrl', function($scope, $rootScope, $state, $ionicModal, $ionicPopover, Activity) {
 
-        $scope.changeStyle = function() {
-            $scope.isList = ($scope.isList == true) ? false : true;
-        };
-
-
-        $scope.openPopover = function($event) {
-            $scope.popover.show($event);
-        };
-        $scope.closePopover = function() {
-            $scope.popover.hide();
-        };
+        $scope.$on('app.loggedOut', function(event) {
+            console.log('NOT LOGGED IN!');
+            localStorage.setItem("auth_token", '');
+            localStorage.setItem("users", '');
+            $state.go('login');
+        });
 
         $scope.tutorial = function() {
             $state.go('how-it-works');
         };
 
+        $scope.logout = function() {
+            console.log('app.loggedOut');
+            $rootScope.$broadcast('app.loggedOut');
+        };
+
         function init() {
-            $ionicPopover.fromTemplateUrl('templates/popover.html', {
-                scope: $scope
-            }).then(function(popover) {
-                $scope.popover = popover;
-            });
 
             Activity.getActivity().then(function(data) {
                 $scope.activities = data.data;
