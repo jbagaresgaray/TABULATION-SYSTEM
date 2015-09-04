@@ -34,13 +34,14 @@ function getuser(){
             },
             success: function(response) {
                 console.log(response.childs);
-                console.log(response.childs[0].acctype);
-                var type = response.childs[0].acctype;
+                console.log(response.childs.acctype);
+                var type = response.childs.acctype;
                 if(type='admin'){
                     console.log('admin form');
                     toastr.success('Success', 'Welcome Admin !');
                     sessionStorage['islogin'] = true;
-                    sessionStorage['user'] = response.childs[0].username;
+                    sessionStorage['user'] = response.childs.username;
+                    sessionStorage['currentUser'] = JSON.stringify(response.childs);
                     window.location = 'dashboard.php';
                 } else if(type='judge')  {
                     console.log('judge form');
