@@ -3,10 +3,9 @@
 angular.module('starter')
     .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
 
-        //$httpProvider.defaults.useXDomain = true;
-        //$httpProvider.defaults.headers.common = 'Content-Type: application/json';
+        $httpProvider.defaults.useXDomain = true;
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
-        //delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
         $stateProvider
             .state('how-it-works', {
@@ -40,7 +39,7 @@ angular.module('starter')
         })
 
         .state('detail', {
-            url: '/detail/:id',
+            url: '/detail/:eventId/:id',
             templateUrl: 'templates/detail.html',
             controller: 'DetailCtrl'
         })

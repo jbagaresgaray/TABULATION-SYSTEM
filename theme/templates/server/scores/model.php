@@ -14,21 +14,21 @@ class ScoreModel {
 		    print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		    return;
 		}else{
+
 			$criteriaid = $mysqli->real_escape_string($data['criteriaid']);
 			$contestantid = $mysqli->real_escape_string($data['contestantid']);
 			$scoring = $mysqli->real_escape_string($data['scoring']);
 
-			print_r(json_encode($data));
-			/*if ($stmt = $mysqli->prepare('insert into scores(eventid,judgeid,criteriaid,score,contestantid)
-										values ( (select eventid from contestants where contestantid=$contestantid limit 1),
-			        					(select judgeid from judges where eventid = (select eventid from contestants where contestantid=$contestantid limit 1) limit 1),
-			        					$criteriaid,$scoring,$contestantid)')){
-				//$stmt->bind_param('sssss', $eventid,$judgeid,$criteriaid,$score,$contestantid);
-				$stmt->execute();
-				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
+			$result = $mysqli->query("INSERT INTO scores(eventid,judgeid,criteriaid,score,contestantid)
+										values ( (SELECT eventid FROM contestants WHERE contestantid=$contestantid LIMIT 1),
+			        					(SELECT judgeid FROM judges WHERE eventid = (SELECT eventid FROM contestants WHERE contestantid=$contestantid LIMIT 1) LIMIT 1),
+			        					$criteriaid,$scoring,$contestantid)");
+
+			if ($result) {
+				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved'),JSON_PRETTY_PRINT);
 			}else{
 				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
-			}*/
+			}
 		}
 	}
 

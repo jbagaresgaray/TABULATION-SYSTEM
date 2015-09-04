@@ -1,7 +1,15 @@
 'use strict';
 
 angular.module('starter')
-    .factory('Activity', function($http, HOST) {
+    .factory('Activity', function($http, $ionicPopup, HOST) {
+
+        var errorCallback = function(a, b, c, d) {
+            $ionicPopup.alert({
+                title: 'error',
+                template: 'Error'
+            });
+        };
+
         return {
             getActivity: function() {
                 return $http.get(HOST + '/activities/').then(function(data) {
@@ -24,12 +32,11 @@ angular.module('starter')
                 });
             },
             saveScore: function(data) {
-                return $http({
+                return $.ajax({
                     method: 'POST',
-                    type:'json',
                     url: HOST + '/scores/',
                     data: data
-                });
+                }).error(errorCallback);
             }
         }
     });

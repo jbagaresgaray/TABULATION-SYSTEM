@@ -1,14 +1,7 @@
 'use strict';
 
 angular.module('starter')
-    .controller('AuthCtrl', function($rootScope, $scope, $state, $location, $ionicPlatform, $timeout, User, AuthService, Authentication) {
-
-        $timeout(function() {
-            if (window.localStorage['didTutorial'] !== "true") {
-                $state.go('how-it-works');
-            }
-            AuthService.checkLogin();
-        });
+    .controller('AuthCtrl', function($rootScope, $scope, $state, $location, $ionicPlatform, $timeout, Authentication) {
 
         $scope.$on('app.loggedIn', function(event) {
             console.log('LOGGED IN!');

@@ -1,17 +1,11 @@
 'use strict';
 
 angular.module('starter')
-    .controller('HomeCtrl', function($scope, $ionicModal, $ionicPopover, Activity) {
+    .controller('HomeCtrl', function($scope, $state, $ionicModal, $ionicPopover, Activity) {
 
         $scope.changeStyle = function() {
             $scope.isList = ($scope.isList == true) ? false : true;
         };
-
-        $ionicPopover.fromTemplateUrl('templates/popover.html', {
-            scope: $scope
-        }).then(function(popover) {
-            $scope.popover = popover;
-        });
 
 
         $scope.openPopover = function($event) {
@@ -21,8 +15,16 @@ angular.module('starter')
             $scope.popover.hide();
         };
 
+        $scope.tutorial = function() {
+            $state.go('how-it-works');
+        };
+
         function init() {
-            $scope.isList = ($scope.isList == true) ? false : true;
+            $ionicPopover.fromTemplateUrl('templates/popover.html', {
+                scope: $scope
+            }).then(function(popover) {
+                $scope.popover = popover;
+            });
 
             Activity.getActivity().then(function(data) {
                 $scope.activities = data.data;

@@ -4,10 +4,13 @@
         <div class='user-tab-top'>
             <div class='user-details'>
                 <div class="profile-picture text-center">
-                    <img ng-src="../img/upload_profile_pic.png" class="profile-picture" />
+                    <img ng-src="../img/photo.jpg" class="profile-picture" />
                 </div>
-                <div class='muted text-center'>
-                    PHILIP CESAR B. GARAY
+                <div class='positive text-center' style="padding-bottom:5px;font-size: 20px;">
+                    {{detail.name | uppercase}}
+                </div>
+                <div class='muted text-center' style="padding-bottom:10px;">
+                    {{detail.departmentname | uppercase}}
                 </div>
             </div>
         </div>
@@ -17,7 +20,7 @@
         <ion-list show-delete="false" show-reorder="false" can-swipe="true">
             <ion-item class="item item-text-wrap item-icon-right" ng-repeat="row in criterias.childs">
                 <h2>{{row.criterianame}} <small class="muted">{{row.percentage}} %</small></h2>
-                <span class="badge badge-assertive">20</span>
+                <span class="badge badge-assertive">{{data.scoring}}</span>
                 <ion-option-button class="button-energized" ng-click=showPopup("{{row.criteriaid}}")>
                     <i class="icon ion-compose"></i>
                 </ion-option-button>

@@ -14,7 +14,6 @@ class ScoreCtrl {
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'score is required'),JSON_PRETTY_PRINT);
 		}
 		ScoreModel::create($data);
-		//print_r(json_encode($data));
 	}
 
 	public static function read(){
