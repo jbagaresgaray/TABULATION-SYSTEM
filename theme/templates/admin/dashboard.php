@@ -213,8 +213,11 @@
 					</div>
 				</div>
 				<div class="col-md-9">
-					<div id="well-1" class="well" style="min-height:86%; display:hidden">
-						<div class="tiles">
+					<div id="well-1" class="well" style="min-height:86%; display:hidden;background-color: #FFF;">
+						<center style="min-height: 97%;">
+							<img src="../img/pic1.png" style="margin:auto;width:300px;height:300px;margin-top: 112px;">
+						</center>
+						<!-- <div class="tiles">
 							<div class="tile double-down bg-blue-hoki">
 								<div class="tile-body">
 									<i class="fa fa-bell-o"></i>
@@ -405,7 +408,7 @@
 							</div>
 						</div>
 						</div>
-						<h2>Tabulation System</h2>
+						<h2>Tabulation System</h2> -->
 					</div>
 					<div id="well-2" class="well" style="min-height:86%; display:hidden">
 						<div class="portlet box green">
@@ -1108,6 +1111,14 @@
         mywindow.document.write('<html><head><title>'+text+'</title>');
         mywindow.document.write('<link href="../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">');
         mywindow.document.write('</head><body >');
+        mywindow.document.write('<center><div>');
+        mywindow.document.write('<div style="float:left">');
+        mywindow.document.write('<img src="../img/pic1.png" style="height:100px;margin-right:10px"></img>');
+        mywindow.document.write('</div>');
+        mywindow.document.write('<div style="float:right;">');
+        mywindow.document.write('<img src="../img/pic2.png" style="height:100px;margin-left:10px" ></img>');
+        mywindow.document.write('</div>');
+        mywindow.document.write('</div></center>');
         mywindow.document.write(data);
         mywindow.document.write('</body></html>');
 
