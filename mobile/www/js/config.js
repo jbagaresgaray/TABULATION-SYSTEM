@@ -7,6 +7,13 @@ angular.module('starter')
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
+        $httpProvider.defaults.transformRequest = function(data) {
+            if (data === undefined) {
+                return data;
+            }
+            return $.param(data);
+        }
+
         $stateProvider
             .state('how-it-works', {
                 url: '/how-it-works',
