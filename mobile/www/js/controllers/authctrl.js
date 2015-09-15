@@ -8,9 +8,9 @@ angular.module('starter')
             $state.go('how-it-works');
         });
 
-        $scope.login = function(user) {
+        $scope.login = function() {
             $ionicLoading.show();
-            AuthService.authLogin(user)
+            AuthService.authLogin($scope.user)
                 .success(function(data) {
                     console.log('auth: ', data);
                     if (data.success == false) {
@@ -26,7 +26,11 @@ angular.module('starter')
 
                         $rootScope.$broadcast('app.loggedIn');
                     }
-                });
+                })
+                .error(function(res) {
+                    console.log('error: ', res);
+                    $ionicLoading.hide();
+                });;
         };
 
         function init() {

@@ -1,9 +1,14 @@
 'use strict';
 
 angular.module('starter')
-    .factory('AuthService', function($rootScope,$ionicPopup,HOST) {
+    .factory('AuthService', function($rootScope,$ionicPopup,$http,HOST) {
 
         var errorCallback = function(a, b, c, d) {
+            console.log('a: ',a);
+            console.log('b: ',b);
+            console.log('c: ',c);
+            console.log('d: ',d);
+
             $ionicPopup.alert({
                 title: 'error',
                 template: 'Error'
@@ -16,7 +21,11 @@ angular.module('starter')
                     method: 'POST',
                     url: HOST + '/judgeLogin/',
                     data: data
-                }).error(errorCallback);
+                })
+                .success(function(res){
+                    return res;
+                })
+                .error(errorCallback);
             },
             checkLogin: function() {
                 // Check if logged in and fire events

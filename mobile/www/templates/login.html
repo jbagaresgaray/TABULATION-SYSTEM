@@ -3,20 +3,22 @@
     <ion-content class="padding" scroll="false">
         <h1 class='login-title padding'>Judge Me Like You Do</h1>
         <div class='small respect-privacy text-center'>A Mobile App version for the NONESCOST Tabulation Software</div>
-        <div class='login-bottom'>
-            <div class="list list-inset">
-                <label class="item item-input">
-                    <input type="text" placeholder="Username" ng-model="user.username" required />
-                </label>
-                <label class="item item-input">
-                    <input type="password" placeholder="Password" ng-model="user.password" required />
-                </label>
+        <form>
+            <div class='login-bottom'>
+                <div class="list list-inset">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Username" ng-model="user.username" required />
+                    </label>
+                    <label class="item item-input">
+                        <input type="password" placeholder="Password" ng-model="user.password" required />
+                    </label>
+                </div>
+                <div class="row">
+                    <button type="button" ng-click="login(user)" class="button button-large button-block button-energized">
+                        Login
+                    </button>
+                </div>
             </div>
-            <div class="row">
-                <button type="button" ng-click="login(user)" class="button button-large button-block button-energized">
-                    Login
-                </button>
-            </div>
-        </div>
+        </form>
     </ion-content>
 </ion-view>
