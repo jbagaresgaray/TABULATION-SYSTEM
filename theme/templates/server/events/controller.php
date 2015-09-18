@@ -1,5 +1,5 @@
 <?php
-include( __DIR__.'/model.php');
+include('../../server/events/model.php');
 
 class EventCtrl {
 	
