@@ -221,7 +221,7 @@ function confirmjudgedelete(id){
 
 function deletejudge(id){
     $.ajax({
-        url: '../server/judges/' + id,
+        url: '../server/judges/index.php/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -271,7 +271,7 @@ function updatejudge(id){
         return false;
     }
     $.ajax({
-            url: '../server/judges/'+id,
+            url: '../server/judges/index.php/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -311,7 +311,7 @@ $(document).on("click", ".judgemodal", function() {
 
 function getJudge_pushToMdal(id) {
     $.ajax({
-        url: '../server/judges/'+id,
+        url: '../server/judges/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

@@ -185,7 +185,7 @@ function confirmdelete(id){
 
 function deleteactivity(id){
     $.ajax({
-        url: '../server/activities/' + id,
+        url: '../server/activities/index.php/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -268,7 +268,7 @@ $(document).on("click", ".activitymodal", function() {
 
 function getActivities_pushToModal(id) {
     $.ajax({
-        url: '../server/activities/'+id, 
+        url: '../server/activities/index.php/'+id, 
         async: false,
         type: 'GET',
         dataType: 'json',

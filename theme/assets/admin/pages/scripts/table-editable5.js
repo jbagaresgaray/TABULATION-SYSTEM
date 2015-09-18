@@ -203,7 +203,7 @@ function confirmcriteriadelete(id){
 
 function deletecriteria(id){
     $.ajax({
-        url: '../server/criteria/' + id,
+        url: '../server/criteria/index.php/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -248,7 +248,7 @@ function updateCriteria(id){
         return false;
     }
     $.ajax({
-            url: '../server/criteria/'+id,
+            url: '../server/criteria/index.php/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -287,7 +287,7 @@ $(document).on("click", ".criteriamodal", function() {
 
 function getCriteria_pushToMdal(id) {
     $.ajax({
-        url: '../server/criteria/'+id,
+        url: '../server/criteria/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

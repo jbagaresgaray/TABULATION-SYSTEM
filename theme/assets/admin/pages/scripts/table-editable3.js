@@ -171,7 +171,7 @@ function loadcontbyevntfiltered(id) {
     $("#sample_editable_3 tbody").html('');
     console.log('>loading data to contestanttable after clearing..');
     $.ajax({
-        url: '../server/filtercontestants/'+id,
+        url: '../server/filtercontestants/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -310,7 +310,7 @@ function getcontestantbyid(id){
     console.log('>loading data to contestants table..');
     $("#sample_editable_3 tbody").html('');
     $.ajax({
-        url: '../server/contestants/'+id,
+        url: '../server/contestants/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -351,7 +351,7 @@ function confirmcontestantdelet3(id){
 
 function deletecontestant(id){
     $.ajax({
-        url: '../server/contestants/' + id,
+        url: '../server/contestants/index.php/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -404,7 +404,7 @@ function updatecontestant(id){
     }
 
     $.ajax({
-            url: '../server/contestants/'+id,
+            url: '../server/contestants/index.php/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -446,7 +446,7 @@ $(document).on("click", ".contestanttmodal", function() {
 
 function getContestant_pushToMdal(id) {
     $.ajax({
-        url: '../server/contestants/'+id,
+        url: '../server/contestants/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

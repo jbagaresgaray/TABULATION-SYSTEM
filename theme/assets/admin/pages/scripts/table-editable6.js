@@ -72,7 +72,7 @@ function loadContestantWhenEventComboChange(eventid){
     $("#candidatecombo4judge").html('');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/contestants_Ext1/'+eventid,
+        url: '../server/contestants_Ext1/index.php/'+eventid,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -110,7 +110,7 @@ function loadCriteriaByEventId(id){
     console.log('>loading data to judge table..');
     $("#sample_editable_6 tbody").html('');
     $.ajax({
-        url: '../server/scores/'+id,
+        url: '../server/scores/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

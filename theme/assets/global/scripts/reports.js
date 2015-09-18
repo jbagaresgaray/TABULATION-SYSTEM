@@ -39,7 +39,7 @@ function loadReportsByEventId(id){
    
     $("#reports1 tbody").html('');
     $.ajax({
-        url: '../server/scores/'+id,
+        url: '../server/scores/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -66,7 +66,7 @@ function loadReportsByEventId(id){
 function x(id,name){
     console.log(id+'-'+name);
     $.ajax({
-        url: '../server/reports/'+id,
+        url: '../server/reports/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -133,7 +133,7 @@ function loadEventReportsByEventId(id){
     console.log(id);
     $("#reports2 tbody").html('');
     $.ajax({
-        url: '../server/events_ext1/'+id,
+        url: '../server/events_ext1/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -159,7 +159,7 @@ function loadEventReportsByEventId(id){
 
 function y(id,name){
     $.ajax({
-        url: '../server/reportsbyEvent/'+id,
+        url: '../server/reportsbyEvent/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

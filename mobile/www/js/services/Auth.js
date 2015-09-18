@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('starter')
-    .factory('AuthService', function($rootScope,$ionicPopup,$http,HOST) {
+    .factory('AuthService', function($rootScope,$ionicPopup,$ionicLoading,$http,HOST) {
 
         var errorCallback = function(a, b, c, d) {
             console.log('a: ',a);
@@ -13,6 +13,7 @@ angular.module('starter')
                 title: 'error',
                 template: 'Error'
             });
+            $ionicLoading.hide();
         };
 
         return {

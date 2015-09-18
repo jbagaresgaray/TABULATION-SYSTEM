@@ -1,5 +1,5 @@
 <?php
-include('../../server/department/model.php');
+include('../../server/departments/model.php');
 
 class DepartmentCtrl {
 	

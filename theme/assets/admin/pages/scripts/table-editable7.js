@@ -168,7 +168,7 @@ function confirmdepartmentdelete(id){
 
 function deletedepartment(id){
     $.ajax({
-        url: '../server/departments/' + id,
+        url: '../server/departments/index.php/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -212,7 +212,7 @@ function updateDepartment(id){
         return false;
     }
     $.ajax({
-            url: '../server/departments/'+id,
+            url: '../server/departments/index.php/'+id,
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -251,7 +251,7 @@ $(document).on("click", ".departmentmodal", function() {
 
 function getDepartment_pushToMdal(id) {
     $.ajax({
-        url: '../server/departments/'+id,
+        url: '../server/departments/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

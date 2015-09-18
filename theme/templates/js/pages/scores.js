@@ -124,7 +124,7 @@ function loadcriteriatoScombo3byid(id) {
     $("#loadcriteriatoScombo3").html('');
     console.log('>loading data to combo-3 after clearing..');
     $.ajax({
-        url: '../server/criteria/'+id,
+        url: '../server/criteria/index.php/'+id,
         async: true,
         type: 'GET',
         dataType: 'json',
@@ -153,7 +153,7 @@ function loadjudgetoScombo4byid(id) {
     $("#loadjudgetoScombo4").html('');
     console.log('>loading data to combo-3 after clearing..');
     $.ajax({
-        url: '../server/judges/'+id,
+        url: '../server/judges/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

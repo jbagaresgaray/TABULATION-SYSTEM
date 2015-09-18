@@ -6,11 +6,12 @@
         </label>
     </div>
     <ion-content class="has-header has-subheader">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"> </ion-refresher>
         <div class="list">
             <a ng-repeat="row in contestants.childs | filter:query" href="#/app/detail/{{eventId}}/{{row.contestantid}}" class="item item-icon-left item-icon-right">
                 <i class="icon ion-happy-outline assertive"></i>
                 <h2 class="positive ">{{row.name}}</h2>
-                <h4 class="calm">{{row.departmentname}} <span class="balanced pull-right">(DONE)</span></h4>
+                <h4 class="calm">{{row.departmentname}} <span class="balanced pull-right" ng-hide="true">(DONE)</span></h4>
                 <i class="icon ion-ios-arrow-right positive"></i>
             </a>
         </div>

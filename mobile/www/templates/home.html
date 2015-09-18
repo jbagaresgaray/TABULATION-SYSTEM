@@ -6,6 +6,7 @@
         </label>
     </div>
     <ion-content class="has-header has-subheader">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"> </ion-refresher>
         <div class="list">
             <a ng-repeat="activity in activities.childs | filter:query" href="#/app/events/{{activity.actid}}" class="item item-icon-left item-icon-right">
                 <i class="icon ion-trophy assertive"></i>

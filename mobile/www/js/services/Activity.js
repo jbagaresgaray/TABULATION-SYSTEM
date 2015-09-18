@@ -12,24 +12,44 @@ angular.module('starter')
 
         return {
             getActivity: function() {
-                return $http.get(HOST + '/activities/').then(function(data) {
+                return $.ajax({
+                    method: 'GET',
+                    url: HOST + '/activities/'
+                }).error(errorCallback);
+
+                /*return $http.get(HOST + '/activities/').then(function(data) {
                     return data;
-                });
+                });*/
             },
             getEvents: function(id) {
-                return $http.get(HOST + '/events_ext1/' + id).then(function(data) {
+                return $.ajax({
+                    method: 'GET',
+                    url: HOST + '/events_ext1/index.php/' + id
+                }).error(errorCallback);
+
+                /*return $http.get(HOST + '/events_ext1/' + id).then(function(data) {
                     return data;
-                });
+                });*/
             },
             getContestants: function(id) {
-                return $http.get(HOST + '/contestants_Ext1/' + id).then(function(data) {
+                return $.ajax({
+                    method: 'GET',
+                    url: HOST + '/contestants_Ext1/index.php/' + id
+                }).error(errorCallback);
+
+                /*return $http.get(HOST + '/contestants_Ext1/' + id).then(function(data) {
                     return data;
-                });
+                });*/
             },
             getCriteria: function(id) {
-                return $http.get(HOST + '/criteria_Ext1/' + id).then(function(data) {
+                return $.ajax({
+                    method: 'GET',
+                    url: HOST + '/criteria_Ext1/index.php/' + id
+                }).error(errorCallback);
+
+                /*return $http.get(HOST + '/criteria_Ext1/' + id).then(function(data) {
                     return data;
-                });
+                });*/
             },
             saveScore: function(data) {
                 return $.ajax({
