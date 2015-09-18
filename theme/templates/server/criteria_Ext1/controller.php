@@ -1,5 +1,5 @@
 <?php
-include( __DIR__.'/model.php');
+include('../../server/criteria_Ext1/model.php');
 
 class CriteriaExt1Ctrl {
 	

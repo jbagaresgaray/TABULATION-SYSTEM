@@ -1,6 +1,6 @@
 <?php
 	include('../../server/cors.php');
-	include( __DIR__.'/controller.php');
+	include('../../server/reports/controller.php');
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	$request = explode("/", substr(@$_SERVER['PATH_INFO'], 1));

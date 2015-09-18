@@ -20,9 +20,9 @@ class DepartmentModel {
 			if ($stmt = $mysqli->prepare('INSERT INTO departments (departmentname,departmentdesc) VALUES(?,?)')){
 				$stmt->bind_param('ss', $departmentname,$departmentdesc);
 				$stmt->execute();
-				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
 			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
 			}
 		}
 	}
@@ -40,7 +40,7 @@ class DepartmentModel {
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
 				array_push($data,$row);
 			}
-			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data));
 		}
 	}
 
@@ -56,7 +56,7 @@ class DepartmentModel {
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
 				array_push($data,$row);
 			}
-			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data));
 		}
 	}
 
@@ -74,9 +74,9 @@ class DepartmentModel {
 			if ($stmt = $mysqli->prepare('UPDATE departments SET departmentname=?,departmentdesc=? WHERE departmentid=?')){
 				$stmt->bind_param('sss', $departmentname_modal, $departmentdesc_modal, $departmentid_modal);
 				$stmt->execute();
-				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
 			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
 			} 
 		}
 	}
@@ -88,9 +88,9 @@ class DepartmentModel {
 			$stmt->bind_param('s', $id);
 			$stmt->execute();
 			$stmt->close();
-			print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully deleted'),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully deleted'));
 		}else{
-			print json_encode(array('success' =>false,'status'=>200,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>false,'status'=>200,'msg' =>'Error message: %s\n', $mysqli->error));
 		}
 	}
 }

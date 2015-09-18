@@ -9,11 +9,9 @@
 	  case 'PUT':
 	    break;
 	  case 'POST':
-	  	$data = [
-				"username" => $_POST['username'],
-				"password" => $_POST['password']
-			];
-	 	 JudgeLoginCtrl::login($data);
+	  		/*$data["username"] = $_POST['username'];
+			$data["password"] = $_POST['password'];*/
+	 	 	JudgeLoginCtrl::login($_POST);
 	    break;
 	  case 'GET':
 	  	break;

@@ -1,5 +1,5 @@
 <?php
-include( __DIR__.'/model.php');
+include('../../server/scores_ext1/model.php');
 
 class ScoreCtrl2 {
 	

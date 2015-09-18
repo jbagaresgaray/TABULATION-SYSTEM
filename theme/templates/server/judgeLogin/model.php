@@ -29,14 +29,14 @@ class JudgeLoginModel {
 	                /*** set the session form token ***/
 	                $_SESSION['auth_token'] = $form_token;
 	                /*** tell the user we are logged in ***/
-	                print json_encode(array('success' =>true,'status'=>200,'form_token' =>$form_token,'childs'=>$row),JSON_PRETTY_PRINT);
+	                print json_encode(array('success' =>true,'status'=>200,'form_token' =>$form_token,'childs'=>$row));
 	            }else{
 	                $message = 'Login Failed';
-	                print json_encode(array('success' =>false,'status'=>200,'msg' =>$message),JSON_PRETTY_PRINT);
+	                print json_encode(array('success' =>false,'status'=>200,'msg' =>$message));
 	            }
 	        }else{
 	            $message = 'Error with SQL' . $query1;
-	            print json_encode(array('success' =>false,'status'=>400,'msg' =>$message),JSON_PRETTY_PRINT);
+	            print json_encode(array('success' =>false,'status'=>400,'msg' =>$message));
 	        }
 			
 		}

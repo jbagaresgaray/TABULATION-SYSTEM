@@ -1,5 +1,5 @@
 <?php
-include( __DIR__.'/model.php');
+include('../../server/reports/model.php');
 
 class ReportsCtrl {
 	

@@ -32,7 +32,7 @@ class ScoreModel2 {
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
 				array_push($data,$row);
 			}
-			print json_encode(array('data' =>$data),JSON_PRETTY_PRINT);
+			print json_encode(array('data' =>$data));
 		}
 	}
 
