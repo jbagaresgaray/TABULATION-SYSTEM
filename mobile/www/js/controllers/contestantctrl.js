@@ -1,39 +1,68 @@
 'use strict';
 
 angular.module('starter')
-    .controller('ContestantCtrl', function($scope, $ionicModal, $stateParams, Activity) {
+    .controller('ContestantCtrl', function($scope, $ionicModal, $stateParams, $ionicLoading, Activity) {
 
         function init() {
+            $ionicLoading.show();
             $scope.eventId = $stateParams.eventId;
             Activity.getContestants($stateParams.eventId).then(function(data) {
-                $scope.contestants = data.data;
+                $scope.contestants = data;
                 console.log($scope.contestants);
+                $ionicLoading.hide();
             });
         }
 
+        $scope.doRefresh = function() {
+            $ionicLoading.show();
+            $scope.eventId = $stateParams.eventId;
+            Activity.getContestants($stateParams.eventId).then(function(data) {
+                $scope.contestants = data;
+                $ionicLoading.hide();
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+        };
+
         init();
     })
-    .controller('DetailCtrl', function($scope, $ionicModal, $ionicPopup, $stateParams, Activity) {
+    .controller('DetailCtrl', function($scope, $ionicModal, $ionicPopup, $stateParams, $ionicLoading, Activity) {
 
         function init() {
             console.log('$stateParams id: ', $stateParams.id);
             console.log('$stateParams eventId: ', $stateParams.eventId);
 
+            $ionicLoading.show();
             Activity.getContestants($stateParams.eventId).then(function(data) {
-                var result = _.find(data.data.childs, {
+                var result = _.find(data.childs, {
                     'contestantid': $stateParams.id
                 })
                 console.log('result: ', result);
                 $scope.detail = result;
+
+                Activity.getCriteria($stateParams.id).then(function(data) {
+
+                    $scope.criterias = data;
+                    console.log('citeria', $scope.criterias);
+                    $ionicLoading.hide();
+                });
             });
-
-            Activity.getCriteria($stateParams.id).then(function(data) {
-
-                $scope.criterias = data.data;
-                console.log('citeria', $scope.criterias);
-            });
-
         }
+
+        $scope.doRefresh = function() {
+            $ionicLoading.show();
+            Activity.getContestants($stateParams.eventId).then(function(data) {
+                var result = _.find(data.childs, {
+                    'contestantid': $stateParams.id
+                })
+                $scope.detail = result;
+
+                Activity.getCriteria($stateParams.id).then(function(data) {
+                    $scope.criterias = data;
+                    $ionicLoading.hide();
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+            });
+        };
 
         $scope.showPopup = function(id, score) {
             $scope.data = {};
@@ -59,7 +88,7 @@ angular.module('starter')
                         if (!$scope.data.scoring) {
                             e.preventDefault();
                         } else {
-                            if (score === undefined || score === null ) {
+                            if (score === undefined || score === null) {
                                 Activity.saveScore($scope.data)
                                     .success(function(data) {
                                         setTimeout(function() {

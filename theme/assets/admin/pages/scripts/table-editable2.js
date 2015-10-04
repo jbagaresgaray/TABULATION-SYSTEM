@@ -275,7 +275,7 @@ function confirmeventdelete2(id){
 
 function deleteevent(id){
    $.ajax({
-        url: '../server/events/' + id,
+        url: '../server/events/index.php/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -367,7 +367,7 @@ $(document).on("click", ".eventmodal", function() {
 
 function getEvents_pushToMdal(id) {
     $.ajax({
-        url: '../server/events/'+id,
+        url: '../server/events/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

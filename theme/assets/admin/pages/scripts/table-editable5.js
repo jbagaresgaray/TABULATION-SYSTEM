@@ -281,7 +281,7 @@ function confirmcriteriadelete(id) {
 
 function deletecriteria(id) {
     $.ajax({
-        url: '../server/criteria/' + id,
+        url: '../server/criteria/index.php/' + id,
         async: true,
         type: 'DELETE',
         success: function(response) {
@@ -371,7 +371,11 @@ $(document).on("click", ".criteriamodal", function() {
 
 function getCriteria_pushToMdal(id) {
     $.ajax({
+<<<<<<< HEAD
         url: '../server/criteria/' + id,
+=======
+        url: '../server/criteria/index.php/'+id,
+>>>>>>> a4825bc7aa31402b9e1ab6be4bcdaa050f476b5f
         async: false,
         type: 'GET',
         dataType: 'json',

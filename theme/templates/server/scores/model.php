@@ -24,9 +24,9 @@ class ScoreModel {
 			$result = $mysqli->query("INSERT INTO scores(eventid,judgeid,criteriaid,score,contestantid) VALUES ($eventid,$judgeid,$criteriaid,$scoring,$contestantid)");
 
 			if ($result) {
-				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved'),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved'));
 			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
 			}
 		}
 	}
@@ -50,8 +50,8 @@ class ScoreModel {
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
 				array_push($data,$row);
 			}
-			//print json_encode(array('success' =>true,'status'=>200,'childs' =>$data),JSON_PRETTY_PRINT);
-			print json_encode(array('data' =>$data),JSON_PRETTY_PRINT);
+			//print json_encode(array('success' =>true,'status'=>200,'childs' =>$data));
+			print json_encode(array('data' =>$data));
 		}
 	}
 
@@ -67,7 +67,7 @@ class ScoreModel {
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
 				array_push($data,$row);
 			}
-			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data));
 		}
 	}
 
@@ -88,9 +88,9 @@ class ScoreModel {
 			$sql = "UPDATE scores SET score=$scoring WHERE (eventid=$eventid AND judgeid=$judgeid AND criteriaid=$criteriaid AND contestantid=$contestantid)";
 			$result = $mysqli->query($sql);
 			if ($result) {
-				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully updated'),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully updated'));
 			}else{
-				return print json_encode(array('success' =>false,'status'=>400,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>false,'status'=>400,'msg' =>'Error message: %s\n', $mysqli->error));
 			}
 		}
 	}
@@ -102,9 +102,9 @@ class ScoreModel {
 			$stmt->bind_param('s', $id);
 			$stmt->execute();
 			$stmt->close();
-			print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully deleted'),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully deleted'));
 		}else{
-			print json_encode(array('success' =>false,'status'=>200,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>false,'status'=>200,'msg' =>'Error message: %s\n', $mysqli->error));
 		}*/
 	}
 }

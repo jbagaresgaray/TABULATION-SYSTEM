@@ -24,9 +24,8 @@ function getuser(){
 
         $.ajax({
             url: '../server/finduser/',
-            async: false,
+            async: true,
             type: 'POST',
-            crossDomain: true,
             dataType: 'json',
             data: {
                 username: $("#username").val(),

@@ -1,6 +1,6 @@
 <?php
 	include('../../server/cors.php');
-	include( __DIR__.'/controller.php');
+	include('../../server/activities/controller.php');
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	$request = explode("/", substr(@$_SERVER['PATH_INFO'], 1));
@@ -35,7 +35,7 @@
 	  case 'DELETE':
 	  	if(isset($request) && !empty($request) && $request[0] !== ''){
 	  		$id = $request[0];
-				AdminCtrl::delete($id);
+			AdminCtrl::delete($id);
 	  	}
 	    break;
 	  default:

@@ -21,9 +21,9 @@ class CriteriaModel {
 			if ($stmt = $mysqli->prepare('INSERT INTO criteria(criterianame,percentage,eventid) VALUES(?,?,?)')){
 				$stmt->bind_param('sss', $criterianame,$percentage,$eventid);
 				$stmt->execute();
-				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
 			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
 			}
 		}
 	}
@@ -41,7 +41,7 @@ class CriteriaModel {
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
 				array_push($data,$row);
 			}
-			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data));
 		}
 	}
 
@@ -57,7 +57,7 @@ class CriteriaModel {
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){
 				array_push($data,$row);
 			}
-			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>true,'status'=>200,'childs' =>$data));
 		}
 	}
 
@@ -76,9 +76,9 @@ class CriteriaModel {
 			if ($stmt = $mysqli->prepare('update criteria set criterianame=?, percentage=?, eventid=(select eventid from events where eventname=? limit 1) where criteriaid=?')){
 				$stmt->bind_param('ssss', $criterianame,$percentage,$eventname,$criteriaid);
 				$stmt->execute();
-				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
 			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
 			} 
 		}
 	}
@@ -90,9 +90,9 @@ class CriteriaModel {
 			$stmt->bind_param('s', $id);
 			$stmt->execute();
 			$stmt->close();
-			print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully deleted'),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully deleted'));
 		}else{
-			print json_encode(array('success' =>false,'status'=>200,'msg' =>'Error message: %s\n', $mysqli->error),JSON_PRETTY_PRINT);
+			print json_encode(array('success' =>false,'status'=>200,'msg' =>'Error message: %s\n', $mysqli->error));
 		}
 	}
 }

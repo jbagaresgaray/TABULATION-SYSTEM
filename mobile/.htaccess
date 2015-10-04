@@ -1,5 +1,5 @@
-Deny from all
-Options -Indexes
+Allow from all
+# Options -Indexes
 # or #
-IndexIgnore *
-IndexIgnore *.zip *.txt
+# IndexIgnore *
+# IndexIgnore *.zip *.txt
