@@ -235,7 +235,7 @@ function fetch_all_eventsbyID(id) {
     console.log('>loading data to event table..');
     $("#sample_editable_2 tbody").html('');
     $.ajax({
-        url: '../server/events/'+id,
+        url: '../server/events_Ext1/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',

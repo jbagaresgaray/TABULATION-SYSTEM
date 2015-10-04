@@ -37,6 +37,7 @@
 <link href="../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css">
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="../img/logo.png">
+
 </head>
 <body class="page-header-fixed page-quick-sidebar-over-content page-full-width">
 <!-- BEGIN HEADER -->
@@ -508,13 +509,13 @@
 													</button>
 												</div>
 											</div>
-											<!-- <div class="col-md-6">
+											<div class="col-md-6">
 												<div class="btn-group pull-right">
-													<select id="allact_evnt2" style="background-color: #F4F7F7;" class="form-control select2me pull-right" data-placeholder="Select..." onchange="fetch_all_eventsbyID($(this).val())">
+													<select id="allact_evnt2" style="background-color: #F4F7F7; min-width:200px" class="form-control select2me pull-right" data-placeholder="Select..." onchange="fetch_all_eventsbyID($(this).val())">
 														<option value=""></option>
 													</select>
 												</div>
-											</div> -->
+											</div>
 										</div>
 									</div>
 									<table class="table table-hover table-bordered" id="sample_editable_2">
@@ -621,6 +622,14 @@
 													</ul>
 												</div>
 											</div> -->
+											<div class="col-md-6">
+												<div class="btn-group pull-right">
+													<select id="" style="background-color: #F4F7F7;min-width:200px" class="form-control select2me pull-right" data-placeholder="Select..." onchange="getjudgesbygender($(this).val())">
+														<option value="Male">Male</option>
+														<option value="Female">Female</option>
+													</select>
+												</div>
+											</div>
 										</div>
 									</div>
 									<table class="table table-hover table-bordered" id="sample_editable_4">
@@ -637,6 +646,9 @@
 											</th>
 											<th>
 												 Password
+											</th>
+											<th>
+												 Gender
 											</th>
 											<th>
 												 Edit
@@ -658,6 +670,13 @@
 													<button id="sample_editable_5_new" class="btn green">
 													Add New <i class="fa fa-plus"></i>
 													</button>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="btn-group pull-right">
+													<select id="eventname3" style="background-color: #F4F7F7; min-width:200px" class="form-control select2me pull-right" data-placeholder="Select..." onchange="getCriteriabyeventname($(this).val())">
+														<option value=""></option>
+													</select>
 												</div>
 											</div>
 											<!-- <div class="col-md-6">
@@ -774,10 +793,17 @@
 					<div id="well-3" class="well" style="min-height:86%; display:hidden">
 						
 							<div class="row">
-								<div class="col-md-6">
+									<div class="col-md-3">
 										<div class="form-group">
 											<label></label>
 											<select id="actcombo4score" style="background-color: #F4F7F7;" class="form-control select2me eventcombo4score" data-placeholder="Select..." onchange="loadEventReportsByEventId($(this).val())">
+											</select>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label></label>
+											<select id="evtcombo4score2" style="background-color: #F4F7F7;" class="form-control select2me eventcombo4score2" data-placeholder="Select..." onchange="getevtreport2($(this).val())">
 											</select>
 										</div>
 									</div>
@@ -1045,6 +1071,7 @@
 <script src="../../assets/admin/pages/scripts/table-editable7.js"></script>
 <script src="../../assets/global/scripts/dashboard.js"></script> 
 <script src="../../assets/global/scripts/reports.js"></script> <!-- the code for the reports.. -->
+<script src="../../assets/global/scripts/aes.js"></script> 
 
 <!-- initiallization -->
 <script>

@@ -16,6 +16,9 @@ class JudgesCtrl {
 		if(isset($data['eventid']) && empty($data['eventid'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
 		}
+		if(isset($data['gender']) && empty($data['gender'])){
+			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'gender is required'),JSON_PRETTY_PRINT);
+		}
 		JudgesModel::create($data);
 	}
 
@@ -39,6 +42,9 @@ class JudgesCtrl {
 		}
 		if(isset($data['judgeid']) && empty($data['judgeid'])){
 			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'End date is required'),JSON_PRETTY_PRINT);
+		}
+		if(isset($data['judgegender']) && empty($data['judgegender'])){
+			return print json_encode(array('success'=>false,'status'=>400,'msg'=>'gender is required'),JSON_PRETTY_PRINT);
 		}
 		JudgesModel::update($id,$data);
 	}

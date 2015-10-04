@@ -1,266 +1,269 @@
 <!-- ----------------------------------------------------- activities modal ------------------------------------------------------------- -->
-			<div id="static1" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Confirmation</h4>
-										</div>
-										<div class="modal-body">
-											<form role="form">
-												<div class="form-body">
-													
-													<div class="form-group">
-														<label>Activities</label>
-														<input id="actname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group">
-														<label>Date Start</label>
-														<input id="startdate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
-													</div>
-													<div class="form-group">
-														<label>Date End</label>
-														<input id="enddate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
-													</div>
-													<div class="form-group" style="display:none">
-														<label>wew</label>
-														<input id="actid_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
-													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" data-dismiss="modal" class="btn default">Close</button>
-											<button type="button" onclick="updateactivity($('#actid_modal').val())" data-dismiss="" class="btn green">Continue Task</button>
-										</div>
-									</div>
-								</div>
-			</div>
-			<!-- ----------------------------------------------------- end of activities modal ------------------------------------------------------ -->
-
-			<!-- ----------------------------------------------------- events modal            ------------------------------------------------------- -->
-			<div id="static2" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Confirmation</h4>
-										</div>
-										<div class="modal-body">
-											<form role="form">
-												<div class="form-body">
-													
-													<div class="form-group">
-															<label>Avtivity Name</label>
-															<select id="allact_evnt_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
-																<option value=""></option>
-															</select>
-													</div>
-													<div class="form-group">
-														<label>Event Name</label>
-														<input id="eventname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group">
-														<label>Event Description</label>
-														<textarea id="eventdesc_modal" class="form-control" rows="3" style="margin: 0px -1px 0px 0px; width: 100%; height: 82px;max-width: 100%;border: 1px dotted;background-color: #F4F7F7;"></textarea>
-													</div>
-													<div class="form-group">
-														<label>Date</label>
-														<input id="eventdate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control input-large date-picker" size="16" type="text" value="">
-													</div>
-													<div class="form-group" style="display:none">
-														<label>wew</label>
-														<input id="eventid_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control input-large date-picker" size="16" type="text" value="">
-													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" data-dismiss="modal" class="btn default">Close</button>
-											<button type="button" onclick="updateevent($('#eventid_modal').val())" data-dismiss="" class="btn green">Continue Task</button>
-										</div>
-									</div>
-								</div>
-			</div>
-			<!-- ----------------------------------------------------- end of events modal    ------------------------------------------------------ -->
-
-			<!-- ----------------------------------------------------- contestant modal ------------------------------------------------------------- -->
-			<div id="static3" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Confirmation</h4>
-										</div>
-										<div class="modal-body">
-											<form role="form">
-												<div class="form-body">
-													
-													<div class="form-group">
-															<label>Event Name</label>
-															<select id="combo3eventt_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
-																<option value=""></option>
-															</select>
-													</div>
-													<div class="form-group">
-														<label>Contestant Name</label>
-														<input id="contestantname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group">
-															<label>Gender</label>
-															<select id="gender_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
-																<option value="Male">Male</option>
-																<option value="Female">Female</option>
-															</select>
-													</div>
-													<div class="form-group">
-															<label>Department</label>
-															<select id="contestantdep_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
-																<option value=""></option>
-															</select>
-													</div>
-													<div class="form-group">
-														<label>Upload photo</label>
-														<input style="border: 1px dotted;width: 100%;background:#F4F7F7" class="btn default" type="file" id="exampleInputFile1">
-													</div>
-													<div class="form-group" style="display:none">
-														<label>wew</label>
-														<input id="contestantid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" data-dismiss="modal" class="btn default">Close</button>
-											<button type="button" onclick="updatecontestant($('#contestantid_modal').val())" data-dismiss="" class="btn green">Continue Task</button>
-										</div>
-									</div>
-								</div>
-			</div>
-			<!-- ----------------------------------------------------- end of contestants modal ------------------------------------------------------ -->			
-
-			<!-- ----------------------------------------------------- judges modal ------------------------------------------------------------- -->
-			<div id="static4" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Confirmation</h4>
-										</div>
-										<div class="modal-body">
-											<form role="form">
-												<div class="form-body">
-													
-													<div class="form-group">
-															<label>Select Event</label>
-															<select id="judgecombo_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
-															</select>
-													</div>
-													<div class="form-group">
-														<label>Full Name</label>
-														<input id="judgefullname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group">
-														<label>Username</label>
-														<input id="judgeuname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group">
-														<label>Password</label>
-														<input id="judgepword_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group">
-														<label>Confirm password</label>
-														<input id="cjudgepword_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group" style="display:none">
-														<label>wew</label>
-														<input id="judgeid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" data-dismiss="modal" class="btn default">Close</button>
-											<button type="button" onclick="updatejudge()" data-dismiss="" class="btn green">Continue Task</button>
-										</div>
-									</div>
-								</div>
-			</div>
-			<!-- ----------------------------------------------------- end of judges modal ------------------------------------------------------ -->
-
-			<!-- ----------------------------------------------------- criteria modal ------------------------------------------------------------- -->
-			<div id="static5" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Confirmation</h4>
-										</div>
-										<div class="modal-body">
-											<form role="form">
-												<div class="form-body">
-													
-													<div class="form-group">
-															<label>Select Event</label>
-															<select id="eventidfrmcriteria_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
-																<option value=""></option>
-															</select>
-													</div>
-													<div class="form-group">
-														<label>Criteria Name</label>
-														<input id="criterianame_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group">
-														<label>Percentage</label>
-														<input id="percentage_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="number" class="form-control" placeholder="">
-													</div>
-													<div class="form-group" style="display:none">
-														<label>wew</label>
-														<input id="criteriaid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" data-dismiss="modal" class="btn default">Close</button>
-											<button type="button" onclick="updateCriteria($('#criteriaid_modal').val())" data-dismiss="" class="btn green">Continue Task</button>
-										</div>
-									</div>
-								</div>
-			</div>
-			<!-- ----------------------------------------------------- end of criteria modal ------------------------------------------------------ -->
-
-			<!-- ----------------------------------------------------- criteria modal ------------------------------------------------------------- -->
-			<div id="static7" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-											<h4 class="modal-title">Confirmation</h4>
-										</div>
-										<div class="modal-body">
-											<form role="form">
-												<div class="form-body">
-													<div class="form-group">
-														<label>Department Name</label>
-														<input id="departmentname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group">
-														<label>Description</label>
-														<input id="departmentdesc_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-													<div class="form-group" style="display:none">
-														<label>wew</label>
-														<input id="departmentid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
-													</div>
-												</div>
-											</form>
-										</div>
-										<div class="modal-footer">
-											<button type="button" data-dismiss="modal" class="btn default">Close</button>
-											<button type="button" onclick="updateDepartment()" data-dismiss="" class="btn green">Continue Task</button>
-										</div>
-									</div>
-								</div>
-			</div>
-			<!-- ----------------------------------------------------- end of criteria modal ------------------------------------------------------ -->
+<div id="static1" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Activities</label>
+                            <input id="actname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Date Start</label>
+                            <input id="startdate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
+                        </div>
+                        <div class="form-group">
+                            <label>Date End</label>
+                            <input id="enddate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label>wew</label>
+                            <input id="actid_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control-inline input-large date-picker" size="16" type="text" value="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn default">Close</button>
+                <button type="button" onclick="updateactivity($('#actid_modal').val())" data-dismiss="" class="btn green">Continue Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------- end of activities modal ------------------------------------------------------ -->
+<!-- ----------------------------------------------------- events modal            ------------------------------------------------------- -->
+<div id="static2" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Avtivity Name</label>
+                            <select id="allact_evnt_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Event Name</label>
+                            <input id="eventname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Event Description</label>
+                            <textarea id="eventdesc_modal" class="form-control" rows="3" style="margin: 0px -1px 0px 0px; width: 100%; height: 82px;max-width: 100%;border: 1px dotted;background-color: #F4F7F7;"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input id="eventdate_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control input-large date-picker" size="16" type="text" value="">
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label>wew</label>
+                            <input id="eventid_modal" style="border: 1px dotted;background-color: #F4F7F7;" class="form-control form-control input-large date-picker" size="16" type="text" value="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn default">Close</button>
+                <button type="button" onclick="updateevent($('#eventid_modal').val())" data-dismiss="" class="btn green">Continue Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------- end of events modal    ------------------------------------------------------ -->
+<!-- ----------------------------------------------------- contestant modal ------------------------------------------------------------- -->
+<div id="static3" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Event Name</label>
+                            <select id="combo3eventt_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Contestant Name</label>
+                            <input id="contestantname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label>
+                            <select id="gender_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Department</label>
+                            <select id="contestantdep_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Upload photo</label>
+                            <input style="border: 1px dotted;width: 100%;background:#F4F7F7" class="btn default" type="file" id="exampleInputFile1">
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label>wew</label>
+                            <input id="contestantid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn default">Close</button>
+                <button type="button" onclick="updatecontestant($('#contestantid_modal').val())" data-dismiss="" class="btn green">Continue Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------- end of contestants modal ------------------------------------------------------ -->
+<!-- ----------------------------------------------------- judges modal ------------------------------------------------------------- -->
+<div id="static4" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Select Event</label>
+                            <select id="judgecombo_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input id="judgefullname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input id="judgeuname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input id="judgepword_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm password</label>
+                            <input id="cjudgepword_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <select id="cjudgegender_modal" style="background-color: #F4F7F7;" class="form-control select2me pull-right" data-placeholder="Select...">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <br>
+                        <br>
+                        <!--  <div class="form-group">
+                            <label>Gender</label>
+                            
+                            <input id="cjudgegender_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div> -->
+                        <div class="form-group" style="display:none">
+                            <label>wew</label>
+                            <input id="judgeid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn default">Close</button>
+                <button type="button" onclick="updatejudge()" data-dismiss="" class="btn green">Continue Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------- end of judges modal ------------------------------------------------------ -->
+<!-- ----------------------------------------------------- criteria modal ------------------------------------------------------------- -->
+<div id="static5" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Select Event</label>
+                            <select id="eventidfrmcriteria_modal" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Criteria Name</label>
+                            <input id="criterianame_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Percentage</label>
+                            <input id="percentage_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="number" min="1" max="100" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label>wew</label>
+                            <input id="criteriaid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn default">Close</button>
+                <button type="button" onclick="updateCriteria($('#criteriaid_modal').val())" data-dismiss="" class="btn green">Continue Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------- end of criteria modal ------------------------------------------------------ -->
+<!-- ----------------------------------------------------- criteria modal ------------------------------------------------------------- -->
+<div id="static7" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label>Department Name</label>
+                            <input id="departmentname_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <input id="departmentdesc_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="form-group" style="display:none">
+                            <label>wew</label>
+                            <input id="departmentid_modal" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn default">Close</button>
+                <button type="button" onclick="updateDepartment()" data-dismiss="" class="btn green">Continue Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------- end of criteria modal ------------------------------------------------------ -->

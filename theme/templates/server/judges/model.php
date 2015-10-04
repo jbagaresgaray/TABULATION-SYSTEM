@@ -18,9 +18,10 @@ class JudgesModel {
 			$judgeuname = $mysqli->real_escape_string($data['judgeuname']);
 			$judgepword = $mysqli->real_escape_string($data['judgepword']);
 			$eventid = $mysqli->real_escape_string($data['eventid']);
+			$gender = $mysqli->real_escape_string($data['gender']);
 
-			if ($stmt = $mysqli->prepare('INSERT INTO judges(judgefullname,judgeuname,judgepword,eventid) VALUES(?,?,?,?)')){
-				$stmt->bind_param('ssss', $judgefullname,$judgeuname,$judgepword,$eventid);
+			if ($stmt = $mysqli->prepare('INSERT INTO judges(judgefullname,judgeuname,judgepword,eventid,gender) VALUES(?,?,?,?,?)')){
+				$stmt->bind_param('sssss', $judgefullname,$judgeuname,$judgepword,$eventid,$gender);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{
@@ -73,9 +74,10 @@ class JudgesModel {
 			$judgeuname = $mysqli->real_escape_string($data['judgeuname']);
 			$judgepword = $mysqli->real_escape_string($data['judgepword']);
 			$judgeid = $mysqli->real_escape_string($data['judgeid']);
+			$gender = $mysqli->real_escape_string($data['judgegender']);
 
-			if ($stmt = $mysqli->prepare('UPDATE judges SET judgefullname=?,judgeuname=?,judgepword=? WHERE judgeid=?')){
-				$stmt->bind_param('ssss', $judgefullname,$judgeuname,$judgepword,$judgeid);
+			if ($stmt = $mysqli->prepare('UPDATE judges SET judgefullname=?,judgeuname=?,judgepword=?,gender=? WHERE judgeid=?')){
+				$stmt->bind_param('sssss', $judgefullname,$judgeuname,$judgepword,$gender,$judgeid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data),JSON_PRETTY_PRINT);
 			}else{

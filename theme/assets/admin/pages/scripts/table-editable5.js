@@ -1,11 +1,12 @@
 $(document).ready(function() {
     loadcriteriacombo();
     getCriteria();
+    loadalleventsincriteriaform();
 });
 
-var TableEditable5 = function () {
+var TableEditable5 = function() {
 
-    var handleTable5 = function () {
+    var handleTable5 = function() {
 
         var table5 = $('#sample_editable_5');
 
@@ -40,8 +41,8 @@ var TableEditable5 = function () {
                 "targets": [0]
             }],
             "order": [
-                [0, "asc"]
-            ] // set first column as a default sort by asc
+                    [0, "asc"]
+                ] // set first column as a default sort by asc
         });
 
         var tableWrapper5 = $("#sample_editable_5_wrapper");
@@ -55,7 +56,7 @@ var TableEditable5 = function () {
     return {
 
         //main function to initiate the module
-        init: function () {
+        init: function() {
             handleTable5();
         }
 
@@ -65,7 +66,7 @@ var TableEditable5 = function () {
 
 //------------------------------------------------------------------my code---------------------------------------------------------------------------
 
-function clearcriteriafields(){
+function clearcriteriafields() {
     $("#criterianame").val('');
     $("#percentage").val('');
 }
@@ -80,13 +81,13 @@ function loadcriteriacombo() {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-criteria..',decode);
+            console.log('>loading data to combo-criteria..', decode);
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
-                        var row = decode.childs; 
-                        var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
-                        console.log('>metadata',row[i].eventid+' '+row[i].eventname);
+                        var row = decode.childs;
+                        var html = '<option value="' + row[i].eventid + '">' + row[i].eventname + '</option>';
+                        console.log('>metadata', row[i].eventid + ' ' + row[i].eventname);
                         $("#eventidfrmcriteria").append(html);
                     }
                 }
@@ -99,13 +100,18 @@ function loadcriteriacombo() {
     });
 }
 
-function saveCriteria(){
+function saveCriteria() {
     console.log('Saving records...');
     var empty = false;
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
     });
-
+    if($('#percentage').val() <= 0){
+        empty = true;
+    }
+     if($('#percentage').val() >= 100){
+        empty = true;
+    }
     if ($("#criterianame").val() == '') {
         $("#criterianame").next('span').text('Activity Name is required.');
         empty = true;
@@ -125,37 +131,37 @@ function saveCriteria(){
     }
 
     $.ajax({
-            url: '../server/criteria/',
-            async: false,
-            type: 'POST',
-            crossDomain: true,
-            dataType: 'json',
-            data: {
-                criterianame: $('#criterianame').val(),
-                percentage: $('#percentage').val(),
-                eventid:$('#eventidfrmcriteria').val()
+        url: '../server/criteria/',
+        async: false,
+        type: 'POST',
+        crossDomain: true,
+        dataType: 'json',
+        data: {
+            criterianame: $('#criterianame').val(),
+            percentage: $('#percentage').val(),
+            eventid: $('#eventidfrmcriteria').val()
 
-            },
-            success: function(response) {
-                var decode = response;
-                if (decode.success == true) {
-                    console.log('records save');
-                    getCriteria();
-                    toastr.success('Success', 'Records successfully inserted!');
-                    clearcriteriafields();
-                } else if (decode.success === false) {
-                    console.log('failed saving records');
-                    toastr.error('Error', 'Failed saving records!');
-                    return;
-                }
-            },
-            error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
-                 toastr.error('Error', error.message);
+        },
+        success: function(response) {
+            var decode = response;
+            if (decode.success == true) {
+                console.log('records save');
+                getCriteria();
+                toastr.success('Success', 'Records successfully inserted!');
+                clearcriteriafields();
+            } else if (decode.success === false) {
+                console.log('failed saving records');
+                toastr.error('Error', 'Failed saving records!');
                 return;
             }
+        },
+        error: function(error) {
+            console.log("Error:");
+            console.log(error.responseText);
+            console.log(error.message);
+            toastr.error('Error', error.message);
+            return;
+        }
     });
 }
 
@@ -172,36 +178,108 @@ function getCriteria() {
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
-                        var row = decode.childs; 
-                        var html = '<tr>\
+                        var row = decode.childs;
+                        console.log('hiiiii', row[i]);
+                        if (row[i].criterianame != null) {
+                            var html = '<tr>\
                                         <td style="display:none">' + row[i].criteriaid + '</td>\
                                         <td>' + row[i].criterianame + '</td>\
                                         <td>' + row[i].percentage + '</td>\
                                         <td>' + row[i].eventname + '</td>\
-                                        <td><a data-id="'+row[i].criteriaid+'" href="javascript:void(0)" data-toggle="modal" class="config criteriamodal" data-original-title="" title="">Edit</td>\
-                                        <td><a onClick="confirmcriteriadelete('+row[i].criteriaid+')" href="javascript:void(0)">Delete</a></td>\
+                                        <td><a data-id="' + row[i].criteriaid + '" href="javascript:void(0)" data-toggle="modal" class="config criteriamodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmcriteriadelete(' + row[i].criteriaid + ')" href="javascript:void(0)">Delete</a></td>\
                                     </tr>';
-                        $("#sample_editable_5 tbody").append(html);
+                            $("#sample_editable_5 tbody").append(html);
+                        }
+
                     }
                 }
             }
         },
         error: function(error) {
-             toastr.error('Error', error.message);
+            toastr.error('Error', error.message);
             return;
         }
     });
 }
 
-function confirmcriteriadelete(id){
+function loadalleventsincriteriaform() {
+
+    $("#eventname3").html('');
+    $("#eventname3").append('<option value="all">All</option>'); // PLEASE DONT CHANGE THE OPTION-VALUE 'all'. you may change the option-text rather
+    $.ajax({
+        url: '../server/events/',
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            console.log('>loading data to combo-criteria..', decode);
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs;
+                        var html = '<option value="' + row[i].eventid + '">' + row[i].eventname + '</option>';
+                        console.log('>metadata', row[i].eventid + ' ' + row[i].eventname);
+                        $("#eventname3").append(html);
+                    }
+                    
+                }
+            }
+        },
+        error: function(error) {
+            toastr.error('Error', error.message);
+            return;
+        }
+    });
+}
+
+function getCriteriabyeventname(eventid) {
+    
+    console.log(eventid);
+    $("#sample_editable_5 tbody").html('');
+    $.ajax({
+        url: '../server/criteria_Ext2/' + eventid,
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs;
+                        if (row[i].criterianame != null) {
+                            var html = '<tr>\
+                                        <td style="display:none">' + row[i].criteriaid + '</td>\
+                                        <td>' + row[i].criterianame + '</td>\
+                                        <td>' + row[i].percentage + '</td>\
+                                        <td>' + row[i].eventname + '</td>\
+                                        <td><a data-id="' + row[i].criteriaid + '" href="javascript:void(0)" data-toggle="modal" class="config criteriamodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmcriteriadelete(' + row[i].criteriaid + ')" href="javascript:void(0)">Delete</a></td>\
+                                    </tr>';
+                            $("#sample_editable_5 tbody").append(html);
+                        }
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            toastr.error('Error', error.message);
+            return;
+        }
+    });
+}
+
+function confirmcriteriadelete(id) {
     if (confirm('delete this record?')) {
         deletecriteria(id);
     } else {
-        
+
     }
 }
 
-function deletecriteria(id){
+function deletecriteria(id) {
     $.ajax({
         url: '../server/criteria/' + id,
         async: true,
@@ -219,13 +297,18 @@ function deletecriteria(id){
     });
 }
 
-function updateCriteria(id){
-    
+function updateCriteria(id) {
+
     var empty = false;
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
     });
-
+    if($('#percentage_modal').val() <= 0){
+        empty = true;
+    }
+     if($('#percentage_modal').val() >= 100){
+        empty = true;
+    }
     if ($("#criterianame_modal").val() == '') {
         $("#criterianame_modal").next('span').text('Activity Name is required.');
         empty = true;
@@ -248,52 +331,53 @@ function updateCriteria(id){
         return false;
     }
     $.ajax({
-            url: '../server/criteria/'+id,
-            async: false,
-            type: 'PUT',
-            crossDomain: true,
-            dataType: 'json',
-            data: {
-                criterianame: $('#criterianame_modal').val(),
-                percentage: $('#percentage_modal').val(),
-                eventname: $('#eventidfrmcriteria_modal').val(),
-                criteriaid: $('#criteriaid_modal').val()
-            },
-            success: function(response) {
-                var decode = response;
+        url: '../server/criteria/' + id,
+        async: false,
+        type: 'PUT',
+        crossDomain: true,
+        dataType: 'json',
+        data: {
+            criterianame: $('#criterianame_modal').val(),
+            percentage: $('#percentage_modal').val(),
+            eventname: $('#eventidfrmcriteria_modal').val(),
+            criteriaid: $('#criteriaid_modal').val()
+        },
+        success: function(response) {
+            var decode = response;
 
-                if (decode.success == true) {
-                  toastr.success('Success', 'Records successfully updated!');
-                  getCriteria();
-                } else if (decode.success === false) {
-                    toastr.error('Error', 'Failed updating records!');
-                    return;
-                }
-            },
-            error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
+            if (decode.success == true) {
+                toastr.success('Success', 'Records successfully updated!');
+                getCriteria();
+            } else if (decode.success === false) {
+                toastr.error('Error', 'Failed updating records!');
                 return;
             }
-        });
+        },
+        error: function(error) {
+            console.log("Error:");
+            console.log(error.responseText);
+            console.log(error.message);
+            return;
+        }
+    });
 }
 
 $(document).on("click", ".criteriamodal", function() {
-    var id = $(this).data('id'); console.log(id);
+    var id = $(this).data('id');
+    console.log(id);
     getCriteria_pushToMdal(id);
     $('#static5').modal('show');
 });
 
 function getCriteria_pushToMdal(id) {
     $.ajax({
-        url: '../server/criteria/'+id,
+        url: '../server/criteria/' + id,
         async: false,
         type: 'GET',
         dataType: 'json',
         success: function(response) {
             var decode = response;
-             console.log(decode);
+            console.log(decode);
             if (decode) {
                 var criteriaid = decode.childs[0].criteriaid;
                 loadValuesToCriteriaCombo_Modal();
@@ -303,13 +387,13 @@ function getCriteria_pushToMdal(id) {
             }
         },
         error: function(error) {
-           toastr.error('error loading activities!', error.responseText);
+            toastr.error('error loading activities!', error.responseText);
             return;
         }
     });
 }
 
-function loadValuesToCriteriaCombo_Modal(){
+function loadValuesToCriteriaCombo_Modal() {
     $("#eventidfrmcriteria_modal").html('');
     $.ajax({
         url: '../server/events/',
@@ -317,13 +401,13 @@ function loadValuesToCriteriaCombo_Modal(){
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            var decode = response; 
+            var decode = response;
             if (decode) {
                 if (decode.childs.length > 0) {
-                    console.log('toeventmodal',decode);
+                    console.log('toeventmodal', decode);
                     for (var i = 0; i < decode.childs.length; i++) {
-                        var row = decode.childs; 
-                        var html = '<option value="'+row[i].eventname+'">'+row[i].eventname+'</option>';
+                        var row = decode.childs;
+                        var html = '<option value="' + row[i].eventname + '">' + row[i].eventname + '</option>';
                         $("#eventidfrmcriteria_modal").append(html);
                     }
                 }

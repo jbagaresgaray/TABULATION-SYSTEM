@@ -1,6 +1,15 @@
+
+var SecretPassphrase = 'dhanVincent';  // you may edit 'dhanVincent' but please dont remove this ..
+
 $(document).ready(function() {
     loadjudgecombo();
     getjudges();
+
+    // this is for the encryption -->
+    // var encrypted = CryptoJS.AES.encrypt('your string', "Secret Passphrase");
+    // var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+    //decrypted.toString(CryptoJS.enc.Utf8);
+
 });
 
 var TableEditable4 = function () {
@@ -70,6 +79,7 @@ function clearjudgefields(){
     $("#judgeuname").val('');
     $("#judgepword").val('');
     $("#cjudgepword").val('');
+    $("#cjudgegender").val('');
 }
 
 function loadjudgecombo() {
@@ -103,6 +113,9 @@ function loadjudgecombo() {
 
 function saveJudge(){
     console.log('Saving records...');
+    console.log($('#cjudgepword').val());
+    console.log($('#judgepword').val());
+
     var empty = false;
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
@@ -134,6 +147,11 @@ function saveJudge(){
         toastr.error('Error', 'password did not match');
         empty = true;
     }
+    if($('#cjudgegender').val() == ''){
+        $('#cjudgegender').next('span').text('Please input gender');
+        toastr.error('Error', 'gender has no value');
+        empty = true;
+    }
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly');
         return false;
@@ -151,7 +169,8 @@ function saveJudge(){
                 judgefullname: $('#judgefullname').val(),
                 judgeuname: $('#judgeuname').val(),
                 judgepword:$('#judgepword').val(),
-                eventid:$('#judgecombo').val()
+                eventid:$('#judgecombo').val(),
+                gender:$('#judgegender').val()
 
             },
             success: function(response) {
@@ -195,7 +214,8 @@ function getjudges() {
                                         <td style="display:none">' + row[i].judgeid + '</td>\
                                         <td>' + row[i].judgefullname + '</td>\
                                         <td>' + row[i].judgeuname + '</td>\
-                                        <td>' + row[i].judgepword + '</td>\
+                                        <td>' + CryptoJS.AES.encrypt(row[i].judgepword, SecretPassphrase) + '</td>\
+                                        <td>' + row[i].gender + '</td>\
                                         <td><a data-id="'+row[i].judgeid+'" href="javascript:void(0)" data-toggle="modal" class="config judgemodal" data-original-title="" title="">Edit</td>\
                                         <td><a onClick="confirmjudgedelete('+row[i].judgeid+')" href="javascript:void(0)">Delete</a></td>\
                                     </tr>';
@@ -210,7 +230,40 @@ function getjudges() {
         }
     });
 }
-
+function getjudgesbygender(gender) {
+    console.log('>loading data to judge table..',gender);
+    $("#sample_editable_4 tbody").html('');
+    $.ajax({
+        url: '../server/judges_ext1/'+gender,
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            if (decode) {
+                if (decode.childs.length > 0) {
+                    for (var i = 0; i < decode.childs.length; i++) {
+                        var row = decode.childs; 
+                        var html = '<tr>\
+                                        <td style="display:none">' + row[i].judgeid + '</td>\
+                                        <td>' + row[i].judgefullname + '</td>\
+                                        <td>' + row[i].judgeuname + '</td>\
+                                        <td>' + CryptoJS.AES.encrypt(row[i].judgepword, SecretPassphrase) + '</td>\
+                                        <td>' + row[i].gender + '</td>\
+                                        <td><a data-id="'+row[i].judgeid+'" href="javascript:void(0)" data-toggle="modal" class="config judgemodal" data-original-title="" title="">Edit</td>\
+                                        <td><a onClick="confirmjudgedelete('+row[i].judgeid+')" href="javascript:void(0)">Delete</a></td>\
+                                    </tr>';
+                        $("#sample_editable_4 tbody").append(html);
+                    }
+                }
+            }
+        },
+        error: function(error) {
+            toastr.error('Error', error.message);
+            return;
+        }
+    });
+}
 function confirmjudgedelete(id){
     if (confirm('delete this record?')) {
         deletejudge(id);
@@ -266,10 +319,15 @@ function updatejudge(id){
         toastr.error('Error', 'password did not match');
         empty = true;
     }
+    if ($('#cjudgegender_modal').val() == '') {
+        $('#cjudgegender_modal').next('span').text('gender is required.');
+        empty = true;
+    }
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly');
         return false;
     }
+    
     $.ajax({
             url: '../server/judges/'+id,
             async: false,
@@ -280,7 +338,8 @@ function updatejudge(id){
                 judgefullname: $("#judgefullname_modal").val(),
                 judgeuname: $('#judgeuname_modal').val(),
                 judgepword: $('#judgepword_modal').val(),
-                judgeid: $('#judgeid_modal').val()
+                judgeid: $('#judgeid_modal').val(),
+                judgegender: $('#cjudgegender_modal').val()
             },
             success: function(response) {
                 var decode = response;
@@ -324,6 +383,7 @@ function getJudge_pushToMdal(id) {
                 $('#judgeuname_modal').val(decode.childs[0].judgeuname);
                 $('#judgepword_modal').val(decode.childs[0].judgepword);
                 $('#judgeid_modal').val(decode.childs[0].judgeid);
+                $('#judgegender_modal').val(decode.childs[0].judgegender);
             }
         },
         error: function(error) {
