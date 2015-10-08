@@ -5,7 +5,7 @@ angular.module('starter')
 
         $scope.$on('app.loggedIn', function(event) {
             console.log('LOGGED IN!');
-            $state.go('how-it-works');
+            $state.go('app.home');
         });
 
         $scope.login = function() {

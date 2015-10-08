@@ -1,23 +1,62 @@
 'use strict';
 
 angular.module('starter')
-    .controller('ContestantCtrl', function($scope, $ionicModal, $stateParams, $ionicLoading, Activity) {
+    .controller('ContestantCtrl', function($scope, $window, $ionicModal, $stateParams, $ionicLoading, $ionicScrollDelegate, Activity) {
 
         function init() {
+            $scope.clientSideList = [{
+                text: "Male",
+                value: "Male"
+            }, {
+                text: "Female",
+                value: "Female"
+            }];
+
+            $scope.data = {
+                clientSide: 'Male'
+            };
+
+            $scope.contestants = [];
+            $scope.dataCons = [];
+
             $ionicLoading.show();
             $scope.eventId = $stateParams.eventId;
-            Activity.getContestants($stateParams.eventId).then(function(data) {
-                $scope.contestants = data;
+            var user = $window.localStorage['users'];
+            user = JSON.parse(user);
+
+            Activity.getContestants(user.judgeid, $stateParams.eventId).then(function(data) {
+                $scope.contestants = _.filter(data.childs, {
+                    'gender': $scope.data.clientSide
+                });
+                $scope.dataCons = data.childs;
                 console.log($scope.contestants);
                 $ionicLoading.hide();
             });
         }
 
+        $scope.eventButton = function(value) {
+            $scope.data.clientSide = value;
+            var val = _.filter($scope.dataCons, {
+                'gender': $scope.data.clientSide
+            });
+            $scope.contestants = val;
+            console.log($scope.contestants);
+            $ionicScrollDelegate.scrollTop();
+            $ionicScrollDelegate.resize();
+        };
+
         $scope.doRefresh = function() {
             $ionicLoading.show();
             $scope.eventId = $stateParams.eventId;
-            Activity.getContestants($stateParams.eventId).then(function(data) {
-                $scope.contestants = data;
+            var user = $window.localStorage['users'];
+            user = JSON.parse(user);
+
+            Activity.getContestants(user.judgeid, $stateParams.eventId).then(function(data) {
+                $scope.contestants = _.filter(data.childs, {
+                    'gender': $scope.data.clientSide
+                });
+                $scope.dataCons = data.childs;
+                console.log($scope.contestants);
                 $ionicLoading.hide();
                 $scope.$broadcast('scroll.refreshComplete');
             });
@@ -25,14 +64,19 @@ angular.module('starter')
 
         init();
     })
-    .controller('DetailCtrl', function($scope, $ionicModal, $ionicPopup, $stateParams, $ionicLoading, Activity) {
+    .controller('DetailCtrl', function($scope, $window, $ionicModal, $ionicPopup, $stateParams, $ionicLoading, Activity) {
 
         function init() {
             console.log('$stateParams id: ', $stateParams.id);
             console.log('$stateParams eventId: ', $stateParams.eventId);
 
+            $scope.total = 0;
+
             $ionicLoading.show();
-            Activity.getContestants($stateParams.eventId).then(function(data) {
+            var user = $window.localStorage['users'];
+            user = JSON.parse(user);
+
+            Activity.getContestants(user.judgeid, $stateParams.eventId).then(function(data) {
                 var result = _.find(data.childs, {
                     'contestantid': $stateParams.id
                 })
@@ -40,8 +84,12 @@ angular.module('starter')
                 $scope.detail = result;
 
                 Activity.getCriteria($stateParams.id).then(function(data) {
-
+                    var total = 0;
                     $scope.criterias = data;
+                    for (var i = 0; i < data.childs.length; i++) {
+                        total += parseFloat(!_.isNull(data.childs[i].score) ? data.childs[i].score : 0);
+                    };
+                    $scope.total = total;
                     console.log('citeria', $scope.criterias);
                     $ionicLoading.hide();
                 });
@@ -49,22 +97,32 @@ angular.module('starter')
         }
 
         $scope.doRefresh = function() {
+            $scope.total = 0;
+
             $ionicLoading.show();
-            Activity.getContestants($stateParams.eventId).then(function(data) {
+            var user = $window.localStorage['users'];
+            user = JSON.parse(user);
+
+            Activity.getContestants(user.judgeid, $stateParams.eventId).then(function(data) {
                 var result = _.find(data.childs, {
                     'contestantid': $stateParams.id
                 })
                 $scope.detail = result;
 
                 Activity.getCriteria($stateParams.id).then(function(data) {
+                    var total = 0;
                     $scope.criterias = data;
+                    for (var i = 0; i < data.childs.length; i++) {
+                        total += parseFloat(!_.isNull(data.childs[i].score) ? data.childs[i].score : 0);
+                    };
+                    $scope.total = total;
                     $ionicLoading.hide();
                     $scope.$broadcast('scroll.refreshComplete');
                 });
             });
         };
 
-        $scope.showPopup = function(id, score) {
+        $scope.showPopup = function(id, percentage, score) {
             $scope.data = {};
             console.log('score: ', score);
 
@@ -86,6 +144,9 @@ angular.module('starter')
                     type: 'button-positive',
                     onTap: function(e) {
                         if (!$scope.data.scoring) {
+                            e.preventDefault();
+                        }else if($scope.data.scoring > percentage){
+                            alert('Score must not be greater than the allocated percentile');
                             e.preventDefault();
                         } else {
                             if (score === undefined || score === null) {
