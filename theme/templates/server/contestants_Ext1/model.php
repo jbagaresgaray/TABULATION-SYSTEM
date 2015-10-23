@@ -51,7 +51,13 @@ class ContestantExt1Model {
 		if ($mysqli->connect_errno) {
 		    return print json_encode(array('success' =>false,'status'=>400,'msg' =>'Failed to connect to MySQL: (' . $mysqli->connect_errno . ') ' . $mysqli->connect_error));
 		}else{
-			$query1 ="select c.*,d.* from contestants c, departments d where c.departmentid = d.departmentid and c.eventid=$id"; // and c.eventid=$id previously deleted
+			$arr = explode('-',$id);
+			$judgeid = $arr[1];
+			$eventid = $arr[0];
+
+			$query1 ="SELECT A.*,IF(A.hasScore,'true','false') AS IsDone FROM (SELECT c.contestantid,c.name,c.eventid,c.gender,d.departmentid,d.departmentname,d.departmentdesc,
+				(SELECT DISTINCT s.score FROM scores s WHERE s.eventid=c.eventid AND s.contestantid = c.contestantid AND s.judgeid=$judgeid LIMIT 1) AS hasScore
+				FROM contestants c INNER JOIN departments d ON c.departmentid = d.departmentid WHERE c.eventid=$eventid) AS A;"; // and c.eventid=$id previously deleted
 			$result1 = $mysqli->query($query1);
 			$data = array();
 			while($row = $result1->fetch_array(MYSQLI_ASSOC)){

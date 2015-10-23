@@ -31,10 +31,10 @@ angular.module('starter')
                     return data;
                 });*/
             },
-            getContestants: function(id) {
+            getContestants: function(userId,id) {
                 return $.ajax({
                     method: 'GET',
-                    url: HOST + '/contestants_Ext1/index.php/' + id
+                    url: HOST + '/contestants_Ext1/index.php/' + id + '-' + userId
                 }).error(errorCallback);
 
                 /*return $http.get(HOST + '/contestants_Ext1/' + id).then(function(data) {

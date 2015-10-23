@@ -15,6 +15,10 @@
                 </div>
             </div>
         </div>
+        <div class="item item-text-left">
+            <h2>TOTAL: </h2>
+            <span class="badge badge-assertive">{{total | number}}</span>
+        </div>
         <div class="item item-divider item-positive">
             <h3>Scoring and Rating</h3>
         </div>
@@ -22,7 +26,7 @@
             <ion-item class="item item-text-wrap item-icon-right" ng-repeat="row in criterias.childs">
                 <h2>{{row.criterianame}} <small class="muted">{{row.percentage}} %</small></h2>
                 <span class="badge badge-assertive">{{row.score}}</span>
-                <ion-option-button class="button-energized" ng-click="showPopup(row.criteriaid,row.score)">
+                <ion-option-button class="button-energized" ng-click="showPopup(row.criteriaid,row.percentage,row.score)">
                     <i class="icon ion-compose"></i>
                 </ion-option-button>
             </ion-item>
