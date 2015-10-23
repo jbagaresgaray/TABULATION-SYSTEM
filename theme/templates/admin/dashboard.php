@@ -555,11 +555,11 @@
 													</button>
 												</div>
 											</div>
-											<!-- <div class="col-md-6">
+											<div class="col-md-6">
 												<select id="contestantdep2" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select..." onchange="loadcontbyevntfiltered($(this).val())">
 														<option value=""></option>
 												</select>
-											</div> -->
+											</div>
 										</div>
 									</div>
 									<table class="table table-hover table-bordered" id="sample_editable_3">
@@ -644,7 +644,7 @@
 											<th>
 												 Username
 											</th>
-											<th>
+											<th style="display:none">
 												 Password
 											</th>
 											<th>

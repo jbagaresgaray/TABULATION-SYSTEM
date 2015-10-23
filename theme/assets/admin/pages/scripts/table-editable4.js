@@ -214,7 +214,7 @@ function getjudges() {
                                         <td style="display:none">' + row[i].judgeid + '</td>\
                                         <td>' + row[i].judgefullname + '</td>\
                                         <td>' + row[i].judgeuname + '</td>\
-                                        <td>' + CryptoJS.AES.encrypt(row[i].judgepword, SecretPassphrase) + '</td>\
+                                        <td style="display:none">' + CryptoJS.AES.encrypt(row[i].judgepword, SecretPassphrase) + '</td>\
                                         <td>' + row[i].gender + '</td>\
                                         <td><a data-id="'+row[i].judgeid+'" href="javascript:void(0)" data-toggle="modal" class="config judgemodal" data-original-title="" title="">Edit</td>\
                                         <td><a onClick="confirmjudgedelete('+row[i].judgeid+')" href="javascript:void(0)">Delete</a></td>\
@@ -248,7 +248,7 @@ function getjudgesbygender(gender) {
                                         <td style="display:none">' + row[i].judgeid + '</td>\
                                         <td>' + row[i].judgefullname + '</td>\
                                         <td>' + row[i].judgeuname + '</td>\
-                                        <td>' + CryptoJS.AES.encrypt(row[i].judgepword, SecretPassphrase) + '</td>\
+                                        <td style="display:none">' + CryptoJS.AES.encrypt(row[i].judgepword, SecretPassphrase) + '</td>\
                                         <td>' + row[i].gender + '</td>\
                                         <td><a data-id="'+row[i].judgeid+'" href="javascript:void(0)" data-toggle="modal" class="config judgemodal" data-original-title="" title="">Edit</td>\
                                         <td><a onClick="confirmjudgedelete('+row[i].judgeid+')" href="javascript:void(0)">Delete</a></td>\
@@ -381,7 +381,7 @@ function getJudge_pushToMdal(id) {
                 loadValuesToJudgeCombo_Modal();
                 $('#judgefullname_modal').val(decode.childs[0].judgefullname);
                 $('#judgeuname_modal').val(decode.childs[0].judgeuname);
-                $('#judgepword_modal').val(decode.childs[0].judgepword);
+                // $('#judgepword_modal').val(decode.childs[0].judgepword);
                 $('#judgeid_modal').val(decode.childs[0].judgeid);
                 $('#judgegender_modal').val(decode.childs[0].judgegender);
             }

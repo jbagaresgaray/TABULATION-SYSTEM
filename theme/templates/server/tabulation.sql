@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2015 at 03:19 AM
+-- Generation Time: Oct 04, 2015 at 07:00 PM
 -- Server version: 5.6.24
 -- PHP Version: 5.6.8
 
@@ -19,10 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `tabulation`
 --
-
-DROP SCHEMA IF EXISTS `tabulation`;
-CREATE SCHEMA `tabulation`;
-USE `tabulation`;
 
 -- --------------------------------------------------------
 
@@ -59,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `contestants` (
   `eventid` int(10) unsigned NOT NULL DEFAULT '0',
   `departmentid` int(10) unsigned NOT NULL DEFAULT '0',
   `gender` varchar(10) NOT NULL DEFAULT ''
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `contestants`
@@ -86,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `criteria` (
   `criterianame` varchar(50) NOT NULL DEFAULT '',
   `percentage` double NOT NULL DEFAULT '0',
   `eventid` int(10) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `criteria`
@@ -158,20 +154,22 @@ CREATE TABLE IF NOT EXISTS `judges` (
   `judgefullname` varchar(45) NOT NULL DEFAULT '',
   `judgeuname` varchar(45) NOT NULL DEFAULT '',
   `judgepword` varchar(45) NOT NULL DEFAULT '',
-  `eventid` int(10) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+  `eventid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gender` varchar(8) NOT NULL DEFAULT ''
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `judges`
 --
 
-INSERT INTO `judges` (`judgeid`, `judgefullname`, `judgeuname`, `judgepword`, `eventid`) VALUES
-(3, 'grace tagailo', 'grace', 'grace', 18),
-(4, 'glenda tagailo', 'glenda', 'glenda', 18),
-(5, 'marjorie tagailo', 'marj', 'marj', 18),
-(6, 'mona tagailo', 'mona', 'mona', 18),
-(7, 'michelle tagailo', 'mich', 'mihc', 18),
-(8, 'Andy', 'andy.bellesco', '927', 18);
+INSERT INTO `judges` (`judgeid`, `judgefullname`, `judgeuname`, `judgepword`, `eventid`, `gender`) VALUES
+(3, 'grace tagailo', 'grace', 'grace', 18, 'Female'),
+(4, 'glenda tagailo', 'glenda', 'glenda', 18, 'Female'),
+(5, 'marjorie tagailo', 'marj', 'marj', 18, 'Female'),
+(6, 'mona tagailo', 'mona', 'mona', 18, 'Female'),
+(7, 'michelle tagailo', 'mich', 'mihc', 18, 'Female'),
+(8, 'Andy', 'andy.bellesco', '927', 18, 'Male'),
+(11, 'dhan vincent', 'dhanixblue', 'password', 19, 'Male');
 
 -- --------------------------------------------------------
 
@@ -186,14 +184,14 @@ CREATE TABLE IF NOT EXISTS `scores` (
   `criteriaid` int(10) unsigned NOT NULL DEFAULT '0',
   `score` double NOT NULL DEFAULT '0',
   `contestantid` int(10) unsigned NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `scores`
 --
 
 INSERT INTO `scores` (`scoreid`, `eventid`, `judgeid`, `criteriaid`, `score`, `contestantid`) VALUES
-(46, 18, 3, 1, 18, 2),
+(46, 18, 3, 1, 19, 2),
 (47, 18, 3, 5, 19, 2),
 (48, 18, 3, 8, 39, 2),
 (49, 18, 3, 15, 19, 2),
@@ -208,15 +206,21 @@ INSERT INTO `scores` (`scoreid`, `eventid`, `judgeid`, `criteriaid`, `score`, `c
 (59, 18, 3, 8, 37, 44),
 (60, 18, 3, 5, 16, 44),
 (61, 18, 3, 1, 17, 44),
-(62, 19, 3, 9, 90, 45),
-(63, 19, 3, 10, 10, 45),
-(64, 19, 3, 10, 8, 47),
-(65, 19, 3, 9, 87, 47),
+(62, 19, 3, 9, 89, 45),
+(63, 19, 3, 10, 8, 45),
+(64, 19, 3, 10, 6, 47),
+(65, 19, 3, 9, 89, 47),
 (66, 19, 3, 10, 8, 48),
 (67, 19, 3, 9, 89, 48),
 (68, 19, 3, 10, 9, 49),
 (69, 19, 3, 9, 89, 49),
-(70, 18, 3, 1, 19, 17);
+(70, 18, 3, 1, 19, 17),
+(71, 18, 3, 1, 19, 2),
+(72, 18, 3, 1, 19, 2),
+(73, 18, 3, 1, 19, 48),
+(74, 18, 3, 5, 19, 48),
+(75, 18, 3, 8, 39, 48),
+(76, 18, 3, 15, 19, 48);
 
 -- --------------------------------------------------------
 
@@ -330,12 +334,12 @@ ALTER TABLE `activities`
 -- AUTO_INCREMENT for table `contestants`
 --
 ALTER TABLE `contestants`
-  MODIFY `contestantid` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=53;
+  MODIFY `contestantid` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=50;
 --
 -- AUTO_INCREMENT for table `criteria`
 --
 ALTER TABLE `criteria`
-  MODIFY `criteriaid` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `criteriaid` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `departments`
 --
@@ -350,12 +354,12 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `judges`
 --
 ALTER TABLE `judges`
-  MODIFY `judgeid` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `judgeid` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `scores`
 --
 ALTER TABLE `scores`
-  MODIFY `scoreid` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=81;
+  MODIFY `scoreid` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=77;
 --
 -- AUTO_INCREMENT for table `useraccounts`
 --
