@@ -81,13 +81,12 @@ function loadcriteriacombo() {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-criteria..', decode);
+            console.log('>loading data to combo-criteria..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs;
                         var html = '<option value="' + row[i].eventid + '">' + row[i].eventname + '</option>';
-                        console.log('>metadata', row[i].eventid + ' ' + row[i].eventname);
                         $("#eventidfrmcriteria").append(html);
                     }
                 }
@@ -156,9 +155,6 @@ function saveCriteria() {
             }
         },
         error: function(error) {
-            console.log("Error:");
-            console.log(error.responseText);
-            console.log(error.message);
             toastr.error('Error', error.message);
             return;
         }
@@ -179,7 +175,6 @@ function getCriteria() {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs;
-                        console.log('hiiiii', row[i]);
                         if (row[i].criterianame != null) {
                             var html = '<tr>\
                                         <td style="display:none">' + row[i].criteriaid + '</td>\
@@ -214,13 +209,12 @@ function loadalleventsincriteriaform() {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-criteria..', decode);
+            console.log('>loading data to combo-criteria..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs;
                         var html = '<option value="' + row[i].eventid + '">' + row[i].eventname + '</option>';
-                        console.log('>metadata', row[i].eventid + ' ' + row[i].eventname);
                         $("#eventname3").append(html);
                     }
                     
@@ -354,9 +348,6 @@ function updateCriteria(id) {
             }
         },
         error: function(error) {
-            console.log("Error:");
-            console.log(error.responseText);
-            console.log(error.message);
             return;
         }
     });
@@ -364,7 +355,6 @@ function updateCriteria(id) {
 
 $(document).on("click", ".criteriamodal", function() {
     var id = $(this).data('id');
-    console.log(id);
     getCriteria_pushToMdal(id);
     $('#static5').modal('show');
 });
@@ -377,7 +367,6 @@ function getCriteria_pushToMdal(id) {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log(decode);
             if (decode) {
                 var criteriaid = decode.childs[0].criteriaid;
                 loadValuesToCriteriaCombo_Modal();
@@ -404,7 +393,6 @@ function loadValuesToCriteriaCombo_Modal() {
             var decode = response;
             if (decode) {
                 if (decode.childs.length > 0) {
-                    console.log('toeventmodal', decode);
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs;
                         var html = '<option value="' + row[i].eventname + '">' + row[i].eventname + '</option>';

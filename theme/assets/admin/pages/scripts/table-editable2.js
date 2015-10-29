@@ -187,9 +187,6 @@ function saveEvent() {
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
                 toastr.error('Error', error.responseText);
                 return;
             }
@@ -240,7 +237,7 @@ function fetch_all_eventsbyID(id) {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            var decode = response; console.log(decode);
+            var decode = response;
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
@@ -350,9 +347,6 @@ function updateevent(id){
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
                 toastr.error('Success', error.message);
                 return;
             }
@@ -360,7 +354,7 @@ function updateevent(id){
 }
 
 $(document).on("click", ".eventmodal", function() {
-    var id = $(this).data('id'); console.log(id);
+    var id = $(this).data('id');
     getEvents_pushToMdal(id);
     $('#static2').modal('show');
 });
@@ -373,7 +367,6 @@ function getEvents_pushToMdal(id) {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-             console.log(decode);
             if (decode) {
                 var actid = decode.childs[0].actid;
                 loadValuesToEventCombo_Mdal();
@@ -401,7 +394,6 @@ function loadValuesToEventCombo_Mdal(){
             var decode = response; 
             if (decode) {
                 if (decode.childs.length > 0) {
-                    console.log('toeventmodal',decode);
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].actid+'">'+row[i].actname+'</option>';

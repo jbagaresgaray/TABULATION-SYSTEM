@@ -126,10 +126,7 @@ function save() {
                     toastr.error('failed saving records!', 'error!');
                 } 
             },
-            error: function(error) { 
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
+            error: function(error) {
                 toastr.error('Server responds!', error.responseText);
                 return;
             }
@@ -146,8 +143,7 @@ function fetch_all_activities() {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log(decode);
-            if (decode) {
+           if (decode) {
                 if (decode.childs.length > 0) {
                    for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
@@ -252,9 +248,7 @@ function updateactivity(obj){
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
+                toastr.error('error updating activities!', error.responseText);
                 return;
             }
         });
@@ -274,7 +268,6 @@ function getActivities_pushToModal(id) {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-             console.log(decode.childs[0]);
             if (decode) {
                 $('#actname_modal').val(decode.childs[0].actname);
                 $('#startdate_modal').val(decode.childs[0].actstartdate);

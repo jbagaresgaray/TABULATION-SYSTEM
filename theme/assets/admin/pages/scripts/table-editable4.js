@@ -92,13 +92,12 @@ function loadjudgecombo() {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-judge..',decode);
+            console.log('>loading data to combo-judge..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
-                        console.log('>metadata',row[i].eventid+' '+row[i].eventname);
                         $("#judgecombo").append(html);
                     }
                 }
@@ -112,9 +111,6 @@ function loadjudgecombo() {
 }
 
 function saveJudge(){
-    console.log('Saving records...');
-    console.log($('#cjudgepword').val());
-    console.log($('#judgepword').val());
 
     var empty = false;
     $('input[type="text"]').each(function() {
@@ -187,9 +183,6 @@ function saveJudge(){
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
                 toastr.error('Error', error.message);
                 return;
             }
@@ -231,7 +224,7 @@ function getjudges() {
     });
 }
 function getjudgesbygender(gender) {
-    console.log('>loading data to judge table..',gender);
+    console.log('>loading data to judge table..');
     $("#sample_editable_4 tbody").html('');
     $.ajax({
         url: '../server/judges_ext1/'+gender,
@@ -354,16 +347,13 @@ function updatejudge(id){
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
                 return;
             }
         });
 }
 
 $(document).on("click", ".judgemodal", function() {
-    var id = $(this).data('id'); console.log(id);
+    var id = $(this).data('id'); 
     getJudge_pushToMdal(id);
     $('#static4').modal('show');
 });
@@ -377,7 +367,6 @@ function getJudge_pushToMdal(id) {
         success: function(response) {
             var decode = response;
             if (decode) {
-                console.log(decode);
                 loadValuesToJudgeCombo_Modal();
                 $('#judgefullname_modal').val(decode.childs[0].judgefullname);
                 $('#judgeuname_modal').val(decode.childs[0].judgeuname);

@@ -149,9 +149,6 @@ function saveDepartment(){
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
                 toastr.error('Error', error.message);
                 return;
             }
@@ -235,16 +232,13 @@ function updateDepartment(id){
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
                 return;
             }
         });
 }
 
 $(document).on("click", ".departmentmodal", function() {
-    var id = $(this).data('id'); console.log(id);
+    var id = $(this).data('id'); 
     getDepartment_pushToMdal(id);
     $('#static7').modal('show');
 });
@@ -257,7 +251,6 @@ function getDepartment_pushToMdal(id) {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-             console.log(decode);
             if (decode) {
                 var departmentid = decode.childs[0].departmentid;
                 $('#departmentname_modal').val(decode.childs[0].departmentname);

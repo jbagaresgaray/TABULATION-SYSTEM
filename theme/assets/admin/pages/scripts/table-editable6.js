@@ -17,13 +17,12 @@ function loadeventsTojudgeCombo(){
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-judge..',decode);
+            console.log('>loading data to combo-judge..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
-                        console.log('>metadata',row[i].eventid+' '+row[i].eventname);
                         $("#eventcombo4judge").append(html);
                     }
                 }
@@ -47,13 +46,12 @@ function loadcandidateTojudgeCombo(){
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-judge..',decode);
+            console.log('>loading data to combo-judge..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].contestantid+'">'+row[i].name+'</option>';
-                        console.log('>metadata',row[i].contestantid+' '+row[i].name);
                         $("#candidatecombo4judge").append(html);
                     }
                 }
@@ -67,7 +65,7 @@ function loadcandidateTojudgeCombo(){
 }
 
 function loadContestantWhenEventComboChange(eventid){
-    console.log(eventid);
+    
     clear();
     $("#candidatecombo4judge").html('');
     console.log('>loading data to combo-judge after clearing..');
@@ -78,13 +76,12 @@ function loadContestantWhenEventComboChange(eventid){
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-judge..',decode);
+            console.log('>loading data to combo-judge..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].contestantid+'">'+row[i].name+'</option>';
-                        console.log('>metadata',row[i].contestantid+' '+row[i].name);
                         $("#candidatecombo4judge").append(html);
                     }
                 }
@@ -126,7 +123,6 @@ function loadCriteriaByEventId(id){
                         var x = 'i';
                         var r = [criteriaid + x + i];
                         var z = r.toString();
-                        console.log(r);
 
                         var html = '<tr>\
                                         <td style="display:none" width="130px"><input id="criteriaid'+rw+'" readonly value="'+row[i].criteriaid+'" style="border: 0px;background-color: #FFFFFF;" type="label" class="form-control"></td>\
@@ -187,11 +183,7 @@ function savescore(fieldId){
             toastr.error('Please input all the required fields correctly.', 'error!');
             return false;
         }
-        console.log('eventid',$('#eventcombo4judge').val());
-        console.log('judgeid',judgeid);
-        console.log('criteriaid',criteriaid);
-        console.log('contestantid',$('#candidatecombo4judge').val());
-        console.log('score',score);
+        
         $.ajax({
                 url: '../server/scores/',
                 async: false,
@@ -215,9 +207,6 @@ function savescore(fieldId){
                     } 
                 },
                 error: function(error) { 
-                    console.log("Error:");
-                    console.log(error.responseText);
-                    console.log(error.message);
                     toastr.error('Server responds!', error.responseText);
                     return;
                 }
@@ -261,11 +250,7 @@ function savescore(fieldId){
             toastr.error('Please input all the required fields correctly.', 'error!');
             return false;
         }
-        console.log('eventid',$('#eventcombo4judge').val());
-        console.log('judgeid',judgeid);
-        console.log('criteriaid',criteriaid);
-        console.log('contestantid',$('#candidatecombo4judge').val());
-        console.log('score',score);
+        
         $.ajax({
                 url: '../server/scores/',
                 async: false,
@@ -288,9 +273,6 @@ function savescore(fieldId){
                     } 
                 },
                 error: function(error) { 
-                    console.log("Error:");
-                    console.log(error.responseText);
-                    console.log(error.message);
                     toastr.error('Server responds!', error.responseText);
                     return;
                 }

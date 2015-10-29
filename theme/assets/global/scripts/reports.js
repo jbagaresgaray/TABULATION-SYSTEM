@@ -16,13 +16,12 @@ function loadeventsToscoreCombo(){
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-judge..',decode);
+            console.log('>loading data to combo-judge..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
-                        console.log('>metadata',row[i].eventid+' '+row[i].eventname);
                         $("#eventcombo4score").append(html);
                     }
                 }
@@ -64,7 +63,6 @@ function loadReportsByEventId(id){
 }
 
 function x(id,name){
-    console.log(id+'-'+name);
     $.ajax({
         url: '../server/reports/index.php/'+id,
         async: false,
@@ -111,7 +109,7 @@ function loadacivitiesToCombo(){
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-judge..',decode);
+            console.log('>loading data to combo-judge..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
@@ -123,14 +121,13 @@ function loadacivitiesToCombo(){
             }
         },
         error: function(error) {
-            toastr.error('Error', error.message);
+            console.log('Error', error);
             return;
         }
     });
 }
 
 function loadEventReportsByEventId(id){
-    console.log(id);
     $("#evtcombo4score2").html('');
     $("#select2-chosen-20").val('');
     $("#select2-chosen-20").html('');
@@ -160,7 +157,7 @@ function loadEventReportsByEventId(id){
             }
         },
         error: function(error) {
-             toastr.error('Error', error.message);
+            console.log('Error', error);
             return;
         }
     });
@@ -199,7 +196,7 @@ function getevtreport2(id){
             }
         },
         error: function(error) {
-             toastr.error('Error', error.message);
+            console.log('Error', error);
             return;
         }
     });
@@ -235,7 +232,7 @@ function y(id,name){
             }
         },
         error: function(error) {
-             toastr.error('Error', error.message);
+            console.log('Error', error.message);
             return;
         }
     });
@@ -257,7 +254,7 @@ function getEventnamebyId(id){
             }
         },
         error: function(error) {
-            toastr.error('Error', error.message);
+            console.log('Error', error.message);
             return;
         }
     });

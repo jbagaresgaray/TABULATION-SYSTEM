@@ -87,14 +87,13 @@ function loadeventtocombo3() {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to combo-3..',decode);
+            console.log('>loading data to combo-3..');
             if (decode) {
                 loadcontbyevnt();
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
-                        console.log('>metadata',row[i].eventid+' '+row[i].eventname);
                         $("#combo3eventt").append(html);
                     }
                 }
@@ -118,14 +117,13 @@ function loadcontdep() {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to contestantdep..',decode);
+            console.log('>loading data to contestantdep..');
             if (decode) {
                 loadcontbyevnt();
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].departmentid+'">'+row[i].departmentname+'</option>';
-                        console.log('>metadata',row[i].departmentid+' '+row[i].departmentname);
                         $("#contestantdep").append(html);
                     }
                 }
@@ -148,13 +146,12 @@ function loadcontbyevnt() {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to contestantdep..',decode);
+            console.log('>loading data to contestantdep..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs; 
                         var html = '<option value="'+row[i].eventid+'">'+row[i].eventname+'</option>';
-                        console.log('>metadata',row[i].eventid+' '+row[i].eventname);
                         $("#contestantdep2").append(html);
                     }
                 }
@@ -171,13 +168,13 @@ function loadcontbyevntfiltered(id) {
     $("#sample_editable_3 tbody").html('');
     console.log('>loading data to contestanttable after clearing..');
     $.ajax({
-        url: '../server/filtercontestants/index.php/'+id,
+        url: '../server/contestants_Ext2/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log('>loading data to contestanttable..',decode);
+            console.log('>loading data to contestanttable..');
             if (decode) {
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
@@ -261,9 +258,6 @@ function saveContestant() {
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
                 toastr.error('Error', error.message);
                 return;
             }
@@ -368,11 +362,6 @@ function deletecontestant(id){
 }
 
 function updatecontestant(id){
-    console.log(id);
-    console.log($('#contestantname_modal').val());
-    console.log($('#contestantdep_modal').val());
-    console.log($('#combo3eventt_modal').val());
-    console.log($('#gender_modal').val());
     var empty = false;
     if ($("#contestantname_modal").val() == '') {
         $("#contestantname_modal").next('span').text('Contestant Name is required.');
@@ -429,9 +418,6 @@ function updatecontestant(id){
                 }
             },
             error: function(error) {
-                console.log("Error:");
-                console.log(error.responseText);
-                console.log(error.message);
                 toastr.error('Error', error.responseText);
                 return;
             }
@@ -439,7 +425,7 @@ function updatecontestant(id){
 }
 
 $(document).on("click", ".contestanttmodal", function() {
-    var id = $(this).data('id'); console.log(id);
+    var id = $(this).data('id'); 
     getContestant_pushToMdal(id);
     $('#static3').modal('show');
 });
@@ -452,7 +438,6 @@ function getContestant_pushToMdal(id) {
         dataType: 'json',
         success: function(response) {
             var decode = response;
-            console.log(decode);
             if (decode) {
                 var contestantid = decode.childs[0].contestantid;
                 loadValuesToEventCombo_Modal();
