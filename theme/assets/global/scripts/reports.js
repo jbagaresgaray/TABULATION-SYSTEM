@@ -152,7 +152,7 @@ function loadEventReportsByEventId(id){
                     }
                 }
                 else {
-                        $("#evtcombo4score2").val("3");
+                        //$("#evtcombo4score2").val("3");
                 }
             }
         },
