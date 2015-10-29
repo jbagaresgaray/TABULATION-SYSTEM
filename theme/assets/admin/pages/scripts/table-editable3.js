@@ -168,10 +168,11 @@ function loadcontbyevnt() {
 }
 
 function loadcontbyevntfiltered(id) {
+    console.log('------------------------->');
     $("#sample_editable_3 tbody").html('');
     console.log('>loading data to contestanttable after clearing..');
     $.ajax({
-        url: '../server/filtercontestants/index.php/'+id,
+        url: '../server/contestants_Ext2/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
