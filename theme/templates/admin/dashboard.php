@@ -1146,6 +1146,10 @@
         mywindow.document.write('<div style="float:right;">');
         mywindow.document.write('<img src="../img/pic2.png" style="height:100px;margin-left:10px" ></img>');
         mywindow.document.write('</div>');
+        mywindow.document.write('<small>Republic of the Philippines</small><br>'+
+								'<small>NORTHERN NEGROS STATE COLLEGE OF SCIENCE AND TECHNOLOGY</small><br>'+
+								'<small>Old Sagay, Sagay City, Negros Occidental</small><br>'+
+								'<small>☎ 034.435.7359  infotech@nonescost.edu.ph</small>');
         mywindow.document.write('</div></center>');
         mywindow.document.write(data);
         mywindow.document.write('</body></html>');

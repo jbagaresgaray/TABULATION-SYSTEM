@@ -11,7 +11,7 @@ $(document).ready(function(){
 function loadeventsTojudgeCombo(){
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/events/',
+        url: '../server/events/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -40,7 +40,7 @@ function loadcandidateTojudgeCombo(){
     $("#candidatecombo4judge").html('<option value=""></option>');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/contestants/',
+        url: '../server/contestants/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -185,7 +185,7 @@ function savescore(fieldId){
         }
         
         $.ajax({
-                url: '../server/scores/',
+                url: '../server/scores/index.php',
                 async: false,
                 type: 'POST',
                 crossDomain: true,
@@ -252,7 +252,7 @@ function savescore(fieldId){
         }
         
         $.ajax({
-                url: '../server/scores/',
+                url: '../server/scores/index.php',
                 async: false,
                 type: 'PUT',
                 crossDomain: true,

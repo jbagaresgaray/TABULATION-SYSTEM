@@ -190,7 +190,7 @@
                     <div class="form-body">
                         <div class="form-group">
                             <label>Select Event</label>
-                            <select id="eventidfrmcriteria" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
+                            <select onchange="getTotalPercentage($(this).val())" id="eventidfrmcriteria" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select...">
                                 <option value=""></option>
                             </select>
                         </div>
@@ -199,7 +199,7 @@
                             <input id="criterianame" style="border: 1px dotted;background-color: #F4F7F7;" type="text" class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
-                            <label>Percentage</label>
+                            <label>Percentage    (Remaining <span id="totalpercentage"></span>)</label>
                             <input id="percentage" style="border: 1px dotted;background-color: #F4F7F7;" type="number" min="1" max="100" class="form-control" placeholder="">
                         </div>
                     </div>

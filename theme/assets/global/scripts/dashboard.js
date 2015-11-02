@@ -71,5 +71,10 @@
           // loadeventsTojudgeCombo();
           // loadcandidateTojudgeCombo();
 
+          loadeventsToscoreCombo();
+          loadacivitiesToCombo();
+          loadReportsByEventId($('#eventcombo4score').val());
+          loadEventReportsByEventId($('#actcombo4score').val());
+
 
       });

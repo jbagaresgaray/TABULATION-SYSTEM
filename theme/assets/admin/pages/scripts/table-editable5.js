@@ -65,6 +65,7 @@ var TableEditable5 = function() {
 }();
 
 //------------------------------------------------------------------my code---------------------------------------------------------------------------
+var rem = 0;
 
 function clearcriteriafields() {
     $("#criterianame").val('');
@@ -100,15 +101,17 @@ function loadcriteriacombo() {
 }
 
 function saveCriteria() {
+    getTotalPercentage($('#eventidfrmcriteria').val());
     console.log('Saving records...');
+    console.log('rem:',rem);
     var empty = false;
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
     });
-    if($('#percentage').val() <= 0){
+    if ($('#percentage').val() <= 0) {
         empty = true;
     }
-     if($('#percentage').val() >= 100){
+    if ($('#percentage').val() >= 100) {
         empty = true;
     }
     if ($("#criterianame").val() == '') {
@@ -124,10 +127,14 @@ function saveCriteria() {
         $('#eventidfrmcriteria').next('span').text('Start date is required.');
         empty = true;
     }
+    if(rem - $('#percentage').val() < 0) {
+        empty = true;
+    }
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly.');
         return false;
     }
+    //console.log('total :',getTotalPercentage($('#eventidfrmcriteria').val()) + $('#percentage').val() > 100);
 
     $.ajax({
         url: '../server/criteria/index.php',
@@ -148,6 +155,7 @@ function saveCriteria() {
                 getCriteria();
                 toastr.success('Success', 'Records successfully inserted!');
                 clearcriteriafields();
+                getTotalPercentage($('#eventidfrmcriteria').val());
             } else if (decode.success === false) {
                 console.log('failed saving records');
                 toastr.error('Failed saving records!', decode.msg);
@@ -217,7 +225,7 @@ function loadalleventsincriteriaform() {
                         var html = '<option value="' + row[i].eventid + '">' + row[i].eventname + '</option>';
                         $("#eventname3").append(html);
                     }
-                    
+
                 }
             }
         },
@@ -229,8 +237,7 @@ function loadalleventsincriteriaform() {
 }
 
 function getCriteriabyeventname(eventid) {
-    
-    console.log(eventid);
+
     $("#sample_editable_5 tbody").html('');
     $.ajax({
         url: '../server/criteria_Ext2/index.php/' + eventid,
@@ -240,7 +247,7 @@ function getCriteriabyeventname(eventid) {
         success: function(response) {
             var decode = response;
             if (decode) {
-                console.log('decode:',decode);
+                console.log('decode:', decode);
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs;
@@ -256,8 +263,7 @@ function getCriteriabyeventname(eventid) {
                             $("#sample_editable_5 tbody").append(html);
                         }
                     }
-                }
-                else {
+                } else {
                     toastr.success('no records to display');
                 }
             }
@@ -301,10 +307,10 @@ function updateCriteria(id) {
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
     });
-    if($('#percentage_modal').val() <= 0){
+    if ($('#percentage_modal').val() <= 0) {
         empty = true;
     }
-     if($('#percentage_modal').val() >= 100){
+    if ($('#percentage_modal').val() >= 100) {
         empty = true;
     }
     if ($("#criterianame_modal").val() == '') {
@@ -388,6 +394,7 @@ function getCriteria_pushToMdal(id) {
 
 function loadValuesToCriteriaCombo_Modal() {
     $("#eventidfrmcriteria_modal").html('');
+    $("#eventidfrmcriteria_modal").html('<option value="">choose</option>');
     $.ajax({
         url: '../server/events/index.php',
         async: false,
@@ -402,6 +409,34 @@ function loadValuesToCriteriaCombo_Modal() {
                         var html = '<option value="' + row[i].eventname + '">' + row[i].eventname + '</option>';
                         $("#eventidfrmcriteria_modal").append(html);
                     }
+                }
+            }
+        },
+        error: function(error) {
+            console.log('error: ', error);
+            return;
+        }
+    });
+}
+
+function getTotalPercentage(eventid) {
+    console.log(eventid);
+
+    $.ajax({
+        url: '../server/criteria_Ext3/index.php/'+eventid,
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            if (decode) {
+                if (decode.childs.length > 0) {
+                        console.log('decode.childs->',decode.childs);
+                        var remaining = 100 - decode.childs[0].totalpercentage ;
+                        $("#totalpercentage").html(remaining);
+                        rem = remaining;
+                        console.log('rem->',rem);
+                        return remaining;
                 }
             }
         },
