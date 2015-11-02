@@ -4,6 +4,7 @@ $(document).ready(function() {
     loadalleventsincriteriaform();
     var firstvalue = $('#eventidfrmcriteria option').eq(0).val();
     getTotalPercentage(firstvalue);
+
 });
 
 var TableEditable5 = function() {
@@ -68,6 +69,7 @@ var TableEditable5 = function() {
 
 //------------------------------------------------------------------my code---------------------------------------------------------------------------
 var rem = 0;
+var rem2 = 0;
 
 function clearcriteriafields() {
     $("#criterianame").val('');
@@ -304,7 +306,7 @@ function deletecriteria(id) {
 }
 
 function updateCriteria(id) {
-
+    getTotalPercentageFrommodal($('#eventidfrmcriteria_modal').val());
     var empty = false;
     $('input[type="text"]').each(function() {
         $(this).val($(this).val().trim());
@@ -332,6 +334,9 @@ function updateCriteria(id) {
         $('#criteriaid_modal').next('span').text('Start date is required.');
         empty = true;
     }
+    if(rem2 - $('#percentage_modal').val() < 0) {
+        empty = true;
+    }
     if (empty == true) {
         toastr.error('Error', 'Please input all the required fields correctly.');
         return false;
@@ -354,6 +359,7 @@ function updateCriteria(id) {
             if (decode.success == true) {
                 toastr.success('Success', 'Records successfully updated!');
                 getCriteria();
+                getTotalPercentageFrommodal($('#eventidfrmcriteria_modal').val());
             } else if (decode.success === false) {
                 toastr.error('Error', 'Failed updating records!');
                 return;
@@ -369,6 +375,8 @@ $(document).on("click", ".criteriamodal", function() {
     var id = $(this).data('id');
     getCriteria_pushToMdal(id);
     $('#static5').modal('show');
+    var firstvalue2 = $('#eventidfrmcriteria_modal option').eq(0).val();
+    getTotalPercentageFrommodal(firstvalue2);
 });
 
 function getCriteria_pushToMdal(id) {
@@ -448,6 +456,33 @@ function getTotalPercentage(eventid) {
     });
 }
 
+function getTotalPercentageFrommodal(eventname) {
+    console.log('----------->',eventname);
+
+    $.ajax({
+        url: '../server/criteria_Ext4/index.php/'+eventname,
+        async: false,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var decode = response;
+            if (decode) {
+                if (decode.childs.length > 0) {
+                        console.log('decode.childs->',decode.childs);
+                        var remaining = 100 - decode.childs[0].totalpercentage ;
+                        $("#totalpercentage_modal").html(remaining);
+                        rem2 = remaining;
+                        console.log('rem2->',rem2);
+                        return remaining;
+                }
+            }
+        },
+        error: function(error) {
+            console.log('error: ', error);
+            return;
+        }
+    });
+}
 
 $(document).on("click", "#sample_editable_5_new", function() {
     $('#modalAdd5').modal('show');
