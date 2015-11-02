@@ -375,8 +375,6 @@ $(document).on("click", ".criteriamodal", function() {
     var id = $(this).data('id');
     getCriteria_pushToMdal(id);
     $('#static5').modal('show');
-    var firstvalue2 = $('#eventidfrmcriteria_modal option').eq(0).val();
-    getTotalPercentageFrommodal(firstvalue2);
 });
 
 function getCriteria_pushToMdal(id) {
@@ -393,6 +391,8 @@ function getCriteria_pushToMdal(id) {
                 $('#criterianame_modal').val(decode.childs[0].criterianame);
                 $('#percentage_modal').val(decode.childs[0].percentage);
                 $('#criteriaid_modal').val(criteriaid);
+                $('#eventidfrmcriteria_modal').val(id);
+                console.log('-->',id);
             }
         },
         error: function(error) {
