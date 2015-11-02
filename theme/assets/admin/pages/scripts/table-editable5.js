@@ -2,6 +2,8 @@ $(document).ready(function() {
     loadcriteriacombo();
     getCriteria();
     loadalleventsincriteriaform();
+    var firstvalue = $('#eventidfrmcriteria option').eq(0).val();
+    getTotalPercentage(firstvalue);
 });
 
 var TableEditable5 = function() {
@@ -447,6 +449,8 @@ function getTotalPercentage(eventid) {
     });
 }
 
+
 $(document).on("click", "#sample_editable_5_new", function() {
     $('#modalAdd5').modal('show');
 });
+
