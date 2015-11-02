@@ -801,11 +801,11 @@
 										</div>
 									</div>
 									<div class="col-md-3">
-										<!-- <div class="form-group">
+										<div class="form-group">
 											<label></label>
 											<select id="evtcombo4score2" style="background-color: #F4F7F7;" class="form-control select2me eventcombo4score2" data-placeholder="Select..." onchange="getevtreport2($(this).val())">
 											</select>
-										</div> -->
+										</div>
 									</div>
 									<div class="col-md-6">
 										<a class="btn btn-md blue hidden-print margin-bottom-5" onclick="PrintElem('#WinnerByEvents','Winner by Events')" style="float:right">

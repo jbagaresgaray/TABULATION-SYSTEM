@@ -28,7 +28,7 @@ function loadeventsToscoreCombo(){
             }
         },
         error: function(error) {
-            toastr.error('Error', error.message);
+            toastr.error('Error', error);
             return;
         }
     });
@@ -56,7 +56,7 @@ function loadReportsByEventId(id){
             }
         },
         error: function(error) {
-             toastr.error('Error', error.message);
+             toastr.error('Error', error);
             return;
         }
     });
@@ -93,7 +93,7 @@ function x(id,name){
             }
         },
         error: function(error) {
-             toastr.error('Error', error.message);
+             toastr.error('Error', error);
             return;
         }
     });
@@ -103,7 +103,7 @@ function x(id,name){
 
 function loadacivitiesToCombo(){
     $.ajax({
-        url: '../server/activities/',
+        url: '../server/activities/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -131,6 +131,7 @@ function loadEventReportsByEventId(id){
     $("#evtcombo4score2").html('');
     $("#select2-chosen-20").val('');
     $("#select2-chosen-20").html('');
+    $(".select2-chosen").html('');
 
     $("#reports2 tbody").html('');
     $.ajax({
@@ -163,11 +164,13 @@ function loadEventReportsByEventId(id){
     });
 }
 function getevtreport2(id){
-   var evtcombo4score2val = $("#evtcombo4score2").val();
-   var name = getEventnamebyId(evtcombo4score2val);
+   var evtcombo4score2val = $("#evtcombo4score2").val(); 
+   console.log('evtcombo4score2val: ',evtcombo4score2val);
+   var name = getEventnamebyId(evtcombo4score2val); 
+   console.log('name :',name);
    $("#reports2 tbody").html('');
    $.ajax({
-        url: '../server/reportsbyEvent/'+id,
+        url: '../server/reportsbyEvent/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -232,7 +235,7 @@ function y(id,name){
             }
         },
         error: function(error) {
-            console.log('Error', error.message);
+            console.log('Error', error);
             return;
         }
     });
@@ -240,7 +243,7 @@ function y(id,name){
 function getEventnamebyId(id){
     var eventname = '';
     $.ajax({
-        url: '../server/events/'+id,
+        url: '../server/events/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -254,7 +257,7 @@ function getEventnamebyId(id){
             }
         },
         error: function(error) {
-            console.log('Error', error.message);
+            console.log('Error', error);
             return;
         }
     });

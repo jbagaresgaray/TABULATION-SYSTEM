@@ -5,7 +5,7 @@ class Config {
 	// DEVELOPMENT
     public $host  ='localhost';
     public $user ='root';
-    public $pass  = '1234';
+    public $pass  = '';
     public $db  ='tabulation';
 
     // PRODUCTION
