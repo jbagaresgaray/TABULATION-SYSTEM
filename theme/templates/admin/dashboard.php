@@ -939,8 +939,8 @@
 										</a>
 										<!-- <a href="#portlet-config" data-toggle="modal" class="config">
 										</a> -->
-										<a href="javascript:;" class="reload">
-										</a>
+										<!-- <a href="javascript:;" class="reload">
+										</a> -->
 										<a href="javascript:;" class="fullscreen">
 										</a>
 										<a class="hidden-print margin-bottom-5" onclick="PrintElem('#chart_5','Winner by Department')">
