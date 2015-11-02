@@ -396,7 +396,6 @@ function getCriteria_pushToMdal(id) {
 
 function loadValuesToCriteriaCombo_Modal() {
     $("#eventidfrmcriteria_modal").html('');
-    $("#eventidfrmcriteria_modal").html('<option value="">choose</option>');
     $.ajax({
         url: '../server/events/index.php',
         async: false,
