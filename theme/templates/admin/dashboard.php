@@ -420,8 +420,8 @@
 							<div class="tools">
 								<a href="javascript:;" class="collapse" data-original-title="" title="">
 								</a>
-								<a href="#static1" data-toggle="modal" class="config" data-original-title="" title="">
-								</a>
+								<!-- <a href="#static1" data-toggle="modal" class="config" data-original-title="" title="">
+								</a> -->
 								<a href="javascript:;" class="reload" data-original-title="" title="">
 								</a>
 							</div>
@@ -548,14 +548,14 @@
 								<div class="tab-pane fade" id="tab_2_3">
 									<div class="table-toolbar">
 										<div class="row">
-											<div class="col-md-6">
+											<div class="col-md-8">
 												<div class="btn-group">
 													<button id="sample_editable_3_new" class="btn green">
 													Add New <i class="fa fa-plus"></i>
 													</button>
 												</div>
 											</div>
-											<div class="col-md-6">
+											<div class="col-md-4">
 												<select id="contestantdep2" style="background-color: #F4F7F7;" class="form-control select2me" data-placeholder="Select..." onchange="loadcontbyevntfiltered($(this).val())">
 														<option value=""></option>
 												</select>
@@ -624,7 +624,8 @@
 											</div> -->
 											<div class="col-md-6">
 												<div class="btn-group pull-right">
-													<select id="" style="background-color: #F4F7F7;min-width:200px" class="form-control select2me pull-right" data-placeholder="Select..." onchange="getjudgesbygender($(this).val())">
+													<select id="" style="background-color: #F4F7F7;min-width:200px" class="form-control select2me pull-right" data-placeholder="Select..." onchange="($(this).val()!=''?getjudgesbygender($(this).val()) : getjudges())">
+														<option value="">all</option>
 														<option value="Male">Male</option>
 														<option value="Female">Female</option>
 													</select>

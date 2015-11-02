@@ -19,13 +19,24 @@ class EventModel {
 			$eventdate = $mysqli->real_escape_string($data['eventdate']);
 			$actid = $mysqli->real_escape_string($data['actid']);
 
-			if ($stmt = $mysqli->prepare('INSERT INTO events(eventname,eventdescription,eventdate,actid) VALUES(?,?,?,?)')){
+			$checkQuery ="SELECT * FROM events where eventname='$eventname'";
+			$ress = $mysqli->query($checkQuery);
+			$querydata = array();
+			while($row = $ress->fetch_array(MYSQLI_ASSOC)){
+				array_push($querydata,$row);
+			}
+			if(count($querydata) > 0){
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'event name already exist', 'data'=>$eventname));
+			} else {
+				if ($stmt = $mysqli->prepare('INSERT INTO events(eventname,eventdescription,eventdate,actid) VALUES(?,?,?,?)')){
 				$stmt->bind_param('ssss', $eventname,$eventdescription,$eventdate,$actid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
-			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}else{
+					return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}
 			}
+			
 		}
 	}
 

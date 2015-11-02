@@ -18,13 +18,24 @@ class CriteriaModel {
 			$percentage = $mysqli->real_escape_string($data['percentage']);
 			$eventid = $mysqli->real_escape_string($data['eventid']);
 
-			if ($stmt = $mysqli->prepare('INSERT INTO criteria(criterianame,percentage,eventid) VALUES(?,?,?)')){
+			$checkQuery ="SELECT * FROM criteria where criterianame='$criterianame' and eventid = $eventid";
+			$ress = $mysqli->query($checkQuery);
+			$querydata = array();
+			while($row = $ress->fetch_array(MYSQLI_ASSOC)){
+				array_push($querydata,$row);
+			}
+			if(count($querydata) > 0){
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'criteria name already exist', 'data'=>$criterianame));
+			} else {
+				if ($stmt = $mysqli->prepare('INSERT INTO criteria(criterianame,percentage,eventid) VALUES(?,?,?)')){
 				$stmt->bind_param('sss', $criterianame,$percentage,$eventid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
-			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}else{
+					return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}
 			}
+			
 		}
 	}
 

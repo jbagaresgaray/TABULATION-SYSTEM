@@ -144,7 +144,7 @@ function saveDepartment(){
                     toastr.success('Success', 'Records successfully inserted!');
                 } else if (decode.success === false) {
                     console.log('failed saving records');
-                    toastr.error('Error', 'Failed saving records!');
+                    toastr.error('Failed saving records!', decode.msg);
                     return;
                 }
             },

@@ -75,7 +75,7 @@ function loadcriteriacombo() {
     $("#eventidfrmcriteria").html('');
     console.log('>loading data to combo-criteria after clearing..');
     $.ajax({
-        url: '../server/events/',
+        url: '../server/events/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -130,7 +130,7 @@ function saveCriteria() {
     }
 
     $.ajax({
-        url: '../server/criteria/',
+        url: '../server/criteria/index.php',
         async: false,
         type: 'POST',
         crossDomain: true,
@@ -150,7 +150,7 @@ function saveCriteria() {
                 clearcriteriafields();
             } else if (decode.success === false) {
                 console.log('failed saving records');
-                toastr.error('Error', 'Failed saving records!');
+                toastr.error('Failed saving records!', decode.msg);
                 return;
             }
         },
@@ -165,7 +165,7 @@ function getCriteria() {
     console.log('>loading data to judge table..');
     $("#sample_editable_5 tbody").html('');
     $.ajax({
-        url: '../server/criteria/',
+        url: '../server/criteria/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -203,7 +203,7 @@ function loadalleventsincriteriaform() {
     $("#eventname3").html('');
     $("#eventname3").append('<option value="all">All</option>'); // PLEASE DONT CHANGE THE OPTION-VALUE 'all'. you may change the option-text rather
     $.ajax({
-        url: '../server/events/',
+        url: '../server/events/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -233,13 +233,14 @@ function getCriteriabyeventname(eventid) {
     console.log(eventid);
     $("#sample_editable_5 tbody").html('');
     $.ajax({
-        url: '../server/criteria_Ext2/' + eventid,
+        url: '../server/criteria_Ext2/index.php/' + eventid,
         async: false,
         type: 'GET',
         dataType: 'json',
         success: function(response) {
             var decode = response;
             if (decode) {
+                console.log('decode:',decode);
                 if (decode.childs.length > 0) {
                     for (var i = 0; i < decode.childs.length; i++) {
                         var row = decode.childs;
@@ -255,6 +256,9 @@ function getCriteriabyeventname(eventid) {
                             $("#sample_editable_5 tbody").append(html);
                         }
                     }
+                }
+                else {
+                    toastr.success('no records to display');
                 }
             }
         },
@@ -325,7 +329,7 @@ function updateCriteria(id) {
         return false;
     }
     $.ajax({
-        url: '../server/criteria/' + id,
+        url: '../server/criteria/index.php/' + id,
         async: false,
         type: 'PUT',
         crossDomain: true,
@@ -361,7 +365,7 @@ $(document).on("click", ".criteriamodal", function() {
 
 function getCriteria_pushToMdal(id) {
     $.ajax({
-        url: '../server/criteria/' + id,
+        url: '../server/criteria/index.php/' + id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -385,7 +389,7 @@ function getCriteria_pushToMdal(id) {
 function loadValuesToCriteriaCombo_Modal() {
     $("#eventidfrmcriteria_modal").html('');
     $.ajax({
-        url: '../server/events/',
+        url: '../server/events/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',

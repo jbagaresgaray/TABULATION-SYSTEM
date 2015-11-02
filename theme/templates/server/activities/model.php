@@ -19,12 +19,22 @@ class ActivityModel {
 			$actenddate = $mysqli->real_escape_string($data['actenddate']);
 			$userid = $mysqli->real_escape_string($data['userid']);
 
-			if ($stmt = $mysqli->prepare('INSERT INTO activities(actname,actstartdate,actenddate,userid) VALUES(?,?,?,?)')){
+			$checkQuery ="SELECT * FROM activities where actname='$actname'";
+			$ress = $mysqli->query($checkQuery);
+			$querydata = array();
+			while($row = $ress->fetch_array(MYSQLI_ASSOC)){
+				array_push($querydata,$row);
+			}
+			if(count($querydata) > 0){
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'activity name already exist', 'data'=>$actname));
+			} else {
+				if ($stmt = $mysqli->prepare('INSERT INTO activities(actname,actstartdate,actenddate,userid) VALUES(?,?,?,?)')){
 				$stmt->bind_param('ssss', $actname,$actstartdate,$actenddate,$userid);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
-			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}else{
+					return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}
 			}
 		}
 	}

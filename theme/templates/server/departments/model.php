@@ -17,13 +17,24 @@ class DepartmentModel {
 			$departmentname = $mysqli->real_escape_string($data['departmentname']);
 			$departmentdesc = $mysqli->real_escape_string($data['departmentdesc']);
 
-			if ($stmt = $mysqli->prepare('INSERT INTO departments (departmentname,departmentdesc) VALUES(?,?)')){
+			$checkQuery ="SELECT * FROM departments where departmentname='$departmentname'";
+			$ress = $mysqli->query($checkQuery);
+			$querydata = array();
+			while($row = $ress->fetch_array(MYSQLI_ASSOC)){
+				array_push($querydata,$row);
+			}
+			if(count($querydata) > 0){
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'department name already exist', 'data'=>$departmentname));
+			} else {
+				if ($stmt = $mysqli->prepare('INSERT INTO departments (departmentname,departmentdesc) VALUES(?,?)')){
 				$stmt->bind_param('ss', $departmentname,$departmentdesc);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
-			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}else{
+					return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}
 			}
+			
 		}
 	}
 

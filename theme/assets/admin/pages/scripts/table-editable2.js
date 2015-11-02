@@ -71,7 +71,7 @@ function load_events_tocombo1() {
     $("#allact_evnt").html('');
     console.log('>loading data to combo-1..');
     $.ajax({
-        url: '../server/activities/',
+        url: '../server/activities/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -98,7 +98,7 @@ function load_events_tocombo2() {
     $("#allact_evnt2").html('');
     console.log('>loading data to combo-1..');
     $.ajax({
-        url: '../server/activities/',
+        url: '../server/activities/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -157,7 +157,7 @@ function saveEvent() {
     }
 
     $.ajax({
-            url: '../server/events/',
+            url: '../server/events/index.php',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -182,7 +182,7 @@ function saveEvent() {
                     $('#eventdate').val(''); //clear date field
                 } else if (decode.success === false) {
                     console.log('failed saving records');
-                    toastr.error('Error', 'Failed inserting records!');
+                    toastr.error('Failed inserting records!', decode.msg);
                     return;
                 }
             },
@@ -198,7 +198,7 @@ function fetch_all_events() {
     console.log('>loading data to event table..');
     $("#sample_editable_2 tbody").html('');
     $.ajax({
-        url: '../server/events/',
+        url: '../server/events/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -218,6 +218,9 @@ function fetch_all_events() {
                                     </tr>';
                         $("#sample_editable_2 tbody").append(html);
                     }
+                }
+                else {
+
                 }
             }
         },
@@ -232,7 +235,7 @@ function fetch_all_eventsbyID(id) {
     console.log('>loading data to event table..');
     $("#sample_editable_2 tbody").html('');
     $.ajax({
-        url: '../server/events_Ext1/'+id,
+        url: '../server/events_Ext1/index.php/'+id,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -252,11 +255,13 @@ function fetch_all_eventsbyID(id) {
                                     </tr>';
                         $("#sample_editable_2 tbody").append(html);
                     }
+                } else {
+                    toastr.success('no records to display');
                 }
             }
         },
         error: function(error) {
-            toastr.success('Error', error);
+            toastr.error('Error', error);
             return;
         }
     });
@@ -321,7 +326,7 @@ function updateevent(id){
     }
 
     $.ajax({
-            url: '../server/events/',
+            url: '../server/events/index.php',
             async: false,
             type: 'PUT',
             crossDomain: true,
@@ -386,7 +391,7 @@ function getEvents_pushToMdal(id) {
 function loadValuesToEventCombo_Mdal(){
     $("#allact_evnt_modal").html('');
     $.ajax({
-        url: '../server/activities/',
+        url: '../server/activities/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',

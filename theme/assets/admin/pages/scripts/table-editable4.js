@@ -86,7 +86,7 @@ function loadjudgecombo() {
     $("#judgecombo").html('');
     console.log('>loading data to combo-judge after clearing..');
     $.ajax({
-        url: '../server/events/',
+        url: '../server/events/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -156,7 +156,7 @@ function saveJudge(){
 
 
     $.ajax({
-            url: '../server/judges/',
+            url: '../server/judges/index.php',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -178,7 +178,7 @@ function saveJudge(){
                     clearjudgefields();
                 } else if (decode.success === false) {
                     console.log('failed saving records');
-                    toastr.error('Error', 'Failed saving records!');
+                    toastr.error('Failed saving records!',decode.msg);
                     return;
                 }
             },
@@ -193,7 +193,7 @@ function getjudges() {
     console.log('>loading data to judge table..');
     $("#sample_editable_4 tbody").html('');
     $.ajax({
-        url: '../server/judges/',
+        url: '../server/judges/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -227,7 +227,7 @@ function getjudgesbygender(gender) {
     console.log('>loading data to judge table..');
     $("#sample_editable_4 tbody").html('');
     $.ajax({
-        url: '../server/judges_ext1/'+gender,
+        url: '../server/judges_ext1/index.php/'+gender,
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -385,7 +385,7 @@ function getJudge_pushToMdal(id) {
 function loadValuesToJudgeCombo_Modal(){
     $("#judgecombo_modal").html('');
     $.ajax({
-        url: '../server/events/',
+        url: '../server/events/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',

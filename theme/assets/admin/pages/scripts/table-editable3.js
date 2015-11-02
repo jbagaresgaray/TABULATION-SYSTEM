@@ -190,6 +190,8 @@ function loadcontbyevntfiltered(id) {
                                     </tr>';
                         $("#sample_editable_3 tbody").append(html);
                     }
+                } else {
+                    toastr.success('no records to display');
                 }
             }
         },
@@ -233,7 +235,7 @@ function saveContestant() {
     }
 
     $.ajax({
-            url: '../server/contestants/',
+            url: '../server/contestants/index.php',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -252,8 +254,7 @@ function saveContestant() {
                     toastr.success('Success', 'Records successfully saved!');
                     contclearfields();
                 } else if (decode.success === false) {
-                    console.log('failed saving records');
-                    toastr.error('Error', 'Failed saving records');
+                    toastr.error('Failed saving records',decode.msg);
                     return;
                 }
             },
@@ -269,7 +270,7 @@ function getcontestant(){
     console.log('>loading data to contestants table..');
     $("#sample_editable_3 tbody").html('');
     $.ajax({
-        url: '../server/contestants/',
+        url: '../server/contestants/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',

@@ -20,13 +20,24 @@ class JudgesModel {
 			$eventid = $mysqli->real_escape_string($data['eventid']);
 			$gender = $mysqli->real_escape_string($data['gender']);
 
-			if ($stmt = $mysqli->prepare('INSERT INTO judges(judgefullname,judgeuname,judgepword,eventid,gender) VALUES(?,?,?,?,?)')){
+			$checkQuery ="SELECT * FROM judges where judgefullname='$judgefullname' and eventid = $eventid";
+			$ress = $mysqli->query($checkQuery);
+			$querydata = array();
+			while($row = $ress->fetch_array(MYSQLI_ASSOC)){
+				array_push($querydata,$row);
+			}
+			if(count($querydata) > 0){
+				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'judge name already exist', 'data'=>$judgefullname));
+			} else {
+				if ($stmt = $mysqli->prepare('INSERT INTO judges(judgefullname,judgeuname,judgepword,eventid,gender) VALUES(?,?,?,?,?)')){
 				$stmt->bind_param('sssss', $judgefullname,$judgeuname,$judgepword,$eventid,$gender);
 				$stmt->execute();
 				return print json_encode(array('success' =>true,'status'=>200,'msg' =>'Record successfully saved', 'data'=>$data));
-			}else{
-				return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}else{
+					return print json_encode(array('success' =>false,'status'=>500,'msg' =>'Error message: %s\n', $mysqli->error));
+				}
 			}
+			
 		}
 	}
 

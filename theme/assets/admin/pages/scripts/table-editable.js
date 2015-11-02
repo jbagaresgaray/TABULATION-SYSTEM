@@ -101,7 +101,7 @@ function save() {
     }
     
     $.ajax({
-            url: '../server/activities/',
+            url: '../server/activities/index.php',
             async: false,
             type: 'POST',
             crossDomain: true,
@@ -123,7 +123,7 @@ function save() {
                      $('#enddate').val('')
                      //reset();
                 } else if (decode.success === false) {
-                    toastr.error('failed saving records!', 'error!');
+                    toastr.error('failed saving records!', decode.msg);
                 } 
             },
             error: function(error) {
@@ -137,7 +137,7 @@ function save() {
 function fetch_all_activities() {
     $("#sample_editable_1 tbody").html('');
     $.ajax({
-        url: '../server/activities/',
+        url: '../server/activities/index.php',
         async: false,
         type: 'GET',
         dataType: 'json',
@@ -224,7 +224,7 @@ function updateactivity(obj){
         return false;
     }
     $.ajax({
-            url: '../server/activities/',
+            url: '../server/activities/index.php',
             async: false,
             type: 'PUT',
             crossDomain: true,

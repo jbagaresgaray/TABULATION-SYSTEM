@@ -52,6 +52,8 @@ function loadReportsByEventId(id){
                         var criterianame = row[i].criterianame;
                         x(criteriaid,criterianame);
                     }
+                } else {
+                    toastr.success('no records to display');
                 }
             }
         },
@@ -151,9 +153,8 @@ function loadEventReportsByEventId(id){
                         $("#evtcombo4score2").append(html);
                         y(eventid,eventname);
                     }
-                }
-                else {
-                        //$("#evtcombo4score2").val("3");
+                } else {
+                    toastr.success('no records to display');
                 }
             }
         },
@@ -195,6 +196,8 @@ function getevtreport2(id){
 
                         $("#reports2 tbody").append(html);
                     }
+                } else {
+                    toastr.success('no records to display');
                 }
             }
         },
