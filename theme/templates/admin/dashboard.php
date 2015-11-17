@@ -927,48 +927,127 @@
 								</div>
 							</div>
 					</div>
-					<div id="well-5" class="well" style="min-height:86%;">
-						<div class="portlet light bordered">
-								<div class="portlet-title">
-									<div class="caption">
-										<i class="icon-bar-chart font-green-haze"></i>
-										<span class="caption-subject bold uppercase font-green-haze">Overall Winner by Department</span>
-									</div>
-									<div class="tools">
-										<a href="javascript:;" class="collapse">
-										</a>
-										<!-- <a href="#portlet-config" data-toggle="modal" class="config">
-										</a> -->
-										<!-- <a href="javascript:;" class="reload">
-										</a> -->
-										<a href="javascript:;" class="fullscreen">
-										</a>
-										<a class="hidden-print margin-bottom-5" onclick="PrintElem('#chart_5','Winner by Department')">
-											Print <i class="fa fa-print"></i>
-										</a>
-									</div>
-								</div>
-								<div class="portlet-body" id="WinnerByDepartment">
-									<div id="chart_5" class="chart" style="height: 400px;">
-									</div>
-									<div class="well margin-top-20">
-										<div class="row">
-											<div class="col-sm-3">
-												<label class="text-left">Top Radius:</label>
-												<input class="chart_5_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01"/>
+					<div id="well-5" class="well" style="min-height:109%;">
+						
+						<div class="col-lg-6">
+							<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label></label>
+												<select id="actcombo4score9" style="background-color: #F4F7F7;" class="form-control" data-placeholder="Select..." onchange="getData2($(this).val())">
+												</select>
 											</div>
-											<div class="col-sm-3">
-												<label class="text-left">Angle:</label>
-												<input class="chart_5_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1"/>
+										</div>
+										<!-- <div class="col-md-3">
+											<div class="form-group">
+												<label></label>
+												<select id="evtcombo4score9" style="background-color: #F4F7F7;" class="form-control" data-placeholder="Select..." onchange="getData2($(this).val())">
+												</select>
 											</div>
-											<div class="col-sm-3">
-												<label class="text-left">Depth:</label>
-												<input class="chart_5_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1"/>
+										</div> -->
+							</div>
+							<div class="portlet light bordered">
+									<div class="portlet-title">
+										<div class="caption">
+											<i class="icon-bar-chart font-green-haze"></i>
+											<span class="caption-subject bold uppercase font-green-haze">Overall Winner by Department</span>
+										</div>
+										<div class="tools">
+											<a href="javascript:;" class="collapse">
+											</a>
+											<!-- <a href="#portlet-config" data-toggle="modal" class="config">
+											</a> -->
+											<!-- <a href="javascript:;" class="reload">
+											</a> -->
+											<a href="javascript:;" class="fullscreen">
+											</a>
+											<a class="hidden-print margin-bottom-5" onclick="PrintElem('#chart_5','Winner by Department')">
+												Print <i class="fa fa-print"></i>
+											</a>
+										</div>
+									</div>
+									<div class="portlet-body" id="WinnerByDepartment">
+										<div id="chart_5" class="chart" style="height: 400px;">
+										</div>
+										<div class="well margin-top-20">
+											<div class="row">
+												<div class="col-sm-3">
+													<label class="text-left">Top Radius:</label>
+													<input class="chart_5_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01"/>
+												</div>
+												<div class="col-sm-3">
+													<label class="text-left">Angle:</label>
+													<input class="chart_5_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1"/>
+												</div>
+												<div class="col-sm-3">
+													<label class="text-left">Depth:</label>
+													<input class="chart_5_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1"/>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
 							</div>
+						</div>
+						<div class="col-lg-6">
+							<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<label></label>
+												<select id="actcombo4score10" style="background-color: #F4F7F7;" class="form-control" data-placeholder="Select..." onchange="getData22($(this).val())">
+												</select>
+											</div>
+										</div>
+										<!-- <div class="col-md-3">
+											<div class="form-group">
+												<label></label>
+												<select id="evtcombo4score9" style="background-color: #F4F7F7;" class="form-control" data-placeholder="Select..." onchange="getData2($(this).val())">
+												</select>
+											</div>
+										</div> -->
+							</div>
+							<div class="portlet light bordered">
+									<div class="portlet-title">
+										<div class="caption">
+											<i class="icon-bar-chart font-green-haze"></i>
+											<span class="caption-subject bold uppercase font-green-haze">Overall Winner by Department</span>
+										</div>
+										<div class="tools">
+											<a href="javascript:;" class="collapse">
+											</a>
+											<!-- <a href="#portlet-config" data-toggle="modal" class="config">
+											</a> -->
+											<!-- <a href="javascript:;" class="reload">
+											</a> -->
+											<a href="javascript:;" class="fullscreen">
+											</a>
+											<a class="hidden-print margin-bottom-5" onclick="PrintElem('#chart_5','Winner by Department')">
+												Print <i class="fa fa-print"></i>
+											</a>
+										</div>
+									</div>
+									<div class="portlet-body" id="WinnerByDepartment">
+										<div id="chart_6" class="chart" style="height: 400px;">
+										</div>
+										<div class="well margin-top-20">
+											<div class="row">
+												<div class="col-sm-3">
+													<label class="text-left">Top Radius:</label>
+													<input class="chart_5_chart_input" data-property="topRadius" type="range" min="0" max="1.5" value="1" step="0.01"/>
+												</div>
+												<div class="col-sm-3">
+													<label class="text-left">Angle:</label>
+													<input class="chart_5_chart_input" data-property="angle" type="range" min="0" max="89" value="30" step="1"/>
+												</div>
+												<div class="col-sm-3">
+													<label class="text-left">Depth:</label>
+													<input class="chart_5_chart_input" data-property="depth3D" type="range" min="1" max="120" value="40" step="1"/>
+												</div>
+											</div>
+										</div>
+									</div>
+							</div>
+						</div>
+						
 					</div>
 
 				</div>
@@ -1083,6 +1162,7 @@
 		Demo.init(); // init demo features
 
 		ChartsAmcharts.init(); // init demo charts
+		ChartsAmcharts2.init(); // init demo charts
 
 		Index.init();   
 		ComponentsPickers.init();
